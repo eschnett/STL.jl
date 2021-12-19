@@ -1,10 +1,11 @@
 module StdMaps
 
 using CxxInterface
+using STL_jll
 using ..STL
 
 const keys = Set([Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64])
-const types = Set([Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Cfloat, Cdouble, Complex{Cfloat}, Complex{Cdouble}])
+const types = Set([Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Cfloat, Cdouble])
 
 ################################################################################
 
@@ -13,7 +14,6 @@ eval(cxxprelude("""
     #include <cstddef>
     #include <cstdint>
     #include <map>
-    #include <tuple>
     """))
 
 struct StdMap{K,T} <: AbstractDict{K,T}
@@ -21,7 +21,8 @@ struct StdMap{K,T} <: AbstractDict{K,T}
     StdMap{K,T}() where {K,T} = new{K,T}(C_NULL)
     StdMap{K,T}(cxx::Ptr{Cvoid}) where {K,T} = new{K,T}(cxx)
 end
-Base.cconvert(map::StdMap) = map.cxx
+export StdMap
+Base.cconvert(::Type{Ptr{Cvoid}}, map::StdMap) = map.cxx
 
 for K in types, T in types
     CK = cxxtype[K]
@@ -29,30 +30,30 @@ for K in types, T in types
     CT = cxxtype[T]
     NT = cxxname(CT)
 
-    eval(cxxfunction(FnName(Symbol(:StdMap_new), "std_map_$(NK)_$(NT)_new"),
+    eval(cxxfunction(FnName(Symbol(:StdMap_new), "std_map_$(NK)_$(NT)_new", libSTL),
                      FnResult(Ptr{Cvoid}, "std::map<$CK,$CT> *", StdMap{K,T}, expr -> :(StdMap{$K,$T}($expr))),
-                     [FnArg(:key, Nothing, "key", "std::tuple<>", Type{K}, expr -> nothing),
-                      FnArg(:type, Nothing, "type", "std::tuple<>", Type{T}, expr -> nothing)], "return new std::map<$CK,$CT>;"))
+                     [FnArg(:key, Nothing, "key", "void", Type{K}, identity; skip=true),
+                      FnArg(:type, Nothing, "type", "void", Type{T}, identity; skip=true)], "return new std::map<$CK,$CT>;"))
 
-    #TODO eval(cxxfunction(FnName(:StdMap_delete, "std_vector_$(NT)_delete"), FnResult(Nothing, "void"),
-    #TODO                  [FnArg(:map, Ptr{Cvoid}, "map", "std::vector<$CT> * restrict", StdMap{T}, identity)], "delete map;"))
-    #TODO 
-    #TODO eval(cxxfunction(FnName(:(Base.length), "std_vector_$(NT)_length"),
-    #TODO                  FnResult(Csize_t, "std::size_t", Int, expr -> :(convert(Int, $expr))),
-    #TODO                  [FnArg(:map, Ptr{Cvoid}, "map", "const std::vector<$CT> * restrict", StdMap{T}, identity)],
-    #TODO                  "return map->size();"))
-    #TODO 
-    #TODO eval(cxxfunction(FnName(:(Base.getindex), "std_vector_$(NT)_getindex"), FnResult(T, CT),
-    #TODO                  [FnArg(:map, Ptr{Cvoid}, "map", "const std::vector<$CT> * restrict", StdMap{T}, identity),
-    #TODO                   FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "return (*map)[idx];"))
-    #TODO 
-    #TODO eval(cxxfunction(FnName(:(Base.setindex!), "std_vector_$(NT)_setindex_"), FnResult(Nothing, "void"),
-    #TODO                  [FnArg(:map, Ptr{Cvoid}, "map", "std::vector<$CT> * restrict", StdMap{T}, identity),
-    #TODO                   FnArg(:elt, T, "elt", "const $CT&"), FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)],
-    #TODO                  "(*map)[idx] = elt;"))
+    eval(cxxfunction(FnName(:StdMap_delete, "std_map_$(NK)_$(NT)_delete", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:map, Ptr{Cvoid}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)], "delete map;"))
+
+    eval(cxxfunction(FnName(:(Base.length), "std_map_$(NK)_$(NT)_length", libSTL),
+                     FnResult(Csize_t, "std::size_t", Int, expr -> :(convert(Int, $expr))),
+                     [FnArg(:map, Ptr{Cvoid}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
+                     "return map->size();"))
+
+    eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_getindex", libSTL), FnResult(T, CT),
+                     [FnArg(:map, Ptr{Cvoid}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
+                      FnArg(:key, K, "key", "const $CK&", Any, expr -> :(convert(K, $expr)))], "return map->at(key);"))
+
+    eval(cxxfunction(FnName(:(Base.setindex!), "std_map_$(NK)_$(NT)_setindex_", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:map, Ptr{Cvoid}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
+                      FnArg(:elt, T, "elt", "const $CT&"), FnArg(:key, K, "key", "const $CK&", Any, expr -> :(convert(K, $expr)))],
+                     "(*map)[key] = elt;"))
 end
 
-STL.allocate(::StdMap{K,T}) where {K,T} = StdMap_new(K, T)
+STL.allocate(::Type{StdMap{K,T}}) where {K,T} = StdMap_new(K, T)
 STL.free(map::StdMap) = StdMap_delete(map)
 
 Base.size(map::StdMap) = (length(map),)
