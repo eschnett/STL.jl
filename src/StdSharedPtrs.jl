@@ -2,6 +2,8 @@ module StdSharedPtrs
 
 using CxxInterface
 
+using ..STL
+
 const types = Set([Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Cfloat, Cdouble, Complex{Cfloat}, Complex{Cdouble}])
 
 ################################################################################
@@ -46,8 +48,8 @@ for T in types
                       FnArg(:elt, T, "elt", "const $CT&")], "**ptr = elt;"))
 end
 
-allocate(::StdSharedPtr{T}) where {T} = StdSharedPtr_new(T)
-free(ptr::StdSharedPtr) = StdSharedPtr_delete(ptr)
+STL.allocate(::StdSharedPtr{T}) where {T} = StdSharedPtr_new(T)
+STL.free(ptr::StdSharedPtr) = StdSharedPtr_delete(ptr)
 
 Base.eltype(::StdSharedPtr{T}) where {T} = T
 
@@ -56,7 +58,7 @@ Base.eltype(::StdSharedPtr{T}) where {T} = T
 mutable struct GCStdSharedPtr{T}
     managed::StdSharedPtr{T}
     function GCStdSharedPtr{T}() where {T}
-        res = new{T}(allocate(T))
+        res = new{T}(allocate(StdSharedPtr{T}))
         finalizer(free, res)
         return res
     end

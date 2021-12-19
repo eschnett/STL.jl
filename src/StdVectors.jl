@@ -2,6 +2,8 @@ module StdVectors
 
 using CxxInterface
 
+using ..STL
+
 const types = Set([Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Cfloat, Cdouble, Complex{Cfloat}, Complex{Cdouble}])
 
 ################################################################################
@@ -22,7 +24,6 @@ end
 Base.cconvert(vec::StdVector) = vec.cxx
 
 for T in types
-    @show T
     CT = cxxtype[T]
     NT = cxxname(CT)
 
@@ -48,8 +49,8 @@ for T in types
                      "(*vec)[idx] = elt;"))
 end
 
-allocate(::StdVector{T}) where {T} = StdVector_new(T)
-free(vec::StdVector) = StdVector_delete(vec)
+STL.allocate(::StdVector{T}) where {T} = StdVector_new(T)
+STL.free(vec::StdVector) = StdVector_delete(vec)
 
 Base.size(vec::StdVector) = (length(vec),)
 
@@ -60,7 +61,7 @@ Base.eltype(::StdVector{T}) where {T} = T
 mutable struct GCStdVector{T} <: AbstractVector{T}
     managed::StdVector{T}
     function GCStdVector{T}() where {T}
-        res = new{T}(allocate(T))
+        res = new{T}(allocate(StdVector{T}))
         finalizer(free, res)
         return res
     end
