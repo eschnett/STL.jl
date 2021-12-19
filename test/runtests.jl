@@ -5,26 +5,62 @@ using Test
     map = StdMap{K,T}()
     @test keytype(map) ≡ K
     @test eltype(map) ≡ T
-    @test map.cxx == C_NULL
-
-    map = allocate(StdMap{K,T})
     @test map.cxx ≠ C_NULL
 
     @test length(map) == 0
-    #TODO @test isempty(map)
+    @test isempty(map)
+
+    for i in 0:9
+        map[i] = i
+    end
+    for i in 0:9
+        @test haskey(map, i)
+        @test map[i] == i
+        @test !haskey(map, i + 20)
+    end
+
+    elts = Set([elt for elt in map])
+    @test elts == Set(0:9)
+
+    for i in 0:9
+        @test haskey(map, i)
+        delete!(map, i)
+        @test !haskey(map, i)
+    end
+
+    @test isempty(map)
 
     free(map)
 end
 
 @testset "std::vector<$T>" for T in StdVectors.types
     vec = StdVector{T}()
-    @test eltype(vec) ≡ T
-    @test vec.cxx == C_NULL
-
-    vec = allocate(StdVector{T})
     @test vec.cxx ≠ C_NULL
+    @test eltype(vec) ≡ T
 
     @test length(vec) == 0
+    @test isempty(vec)
+
+    free(vec)
+
+    vec = StdVector{T}(10)
+    @test length(vec) == 10
+
+    for i in 0:9
+        vec[i] = i
+    end
+    for i in 0:9
+        @test vec[i] == i
+    end
+
+    resize!(vec, 20)
+    @test length(vec) == 20
+
+    for i in 0:9
+        @test vec[i] == i
+    end
+
+    empty!(vec)
     @test isempty(vec)
 
     free(vec)
@@ -32,13 +68,28 @@ end
 
 @testset "std::shared_ptr<$T>" for T in StdSharedPtrs.types
     ptr = StdSharedPtr{T}()
-    @test eltype(ptr) ≡ T
-    @test ptr.cxx == C_NULL
-
-    ptr = allocate(StdSharedPtr{T})
     @test ptr.cxx ≠ C_NULL
+    @test eltype(ptr) ≡ T
 
     @test isempty(ptr)
 
+    ptr[] = T(42)
+    @test !isempty(ptr)
+    @test ptr[] == 42
+
+    @test use_count(ptr) == 1
+    ptr2 = copy(ptr)
+    @test ptr2[] == 42
+    @test use_count(ptr) == 2
+    @test use_count(ptr2) == 2
+
+    empty!(ptr)
+    @test isempty(ptr)
+    @test !isempty(ptr2)
+
     free(ptr)
+
+    @test ptr2[] == 42
+
+    free(ptr2)
 end
