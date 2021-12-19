@@ -1,0 +1,8 @@
+name = "STL"
+uuid = "141048bc-69eb-4856-a189-4c8c083d5675"
+authors = ["Erik Schnetter <schnetter@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+CxxInterface = "62027b0a-52e9-423e-ab47-e314c210e772"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
