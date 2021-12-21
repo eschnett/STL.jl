@@ -22,6 +22,8 @@ Stds.convert_result(::Type{StdVector{T}}, ptr::Ptr{StdVector{T}}) where {T} = St
 
 StdVector{T}() where {T} = StdVector_new(T)
 StdVector{T}(size::Integer) where {T} = StdVector_new(T, size)
+# Base.convert(Vector, vec::StdVector) = ...
+# Base.convert(Vector{T}, vec::StdVector) = ...
 
 const types = Stds.value_types
 for T in types

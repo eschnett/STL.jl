@@ -6,6 +6,9 @@
 static_assert(sizeof(bool) == 1, "");
 
 
+#include <iostream>
+
+
 /*
 function StdMap_new(key::Type{UInt16}, type::Type{Int8})
     res = ccall(("std_map_uint16_t_int8_t_new", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Main.StdMaps.StdMap{UInt16, Int8}}, ())
@@ -170,8 +173,8 @@ extern "C" uint8_t std_map_uint16_t_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, Int8})
-    res = ccall(("std_map_uint16_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Int8}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(Int8, res[2]))::Tuple{UInt16, Int8}
+    res = ccall(("std_map_uint16_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Int8}},), iter)
+    return convert_result(Pair{UInt16, Int8}, res)::Pair{UInt16, Int8}
 end
 */
 extern "C" const std::pair<const uint16_t,int8_t> * std_map_uint16_t_int8_t_const_iterator_getindex(
@@ -394,8 +397,8 @@ extern "C" uint8_t std_map_uint16_t_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, Int16})
-    res = ccall(("std_map_uint16_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Int16}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(Int16, res[2]))::Tuple{UInt16, Int16}
+    res = ccall(("std_map_uint16_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Int16}},), iter)
+    return convert_result(Pair{UInt16, Int16}, res)::Pair{UInt16, Int16}
 end
 */
 extern "C" const std::pair<const uint16_t,int16_t> * std_map_uint16_t_int16_t_const_iterator_getindex(
@@ -618,8 +621,8 @@ extern "C" uint8_t std_map_uint16_t_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, Int64})
-    res = ccall(("std_map_uint16_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Int64}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(Int64, res[2]))::Tuple{UInt16, Int64}
+    res = ccall(("std_map_uint16_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Int64}},), iter)
+    return convert_result(Pair{UInt16, Int64}, res)::Pair{UInt16, Int64}
 end
 */
 extern "C" const std::pair<const uint16_t,int64_t> * std_map_uint16_t_int64_t_const_iterator_getindex(
@@ -842,8 +845,8 @@ extern "C" uint8_t std_map_uint16_t_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, Bool})
-    res = ccall(("std_map_uint16_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Bool}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(Bool, res[2]))::Tuple{UInt16, Bool}
+    res = ccall(("std_map_uint16_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Bool}},), iter)
+    return convert_result(Pair{UInt16, Bool}, res)::Pair{UInt16, Bool}
 end
 */
 extern "C" const std::pair<const uint16_t,bool> * std_map_uint16_t_bool_const_iterator_getindex(
@@ -1066,8 +1069,8 @@ extern "C" uint8_t std_map_uint16_t_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, Float64})
-    res = ccall(("std_map_uint16_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Float64}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(Float64, res[2]))::Tuple{UInt16, Float64}
+    res = ccall(("std_map_uint16_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Float64}},), iter)
+    return convert_result(Pair{UInt16, Float64}, res)::Pair{UInt16, Float64}
 end
 */
 extern "C" const std::pair<const uint16_t,double> * std_map_uint16_t_double_const_iterator_getindex(
@@ -1290,8 +1293,8 @@ extern "C" uint8_t std_map_uint16_t_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, UInt32})
-    res = ccall(("std_map_uint16_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, UInt32}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(UInt32, res[2]))::Tuple{UInt16, UInt32}
+    res = ccall(("std_map_uint16_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, UInt32}},), iter)
+    return convert_result(Pair{UInt16, UInt32}, res)::Pair{UInt16, UInt32}
 end
 */
 extern "C" const std::pair<const uint16_t,uint32_t> * std_map_uint16_t_uint32_t_const_iterator_getindex(
@@ -1514,8 +1517,8 @@ extern "C" uint8_t std_map_uint16_t_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, Int32})
-    res = ccall(("std_map_uint16_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Int32}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(Int32, res[2]))::Tuple{UInt16, Int32}
+    res = ccall(("std_map_uint16_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Int32}},), iter)
+    return convert_result(Pair{UInt16, Int32}, res)::Pair{UInt16, Int32}
 end
 */
 extern "C" const std::pair<const uint16_t,int32_t> * std_map_uint16_t_int32_t_const_iterator_getindex(
@@ -1738,8 +1741,8 @@ extern "C" uint8_t std_map_uint16_t_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, UInt64})
-    res = ccall(("std_map_uint16_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, UInt64}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(UInt64, res[2]))::Tuple{UInt16, UInt64}
+    res = ccall(("std_map_uint16_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, UInt64}},), iter)
+    return convert_result(Pair{UInt16, UInt64}, res)::Pair{UInt16, UInt64}
 end
 */
 extern "C" const std::pair<const uint16_t,uint64_t> * std_map_uint16_t_uint64_t_const_iterator_getindex(
@@ -1962,8 +1965,8 @@ extern "C" uint8_t std_map_uint16_t_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, Float32})
-    res = ccall(("std_map_uint16_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Float32}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(Float32, res[2]))::Tuple{UInt16, Float32}
+    res = ccall(("std_map_uint16_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Float32}},), iter)
+    return convert_result(Pair{UInt16, Float32}, res)::Pair{UInt16, Float32}
 end
 */
 extern "C" const std::pair<const uint16_t,float> * std_map_uint16_t_float_const_iterator_getindex(
@@ -2186,8 +2189,8 @@ extern "C" uint8_t std_map_uint16_t_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, Ptr{Nothing}})
-    res = ccall(("std_map_uint16_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Ptr{Nothing}}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{UInt16, Ptr{Nothing}}
+    res = ccall(("std_map_uint16_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{UInt16, Ptr{Nothing}}, res)::Pair{UInt16, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const uint16_t,void *> * std_map_uint16_t_void___const_iterator_getindex(
@@ -2410,8 +2413,8 @@ extern "C" uint8_t std_map_uint16_t_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, UInt8})
-    res = ccall(("std_map_uint16_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, UInt8}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(UInt8, res[2]))::Tuple{UInt16, UInt8}
+    res = ccall(("std_map_uint16_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, UInt8}},), iter)
+    return convert_result(Pair{UInt16, UInt8}, res)::Pair{UInt16, UInt8}
 end
 */
 extern "C" const std::pair<const uint16_t,uint8_t> * std_map_uint16_t_uint8_t_const_iterator_getindex(
@@ -2634,8 +2637,8 @@ extern "C" uint8_t std_map_uint16_t_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt16, UInt16})
-    res = ccall(("std_map_uint16_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt16}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, UInt16}},), iter)
-    return (convert_result(UInt16, res[1]), convert_result(UInt16, res[2]))::Tuple{UInt16, UInt16}
+    res = ccall(("std_map_uint16_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt16, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt16, UInt16}},), iter)
+    return convert_result(Pair{UInt16, UInt16}, res)::Pair{UInt16, UInt16}
 end
 */
 extern "C" const std::pair<const uint16_t,uint16_t> * std_map_uint16_t_uint16_t_const_iterator_getindex(
@@ -2858,8 +2861,8 @@ extern "C" uint8_t std_map_int8_t_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, Int8})
-    res = ccall(("std_map_int8_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Int8}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(Int8, res[2]))::Tuple{Int8, Int8}
+    res = ccall(("std_map_int8_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Int8}},), iter)
+    return convert_result(Pair{Int8, Int8}, res)::Pair{Int8, Int8}
 end
 */
 extern "C" const std::pair<const int8_t,int8_t> * std_map_int8_t_int8_t_const_iterator_getindex(
@@ -3082,8 +3085,8 @@ extern "C" uint8_t std_map_int8_t_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, Int16})
-    res = ccall(("std_map_int8_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Int16}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(Int16, res[2]))::Tuple{Int8, Int16}
+    res = ccall(("std_map_int8_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Int16}},), iter)
+    return convert_result(Pair{Int8, Int16}, res)::Pair{Int8, Int16}
 end
 */
 extern "C" const std::pair<const int8_t,int16_t> * std_map_int8_t_int16_t_const_iterator_getindex(
@@ -3306,8 +3309,8 @@ extern "C" uint8_t std_map_int8_t_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, Int64})
-    res = ccall(("std_map_int8_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Int64}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(Int64, res[2]))::Tuple{Int8, Int64}
+    res = ccall(("std_map_int8_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Int64}},), iter)
+    return convert_result(Pair{Int8, Int64}, res)::Pair{Int8, Int64}
 end
 */
 extern "C" const std::pair<const int8_t,int64_t> * std_map_int8_t_int64_t_const_iterator_getindex(
@@ -3530,8 +3533,8 @@ extern "C" uint8_t std_map_int8_t_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, Bool})
-    res = ccall(("std_map_int8_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Bool}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(Bool, res[2]))::Tuple{Int8, Bool}
+    res = ccall(("std_map_int8_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Bool}},), iter)
+    return convert_result(Pair{Int8, Bool}, res)::Pair{Int8, Bool}
 end
 */
 extern "C" const std::pair<const int8_t,bool> * std_map_int8_t_bool_const_iterator_getindex(
@@ -3754,8 +3757,8 @@ extern "C" uint8_t std_map_int8_t_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, Float64})
-    res = ccall(("std_map_int8_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Float64}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(Float64, res[2]))::Tuple{Int8, Float64}
+    res = ccall(("std_map_int8_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Float64}},), iter)
+    return convert_result(Pair{Int8, Float64}, res)::Pair{Int8, Float64}
 end
 */
 extern "C" const std::pair<const int8_t,double> * std_map_int8_t_double_const_iterator_getindex(
@@ -3978,8 +3981,8 @@ extern "C" uint8_t std_map_int8_t_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, UInt32})
-    res = ccall(("std_map_int8_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, UInt32}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(UInt32, res[2]))::Tuple{Int8, UInt32}
+    res = ccall(("std_map_int8_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, UInt32}},), iter)
+    return convert_result(Pair{Int8, UInt32}, res)::Pair{Int8, UInt32}
 end
 */
 extern "C" const std::pair<const int8_t,uint32_t> * std_map_int8_t_uint32_t_const_iterator_getindex(
@@ -4202,8 +4205,8 @@ extern "C" uint8_t std_map_int8_t_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, Int32})
-    res = ccall(("std_map_int8_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Int32}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(Int32, res[2]))::Tuple{Int8, Int32}
+    res = ccall(("std_map_int8_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Int32}},), iter)
+    return convert_result(Pair{Int8, Int32}, res)::Pair{Int8, Int32}
 end
 */
 extern "C" const std::pair<const int8_t,int32_t> * std_map_int8_t_int32_t_const_iterator_getindex(
@@ -4426,8 +4429,8 @@ extern "C" uint8_t std_map_int8_t_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, UInt64})
-    res = ccall(("std_map_int8_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, UInt64}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(UInt64, res[2]))::Tuple{Int8, UInt64}
+    res = ccall(("std_map_int8_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, UInt64}},), iter)
+    return convert_result(Pair{Int8, UInt64}, res)::Pair{Int8, UInt64}
 end
 */
 extern "C" const std::pair<const int8_t,uint64_t> * std_map_int8_t_uint64_t_const_iterator_getindex(
@@ -4650,8 +4653,8 @@ extern "C" uint8_t std_map_int8_t_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, Float32})
-    res = ccall(("std_map_int8_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Float32}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(Float32, res[2]))::Tuple{Int8, Float32}
+    res = ccall(("std_map_int8_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Float32}},), iter)
+    return convert_result(Pair{Int8, Float32}, res)::Pair{Int8, Float32}
 end
 */
 extern "C" const std::pair<const int8_t,float> * std_map_int8_t_float_const_iterator_getindex(
@@ -4874,8 +4877,8 @@ extern "C" uint8_t std_map_int8_t_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, Ptr{Nothing}})
-    res = ccall(("std_map_int8_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Ptr{Nothing}}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{Int8, Ptr{Nothing}}
+    res = ccall(("std_map_int8_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{Int8, Ptr{Nothing}}, res)::Pair{Int8, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const int8_t,void *> * std_map_int8_t_void___const_iterator_getindex(
@@ -5098,8 +5101,8 @@ extern "C" uint8_t std_map_int8_t_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, UInt8})
-    res = ccall(("std_map_int8_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, UInt8}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(UInt8, res[2]))::Tuple{Int8, UInt8}
+    res = ccall(("std_map_int8_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, UInt8}},), iter)
+    return convert_result(Pair{Int8, UInt8}, res)::Pair{Int8, UInt8}
 end
 */
 extern "C" const std::pair<const int8_t,uint8_t> * std_map_int8_t_uint8_t_const_iterator_getindex(
@@ -5322,8 +5325,8 @@ extern "C" uint8_t std_map_int8_t_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int8, UInt16})
-    res = ccall(("std_map_int8_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, UInt16}},), iter)
-    return (convert_result(Int8, res[1]), convert_result(UInt16, res[2]))::Tuple{Int8, UInt16}
+    res = ccall(("std_map_int8_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int8, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Int8, UInt16}},), iter)
+    return convert_result(Pair{Int8, UInt16}, res)::Pair{Int8, UInt16}
 end
 */
 extern "C" const std::pair<const int8_t,uint16_t> * std_map_int8_t_uint16_t_const_iterator_getindex(
@@ -5546,8 +5549,8 @@ extern "C" uint8_t std_map_int16_t_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, Int8})
-    res = ccall(("std_map_int16_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Int8}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(Int8, res[2]))::Tuple{Int16, Int8}
+    res = ccall(("std_map_int16_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Int8}},), iter)
+    return convert_result(Pair{Int16, Int8}, res)::Pair{Int16, Int8}
 end
 */
 extern "C" const std::pair<const int16_t,int8_t> * std_map_int16_t_int8_t_const_iterator_getindex(
@@ -5770,8 +5773,8 @@ extern "C" uint8_t std_map_int16_t_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, Int16})
-    res = ccall(("std_map_int16_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Int16}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(Int16, res[2]))::Tuple{Int16, Int16}
+    res = ccall(("std_map_int16_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Int16}},), iter)
+    return convert_result(Pair{Int16, Int16}, res)::Pair{Int16, Int16}
 end
 */
 extern "C" const std::pair<const int16_t,int16_t> * std_map_int16_t_int16_t_const_iterator_getindex(
@@ -5994,8 +5997,8 @@ extern "C" uint8_t std_map_int16_t_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, Int64})
-    res = ccall(("std_map_int16_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Int64}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(Int64, res[2]))::Tuple{Int16, Int64}
+    res = ccall(("std_map_int16_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Int64}},), iter)
+    return convert_result(Pair{Int16, Int64}, res)::Pair{Int16, Int64}
 end
 */
 extern "C" const std::pair<const int16_t,int64_t> * std_map_int16_t_int64_t_const_iterator_getindex(
@@ -6218,8 +6221,8 @@ extern "C" uint8_t std_map_int16_t_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, Bool})
-    res = ccall(("std_map_int16_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Bool}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(Bool, res[2]))::Tuple{Int16, Bool}
+    res = ccall(("std_map_int16_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Bool}},), iter)
+    return convert_result(Pair{Int16, Bool}, res)::Pair{Int16, Bool}
 end
 */
 extern "C" const std::pair<const int16_t,bool> * std_map_int16_t_bool_const_iterator_getindex(
@@ -6442,8 +6445,8 @@ extern "C" uint8_t std_map_int16_t_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, Float64})
-    res = ccall(("std_map_int16_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Float64}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(Float64, res[2]))::Tuple{Int16, Float64}
+    res = ccall(("std_map_int16_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Float64}},), iter)
+    return convert_result(Pair{Int16, Float64}, res)::Pair{Int16, Float64}
 end
 */
 extern "C" const std::pair<const int16_t,double> * std_map_int16_t_double_const_iterator_getindex(
@@ -6666,8 +6669,8 @@ extern "C" uint8_t std_map_int16_t_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, UInt32})
-    res = ccall(("std_map_int16_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, UInt32}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(UInt32, res[2]))::Tuple{Int16, UInt32}
+    res = ccall(("std_map_int16_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, UInt32}},), iter)
+    return convert_result(Pair{Int16, UInt32}, res)::Pair{Int16, UInt32}
 end
 */
 extern "C" const std::pair<const int16_t,uint32_t> * std_map_int16_t_uint32_t_const_iterator_getindex(
@@ -6890,8 +6893,8 @@ extern "C" uint8_t std_map_int16_t_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, Int32})
-    res = ccall(("std_map_int16_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Int32}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(Int32, res[2]))::Tuple{Int16, Int32}
+    res = ccall(("std_map_int16_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Int32}},), iter)
+    return convert_result(Pair{Int16, Int32}, res)::Pair{Int16, Int32}
 end
 */
 extern "C" const std::pair<const int16_t,int32_t> * std_map_int16_t_int32_t_const_iterator_getindex(
@@ -7114,8 +7117,8 @@ extern "C" uint8_t std_map_int16_t_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, UInt64})
-    res = ccall(("std_map_int16_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, UInt64}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(UInt64, res[2]))::Tuple{Int16, UInt64}
+    res = ccall(("std_map_int16_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, UInt64}},), iter)
+    return convert_result(Pair{Int16, UInt64}, res)::Pair{Int16, UInt64}
 end
 */
 extern "C" const std::pair<const int16_t,uint64_t> * std_map_int16_t_uint64_t_const_iterator_getindex(
@@ -7338,8 +7341,8 @@ extern "C" uint8_t std_map_int16_t_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, Float32})
-    res = ccall(("std_map_int16_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Float32}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(Float32, res[2]))::Tuple{Int16, Float32}
+    res = ccall(("std_map_int16_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Float32}},), iter)
+    return convert_result(Pair{Int16, Float32}, res)::Pair{Int16, Float32}
 end
 */
 extern "C" const std::pair<const int16_t,float> * std_map_int16_t_float_const_iterator_getindex(
@@ -7562,8 +7565,8 @@ extern "C" uint8_t std_map_int16_t_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, Ptr{Nothing}})
-    res = ccall(("std_map_int16_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Ptr{Nothing}}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{Int16, Ptr{Nothing}}
+    res = ccall(("std_map_int16_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{Int16, Ptr{Nothing}}, res)::Pair{Int16, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const int16_t,void *> * std_map_int16_t_void___const_iterator_getindex(
@@ -7786,8 +7789,8 @@ extern "C" uint8_t std_map_int16_t_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, UInt8})
-    res = ccall(("std_map_int16_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, UInt8}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(UInt8, res[2]))::Tuple{Int16, UInt8}
+    res = ccall(("std_map_int16_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, UInt8}},), iter)
+    return convert_result(Pair{Int16, UInt8}, res)::Pair{Int16, UInt8}
 end
 */
 extern "C" const std::pair<const int16_t,uint8_t> * std_map_int16_t_uint8_t_const_iterator_getindex(
@@ -8010,8 +8013,8 @@ extern "C" uint8_t std_map_int16_t_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int16, UInt16})
-    res = ccall(("std_map_int16_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int16}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, UInt16}},), iter)
-    return (convert_result(Int16, res[1]), convert_result(UInt16, res[2]))::Tuple{Int16, UInt16}
+    res = ccall(("std_map_int16_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int16, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Int16, UInt16}},), iter)
+    return convert_result(Pair{Int16, UInt16}, res)::Pair{Int16, UInt16}
 end
 */
 extern "C" const std::pair<const int16_t,uint16_t> * std_map_int16_t_uint16_t_const_iterator_getindex(
@@ -8234,8 +8237,8 @@ extern "C" uint8_t std_map_int64_t_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, Int8})
-    res = ccall(("std_map_int64_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Int8}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(Int8, res[2]))::Tuple{Int64, Int8}
+    res = ccall(("std_map_int64_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Int8}},), iter)
+    return convert_result(Pair{Int64, Int8}, res)::Pair{Int64, Int8}
 end
 */
 extern "C" const std::pair<const int64_t,int8_t> * std_map_int64_t_int8_t_const_iterator_getindex(
@@ -8458,8 +8461,8 @@ extern "C" uint8_t std_map_int64_t_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, Int16})
-    res = ccall(("std_map_int64_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Int16}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(Int16, res[2]))::Tuple{Int64, Int16}
+    res = ccall(("std_map_int64_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Int16}},), iter)
+    return convert_result(Pair{Int64, Int16}, res)::Pair{Int64, Int16}
 end
 */
 extern "C" const std::pair<const int64_t,int16_t> * std_map_int64_t_int16_t_const_iterator_getindex(
@@ -8682,8 +8685,8 @@ extern "C" uint8_t std_map_int64_t_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, Int64})
-    res = ccall(("std_map_int64_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Int64}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(Int64, res[2]))::Tuple{Int64, Int64}
+    res = ccall(("std_map_int64_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Int64}},), iter)
+    return convert_result(Pair{Int64, Int64}, res)::Pair{Int64, Int64}
 end
 */
 extern "C" const std::pair<const int64_t,int64_t> * std_map_int64_t_int64_t_const_iterator_getindex(
@@ -8906,8 +8909,8 @@ extern "C" uint8_t std_map_int64_t_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, Bool})
-    res = ccall(("std_map_int64_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Bool}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(Bool, res[2]))::Tuple{Int64, Bool}
+    res = ccall(("std_map_int64_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Bool}},), iter)
+    return convert_result(Pair{Int64, Bool}, res)::Pair{Int64, Bool}
 end
 */
 extern "C" const std::pair<const int64_t,bool> * std_map_int64_t_bool_const_iterator_getindex(
@@ -9130,8 +9133,8 @@ extern "C" uint8_t std_map_int64_t_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, Float64})
-    res = ccall(("std_map_int64_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Float64}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(Float64, res[2]))::Tuple{Int64, Float64}
+    res = ccall(("std_map_int64_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Float64}},), iter)
+    return convert_result(Pair{Int64, Float64}, res)::Pair{Int64, Float64}
 end
 */
 extern "C" const std::pair<const int64_t,double> * std_map_int64_t_double_const_iterator_getindex(
@@ -9354,8 +9357,8 @@ extern "C" uint8_t std_map_int64_t_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, UInt32})
-    res = ccall(("std_map_int64_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, UInt32}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(UInt32, res[2]))::Tuple{Int64, UInt32}
+    res = ccall(("std_map_int64_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, UInt32}},), iter)
+    return convert_result(Pair{Int64, UInt32}, res)::Pair{Int64, UInt32}
 end
 */
 extern "C" const std::pair<const int64_t,uint32_t> * std_map_int64_t_uint32_t_const_iterator_getindex(
@@ -9578,8 +9581,8 @@ extern "C" uint8_t std_map_int64_t_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, Int32})
-    res = ccall(("std_map_int64_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Int32}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(Int32, res[2]))::Tuple{Int64, Int32}
+    res = ccall(("std_map_int64_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Int32}},), iter)
+    return convert_result(Pair{Int64, Int32}, res)::Pair{Int64, Int32}
 end
 */
 extern "C" const std::pair<const int64_t,int32_t> * std_map_int64_t_int32_t_const_iterator_getindex(
@@ -9802,8 +9805,8 @@ extern "C" uint8_t std_map_int64_t_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, UInt64})
-    res = ccall(("std_map_int64_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, UInt64}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(UInt64, res[2]))::Tuple{Int64, UInt64}
+    res = ccall(("std_map_int64_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, UInt64}},), iter)
+    return convert_result(Pair{Int64, UInt64}, res)::Pair{Int64, UInt64}
 end
 */
 extern "C" const std::pair<const int64_t,uint64_t> * std_map_int64_t_uint64_t_const_iterator_getindex(
@@ -10026,8 +10029,8 @@ extern "C" uint8_t std_map_int64_t_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, Float32})
-    res = ccall(("std_map_int64_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Float32}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(Float32, res[2]))::Tuple{Int64, Float32}
+    res = ccall(("std_map_int64_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Float32}},), iter)
+    return convert_result(Pair{Int64, Float32}, res)::Pair{Int64, Float32}
 end
 */
 extern "C" const std::pair<const int64_t,float> * std_map_int64_t_float_const_iterator_getindex(
@@ -10250,8 +10253,8 @@ extern "C" uint8_t std_map_int64_t_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, Ptr{Nothing}})
-    res = ccall(("std_map_int64_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Ptr{Nothing}}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{Int64, Ptr{Nothing}}
+    res = ccall(("std_map_int64_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{Int64, Ptr{Nothing}}, res)::Pair{Int64, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const int64_t,void *> * std_map_int64_t_void___const_iterator_getindex(
@@ -10474,8 +10477,8 @@ extern "C" uint8_t std_map_int64_t_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, UInt8})
-    res = ccall(("std_map_int64_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, UInt8}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(UInt8, res[2]))::Tuple{Int64, UInt8}
+    res = ccall(("std_map_int64_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, UInt8}},), iter)
+    return convert_result(Pair{Int64, UInt8}, res)::Pair{Int64, UInt8}
 end
 */
 extern "C" const std::pair<const int64_t,uint8_t> * std_map_int64_t_uint8_t_const_iterator_getindex(
@@ -10698,8 +10701,8 @@ extern "C" uint8_t std_map_int64_t_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int64, UInt16})
-    res = ccall(("std_map_int64_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int64}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, UInt16}},), iter)
-    return (convert_result(Int64, res[1]), convert_result(UInt16, res[2]))::Tuple{Int64, UInt16}
+    res = ccall(("std_map_int64_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int64, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Int64, UInt16}},), iter)
+    return convert_result(Pair{Int64, UInt16}, res)::Pair{Int64, UInt16}
 end
 */
 extern "C" const std::pair<const int64_t,uint16_t> * std_map_int64_t_uint16_t_const_iterator_getindex(
@@ -10922,8 +10925,8 @@ extern "C" uint8_t std_map_bool_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, Int8})
-    res = ccall(("std_map_bool_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Int8}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(Int8, res[2]))::Tuple{Bool, Int8}
+    res = ccall(("std_map_bool_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Int8}},), iter)
+    return convert_result(Pair{Bool, Int8}, res)::Pair{Bool, Int8}
 end
 */
 extern "C" const std::pair<const bool,int8_t> * std_map_bool_int8_t_const_iterator_getindex(
@@ -11146,8 +11149,8 @@ extern "C" uint8_t std_map_bool_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, Int16})
-    res = ccall(("std_map_bool_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Int16}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(Int16, res[2]))::Tuple{Bool, Int16}
+    res = ccall(("std_map_bool_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Int16}},), iter)
+    return convert_result(Pair{Bool, Int16}, res)::Pair{Bool, Int16}
 end
 */
 extern "C" const std::pair<const bool,int16_t> * std_map_bool_int16_t_const_iterator_getindex(
@@ -11370,8 +11373,8 @@ extern "C" uint8_t std_map_bool_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, Int64})
-    res = ccall(("std_map_bool_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Int64}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(Int64, res[2]))::Tuple{Bool, Int64}
+    res = ccall(("std_map_bool_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Int64}},), iter)
+    return convert_result(Pair{Bool, Int64}, res)::Pair{Bool, Int64}
 end
 */
 extern "C" const std::pair<const bool,int64_t> * std_map_bool_int64_t_const_iterator_getindex(
@@ -11594,8 +11597,8 @@ extern "C" uint8_t std_map_bool_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, Bool})
-    res = ccall(("std_map_bool_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Bool}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(Bool, res[2]))::Tuple{Bool, Bool}
+    res = ccall(("std_map_bool_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Bool}},), iter)
+    return convert_result(Pair{Bool, Bool}, res)::Pair{Bool, Bool}
 end
 */
 extern "C" const std::pair<const bool,bool> * std_map_bool_bool_const_iterator_getindex(
@@ -11818,8 +11821,8 @@ extern "C" uint8_t std_map_bool_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, Float64})
-    res = ccall(("std_map_bool_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Float64}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(Float64, res[2]))::Tuple{Bool, Float64}
+    res = ccall(("std_map_bool_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Float64}},), iter)
+    return convert_result(Pair{Bool, Float64}, res)::Pair{Bool, Float64}
 end
 */
 extern "C" const std::pair<const bool,double> * std_map_bool_double_const_iterator_getindex(
@@ -12042,8 +12045,8 @@ extern "C" uint8_t std_map_bool_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, UInt32})
-    res = ccall(("std_map_bool_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, UInt32}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(UInt32, res[2]))::Tuple{Bool, UInt32}
+    res = ccall(("std_map_bool_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, UInt32}},), iter)
+    return convert_result(Pair{Bool, UInt32}, res)::Pair{Bool, UInt32}
 end
 */
 extern "C" const std::pair<const bool,uint32_t> * std_map_bool_uint32_t_const_iterator_getindex(
@@ -12266,8 +12269,8 @@ extern "C" uint8_t std_map_bool_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, Int32})
-    res = ccall(("std_map_bool_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Int32}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(Int32, res[2]))::Tuple{Bool, Int32}
+    res = ccall(("std_map_bool_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Int32}},), iter)
+    return convert_result(Pair{Bool, Int32}, res)::Pair{Bool, Int32}
 end
 */
 extern "C" const std::pair<const bool,int32_t> * std_map_bool_int32_t_const_iterator_getindex(
@@ -12490,8 +12493,8 @@ extern "C" uint8_t std_map_bool_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, UInt64})
-    res = ccall(("std_map_bool_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, UInt64}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(UInt64, res[2]))::Tuple{Bool, UInt64}
+    res = ccall(("std_map_bool_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, UInt64}},), iter)
+    return convert_result(Pair{Bool, UInt64}, res)::Pair{Bool, UInt64}
 end
 */
 extern "C" const std::pair<const bool,uint64_t> * std_map_bool_uint64_t_const_iterator_getindex(
@@ -12714,8 +12717,8 @@ extern "C" uint8_t std_map_bool_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, Float32})
-    res = ccall(("std_map_bool_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Float32}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(Float32, res[2]))::Tuple{Bool, Float32}
+    res = ccall(("std_map_bool_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Float32}},), iter)
+    return convert_result(Pair{Bool, Float32}, res)::Pair{Bool, Float32}
 end
 */
 extern "C" const std::pair<const bool,float> * std_map_bool_float_const_iterator_getindex(
@@ -12938,8 +12941,8 @@ extern "C" uint8_t std_map_bool_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, Ptr{Nothing}})
-    res = ccall(("std_map_bool_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Ptr{Nothing}}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{Bool, Ptr{Nothing}}
+    res = ccall(("std_map_bool_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{Bool, Ptr{Nothing}}, res)::Pair{Bool, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const bool,void *> * std_map_bool_void___const_iterator_getindex(
@@ -13162,8 +13165,8 @@ extern "C" uint8_t std_map_bool_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, UInt8})
-    res = ccall(("std_map_bool_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, UInt8}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(UInt8, res[2]))::Tuple{Bool, UInt8}
+    res = ccall(("std_map_bool_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, UInt8}},), iter)
+    return convert_result(Pair{Bool, UInt8}, res)::Pair{Bool, UInt8}
 end
 */
 extern "C" const std::pair<const bool,uint8_t> * std_map_bool_uint8_t_const_iterator_getindex(
@@ -13386,8 +13389,8 @@ extern "C" uint8_t std_map_bool_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Bool, UInt16})
-    res = ccall(("std_map_bool_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Bool}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, UInt16}},), iter)
-    return (convert_result(Bool, res[1]), convert_result(UInt16, res[2]))::Tuple{Bool, UInt16}
+    res = ccall(("std_map_bool_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Bool, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Bool, UInt16}},), iter)
+    return convert_result(Pair{Bool, UInt16}, res)::Pair{Bool, UInt16}
 end
 */
 extern "C" const std::pair<const bool,uint16_t> * std_map_bool_uint16_t_const_iterator_getindex(
@@ -13610,8 +13613,8 @@ extern "C" uint8_t std_map_uint32_t_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, Int8})
-    res = ccall(("std_map_uint32_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Int8}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(Int8, res[2]))::Tuple{UInt32, Int8}
+    res = ccall(("std_map_uint32_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Int8}},), iter)
+    return convert_result(Pair{UInt32, Int8}, res)::Pair{UInt32, Int8}
 end
 */
 extern "C" const std::pair<const uint32_t,int8_t> * std_map_uint32_t_int8_t_const_iterator_getindex(
@@ -13834,8 +13837,8 @@ extern "C" uint8_t std_map_uint32_t_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, Int16})
-    res = ccall(("std_map_uint32_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Int16}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(Int16, res[2]))::Tuple{UInt32, Int16}
+    res = ccall(("std_map_uint32_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Int16}},), iter)
+    return convert_result(Pair{UInt32, Int16}, res)::Pair{UInt32, Int16}
 end
 */
 extern "C" const std::pair<const uint32_t,int16_t> * std_map_uint32_t_int16_t_const_iterator_getindex(
@@ -14058,8 +14061,8 @@ extern "C" uint8_t std_map_uint32_t_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, Int64})
-    res = ccall(("std_map_uint32_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Int64}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(Int64, res[2]))::Tuple{UInt32, Int64}
+    res = ccall(("std_map_uint32_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Int64}},), iter)
+    return convert_result(Pair{UInt32, Int64}, res)::Pair{UInt32, Int64}
 end
 */
 extern "C" const std::pair<const uint32_t,int64_t> * std_map_uint32_t_int64_t_const_iterator_getindex(
@@ -14282,8 +14285,8 @@ extern "C" uint8_t std_map_uint32_t_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, Bool})
-    res = ccall(("std_map_uint32_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Bool}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(Bool, res[2]))::Tuple{UInt32, Bool}
+    res = ccall(("std_map_uint32_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Bool}},), iter)
+    return convert_result(Pair{UInt32, Bool}, res)::Pair{UInt32, Bool}
 end
 */
 extern "C" const std::pair<const uint32_t,bool> * std_map_uint32_t_bool_const_iterator_getindex(
@@ -14506,8 +14509,8 @@ extern "C" uint8_t std_map_uint32_t_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, Float64})
-    res = ccall(("std_map_uint32_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Float64}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(Float64, res[2]))::Tuple{UInt32, Float64}
+    res = ccall(("std_map_uint32_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Float64}},), iter)
+    return convert_result(Pair{UInt32, Float64}, res)::Pair{UInt32, Float64}
 end
 */
 extern "C" const std::pair<const uint32_t,double> * std_map_uint32_t_double_const_iterator_getindex(
@@ -14730,8 +14733,8 @@ extern "C" uint8_t std_map_uint32_t_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, UInt32})
-    res = ccall(("std_map_uint32_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, UInt32}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(UInt32, res[2]))::Tuple{UInt32, UInt32}
+    res = ccall(("std_map_uint32_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, UInt32}},), iter)
+    return convert_result(Pair{UInt32, UInt32}, res)::Pair{UInt32, UInt32}
 end
 */
 extern "C" const std::pair<const uint32_t,uint32_t> * std_map_uint32_t_uint32_t_const_iterator_getindex(
@@ -14954,8 +14957,8 @@ extern "C" uint8_t std_map_uint32_t_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, Int32})
-    res = ccall(("std_map_uint32_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Int32}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(Int32, res[2]))::Tuple{UInt32, Int32}
+    res = ccall(("std_map_uint32_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Int32}},), iter)
+    return convert_result(Pair{UInt32, Int32}, res)::Pair{UInt32, Int32}
 end
 */
 extern "C" const std::pair<const uint32_t,int32_t> * std_map_uint32_t_int32_t_const_iterator_getindex(
@@ -15178,8 +15181,8 @@ extern "C" uint8_t std_map_uint32_t_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, UInt64})
-    res = ccall(("std_map_uint32_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, UInt64}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(UInt64, res[2]))::Tuple{UInt32, UInt64}
+    res = ccall(("std_map_uint32_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, UInt64}},), iter)
+    return convert_result(Pair{UInt32, UInt64}, res)::Pair{UInt32, UInt64}
 end
 */
 extern "C" const std::pair<const uint32_t,uint64_t> * std_map_uint32_t_uint64_t_const_iterator_getindex(
@@ -15402,8 +15405,8 @@ extern "C" uint8_t std_map_uint32_t_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, Float32})
-    res = ccall(("std_map_uint32_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Float32}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(Float32, res[2]))::Tuple{UInt32, Float32}
+    res = ccall(("std_map_uint32_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Float32}},), iter)
+    return convert_result(Pair{UInt32, Float32}, res)::Pair{UInt32, Float32}
 end
 */
 extern "C" const std::pair<const uint32_t,float> * std_map_uint32_t_float_const_iterator_getindex(
@@ -15626,8 +15629,8 @@ extern "C" uint8_t std_map_uint32_t_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, Ptr{Nothing}})
-    res = ccall(("std_map_uint32_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Ptr{Nothing}}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{UInt32, Ptr{Nothing}}
+    res = ccall(("std_map_uint32_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{UInt32, Ptr{Nothing}}, res)::Pair{UInt32, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const uint32_t,void *> * std_map_uint32_t_void___const_iterator_getindex(
@@ -15850,8 +15853,8 @@ extern "C" uint8_t std_map_uint32_t_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, UInt8})
-    res = ccall(("std_map_uint32_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, UInt8}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(UInt8, res[2]))::Tuple{UInt32, UInt8}
+    res = ccall(("std_map_uint32_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, UInt8}},), iter)
+    return convert_result(Pair{UInt32, UInt8}, res)::Pair{UInt32, UInt8}
 end
 */
 extern "C" const std::pair<const uint32_t,uint8_t> * std_map_uint32_t_uint8_t_const_iterator_getindex(
@@ -16074,8 +16077,8 @@ extern "C" uint8_t std_map_uint32_t_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt32, UInt16})
-    res = ccall(("std_map_uint32_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt32}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, UInt16}},), iter)
-    return (convert_result(UInt32, res[1]), convert_result(UInt16, res[2]))::Tuple{UInt32, UInt16}
+    res = ccall(("std_map_uint32_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt32, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt32, UInt16}},), iter)
+    return convert_result(Pair{UInt32, UInt16}, res)::Pair{UInt32, UInt16}
 end
 */
 extern "C" const std::pair<const uint32_t,uint16_t> * std_map_uint32_t_uint16_t_const_iterator_getindex(
@@ -16298,8 +16301,8 @@ extern "C" uint8_t std_map_int32_t_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, Int8})
-    res = ccall(("std_map_int32_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Int8}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(Int8, res[2]))::Tuple{Int32, Int8}
+    res = ccall(("std_map_int32_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Int8}},), iter)
+    return convert_result(Pair{Int32, Int8}, res)::Pair{Int32, Int8}
 end
 */
 extern "C" const std::pair<const int32_t,int8_t> * std_map_int32_t_int8_t_const_iterator_getindex(
@@ -16522,8 +16525,8 @@ extern "C" uint8_t std_map_int32_t_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, Int16})
-    res = ccall(("std_map_int32_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Int16}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(Int16, res[2]))::Tuple{Int32, Int16}
+    res = ccall(("std_map_int32_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Int16}},), iter)
+    return convert_result(Pair{Int32, Int16}, res)::Pair{Int32, Int16}
 end
 */
 extern "C" const std::pair<const int32_t,int16_t> * std_map_int32_t_int16_t_const_iterator_getindex(
@@ -16746,8 +16749,8 @@ extern "C" uint8_t std_map_int32_t_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, Int64})
-    res = ccall(("std_map_int32_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Int64}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(Int64, res[2]))::Tuple{Int32, Int64}
+    res = ccall(("std_map_int32_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Int64}},), iter)
+    return convert_result(Pair{Int32, Int64}, res)::Pair{Int32, Int64}
 end
 */
 extern "C" const std::pair<const int32_t,int64_t> * std_map_int32_t_int64_t_const_iterator_getindex(
@@ -16970,8 +16973,8 @@ extern "C" uint8_t std_map_int32_t_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, Bool})
-    res = ccall(("std_map_int32_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Bool}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(Bool, res[2]))::Tuple{Int32, Bool}
+    res = ccall(("std_map_int32_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Bool}},), iter)
+    return convert_result(Pair{Int32, Bool}, res)::Pair{Int32, Bool}
 end
 */
 extern "C" const std::pair<const int32_t,bool> * std_map_int32_t_bool_const_iterator_getindex(
@@ -17194,8 +17197,8 @@ extern "C" uint8_t std_map_int32_t_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, Float64})
-    res = ccall(("std_map_int32_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Float64}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(Float64, res[2]))::Tuple{Int32, Float64}
+    res = ccall(("std_map_int32_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Float64}},), iter)
+    return convert_result(Pair{Int32, Float64}, res)::Pair{Int32, Float64}
 end
 */
 extern "C" const std::pair<const int32_t,double> * std_map_int32_t_double_const_iterator_getindex(
@@ -17418,8 +17421,8 @@ extern "C" uint8_t std_map_int32_t_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, UInt32})
-    res = ccall(("std_map_int32_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, UInt32}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(UInt32, res[2]))::Tuple{Int32, UInt32}
+    res = ccall(("std_map_int32_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, UInt32}},), iter)
+    return convert_result(Pair{Int32, UInt32}, res)::Pair{Int32, UInt32}
 end
 */
 extern "C" const std::pair<const int32_t,uint32_t> * std_map_int32_t_uint32_t_const_iterator_getindex(
@@ -17642,8 +17645,8 @@ extern "C" uint8_t std_map_int32_t_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, Int32})
-    res = ccall(("std_map_int32_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Int32}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(Int32, res[2]))::Tuple{Int32, Int32}
+    res = ccall(("std_map_int32_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Int32}},), iter)
+    return convert_result(Pair{Int32, Int32}, res)::Pair{Int32, Int32}
 end
 */
 extern "C" const std::pair<const int32_t,int32_t> * std_map_int32_t_int32_t_const_iterator_getindex(
@@ -17866,8 +17869,8 @@ extern "C" uint8_t std_map_int32_t_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, UInt64})
-    res = ccall(("std_map_int32_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, UInt64}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(UInt64, res[2]))::Tuple{Int32, UInt64}
+    res = ccall(("std_map_int32_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, UInt64}},), iter)
+    return convert_result(Pair{Int32, UInt64}, res)::Pair{Int32, UInt64}
 end
 */
 extern "C" const std::pair<const int32_t,uint64_t> * std_map_int32_t_uint64_t_const_iterator_getindex(
@@ -18090,8 +18093,8 @@ extern "C" uint8_t std_map_int32_t_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, Float32})
-    res = ccall(("std_map_int32_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Float32}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(Float32, res[2]))::Tuple{Int32, Float32}
+    res = ccall(("std_map_int32_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Float32}},), iter)
+    return convert_result(Pair{Int32, Float32}, res)::Pair{Int32, Float32}
 end
 */
 extern "C" const std::pair<const int32_t,float> * std_map_int32_t_float_const_iterator_getindex(
@@ -18314,8 +18317,8 @@ extern "C" uint8_t std_map_int32_t_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, Ptr{Nothing}})
-    res = ccall(("std_map_int32_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Ptr{Nothing}}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{Int32, Ptr{Nothing}}
+    res = ccall(("std_map_int32_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{Int32, Ptr{Nothing}}, res)::Pair{Int32, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const int32_t,void *> * std_map_int32_t_void___const_iterator_getindex(
@@ -18538,8 +18541,8 @@ extern "C" uint8_t std_map_int32_t_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, UInt8})
-    res = ccall(("std_map_int32_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, UInt8}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(UInt8, res[2]))::Tuple{Int32, UInt8}
+    res = ccall(("std_map_int32_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, UInt8}},), iter)
+    return convert_result(Pair{Int32, UInt8}, res)::Pair{Int32, UInt8}
 end
 */
 extern "C" const std::pair<const int32_t,uint8_t> * std_map_int32_t_uint8_t_const_iterator_getindex(
@@ -18762,8 +18765,8 @@ extern "C" uint8_t std_map_int32_t_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{Int32, UInt16})
-    res = ccall(("std_map_int32_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int32}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, UInt16}},), iter)
-    return (convert_result(Int32, res[1]), convert_result(UInt16, res[2]))::Tuple{Int32, UInt16}
+    res = ccall(("std_map_int32_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{Int32, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{Int32, UInt16}},), iter)
+    return convert_result(Pair{Int32, UInt16}, res)::Pair{Int32, UInt16}
 end
 */
 extern "C" const std::pair<const int32_t,uint16_t> * std_map_int32_t_uint16_t_const_iterator_getindex(
@@ -18986,8 +18989,8 @@ extern "C" uint8_t std_map_uint64_t_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, Int8})
-    res = ccall(("std_map_uint64_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Int8}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(Int8, res[2]))::Tuple{UInt64, Int8}
+    res = ccall(("std_map_uint64_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Int8}},), iter)
+    return convert_result(Pair{UInt64, Int8}, res)::Pair{UInt64, Int8}
 end
 */
 extern "C" const std::pair<const uint64_t,int8_t> * std_map_uint64_t_int8_t_const_iterator_getindex(
@@ -19210,8 +19213,8 @@ extern "C" uint8_t std_map_uint64_t_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, Int16})
-    res = ccall(("std_map_uint64_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Int16}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(Int16, res[2]))::Tuple{UInt64, Int16}
+    res = ccall(("std_map_uint64_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Int16}},), iter)
+    return convert_result(Pair{UInt64, Int16}, res)::Pair{UInt64, Int16}
 end
 */
 extern "C" const std::pair<const uint64_t,int16_t> * std_map_uint64_t_int16_t_const_iterator_getindex(
@@ -19434,8 +19437,8 @@ extern "C" uint8_t std_map_uint64_t_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, Int64})
-    res = ccall(("std_map_uint64_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Int64}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(Int64, res[2]))::Tuple{UInt64, Int64}
+    res = ccall(("std_map_uint64_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Int64}},), iter)
+    return convert_result(Pair{UInt64, Int64}, res)::Pair{UInt64, Int64}
 end
 */
 extern "C" const std::pair<const uint64_t,int64_t> * std_map_uint64_t_int64_t_const_iterator_getindex(
@@ -19658,8 +19661,8 @@ extern "C" uint8_t std_map_uint64_t_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, Bool})
-    res = ccall(("std_map_uint64_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Bool}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(Bool, res[2]))::Tuple{UInt64, Bool}
+    res = ccall(("std_map_uint64_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Bool}},), iter)
+    return convert_result(Pair{UInt64, Bool}, res)::Pair{UInt64, Bool}
 end
 */
 extern "C" const std::pair<const uint64_t,bool> * std_map_uint64_t_bool_const_iterator_getindex(
@@ -19882,8 +19885,8 @@ extern "C" uint8_t std_map_uint64_t_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, Float64})
-    res = ccall(("std_map_uint64_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Float64}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(Float64, res[2]))::Tuple{UInt64, Float64}
+    res = ccall(("std_map_uint64_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Float64}},), iter)
+    return convert_result(Pair{UInt64, Float64}, res)::Pair{UInt64, Float64}
 end
 */
 extern "C" const std::pair<const uint64_t,double> * std_map_uint64_t_double_const_iterator_getindex(
@@ -20106,8 +20109,8 @@ extern "C" uint8_t std_map_uint64_t_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, UInt32})
-    res = ccall(("std_map_uint64_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, UInt32}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(UInt32, res[2]))::Tuple{UInt64, UInt32}
+    res = ccall(("std_map_uint64_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, UInt32}},), iter)
+    return convert_result(Pair{UInt64, UInt32}, res)::Pair{UInt64, UInt32}
 end
 */
 extern "C" const std::pair<const uint64_t,uint32_t> * std_map_uint64_t_uint32_t_const_iterator_getindex(
@@ -20330,8 +20333,8 @@ extern "C" uint8_t std_map_uint64_t_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, Int32})
-    res = ccall(("std_map_uint64_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Int32}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(Int32, res[2]))::Tuple{UInt64, Int32}
+    res = ccall(("std_map_uint64_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Int32}},), iter)
+    return convert_result(Pair{UInt64, Int32}, res)::Pair{UInt64, Int32}
 end
 */
 extern "C" const std::pair<const uint64_t,int32_t> * std_map_uint64_t_int32_t_const_iterator_getindex(
@@ -20554,8 +20557,8 @@ extern "C" uint8_t std_map_uint64_t_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, UInt64})
-    res = ccall(("std_map_uint64_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, UInt64}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(UInt64, res[2]))::Tuple{UInt64, UInt64}
+    res = ccall(("std_map_uint64_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, UInt64}},), iter)
+    return convert_result(Pair{UInt64, UInt64}, res)::Pair{UInt64, UInt64}
 end
 */
 extern "C" const std::pair<const uint64_t,uint64_t> * std_map_uint64_t_uint64_t_const_iterator_getindex(
@@ -20778,8 +20781,8 @@ extern "C" uint8_t std_map_uint64_t_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, Float32})
-    res = ccall(("std_map_uint64_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Float32}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(Float32, res[2]))::Tuple{UInt64, Float32}
+    res = ccall(("std_map_uint64_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Float32}},), iter)
+    return convert_result(Pair{UInt64, Float32}, res)::Pair{UInt64, Float32}
 end
 */
 extern "C" const std::pair<const uint64_t,float> * std_map_uint64_t_float_const_iterator_getindex(
@@ -21002,8 +21005,8 @@ extern "C" uint8_t std_map_uint64_t_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, Ptr{Nothing}})
-    res = ccall(("std_map_uint64_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Ptr{Nothing}}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{UInt64, Ptr{Nothing}}
+    res = ccall(("std_map_uint64_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{UInt64, Ptr{Nothing}}, res)::Pair{UInt64, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const uint64_t,void *> * std_map_uint64_t_void___const_iterator_getindex(
@@ -21226,8 +21229,8 @@ extern "C" uint8_t std_map_uint64_t_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, UInt8})
-    res = ccall(("std_map_uint64_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, UInt8}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(UInt8, res[2]))::Tuple{UInt64, UInt8}
+    res = ccall(("std_map_uint64_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, UInt8}},), iter)
+    return convert_result(Pair{UInt64, UInt8}, res)::Pair{UInt64, UInt8}
 end
 */
 extern "C" const std::pair<const uint64_t,uint8_t> * std_map_uint64_t_uint8_t_const_iterator_getindex(
@@ -21450,8 +21453,8 @@ extern "C" uint8_t std_map_uint64_t_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt64, UInt16})
-    res = ccall(("std_map_uint64_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt64}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, UInt16}},), iter)
-    return (convert_result(UInt64, res[1]), convert_result(UInt16, res[2]))::Tuple{UInt64, UInt16}
+    res = ccall(("std_map_uint64_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt64, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt64, UInt16}},), iter)
+    return convert_result(Pair{UInt64, UInt16}, res)::Pair{UInt64, UInt16}
 end
 */
 extern "C" const std::pair<const uint64_t,uint16_t> * std_map_uint64_t_uint16_t_const_iterator_getindex(
@@ -21674,8 +21677,8 @@ extern "C" uint8_t std_map_uint8_t_int8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, Int8})
-    res = ccall(("std_map_uint8_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{Int8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Int8}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(Int8, res[2]))::Tuple{UInt8, Int8}
+    res = ccall(("std_map_uint8_t_int8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, Int8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Int8}},), iter)
+    return convert_result(Pair{UInt8, Int8}, res)::Pair{UInt8, Int8}
 end
 */
 extern "C" const std::pair<const uint8_t,int8_t> * std_map_uint8_t_int8_t_const_iterator_getindex(
@@ -21898,8 +21901,8 @@ extern "C" uint8_t std_map_uint8_t_int16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, Int16})
-    res = ccall(("std_map_uint8_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{Int16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Int16}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(Int16, res[2]))::Tuple{UInt8, Int16}
+    res = ccall(("std_map_uint8_t_int16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, Int16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Int16}},), iter)
+    return convert_result(Pair{UInt8, Int16}, res)::Pair{UInt8, Int16}
 end
 */
 extern "C" const std::pair<const uint8_t,int16_t> * std_map_uint8_t_int16_t_const_iterator_getindex(
@@ -22122,8 +22125,8 @@ extern "C" uint8_t std_map_uint8_t_int64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, Int64})
-    res = ccall(("std_map_uint8_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{Int64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Int64}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(Int64, res[2]))::Tuple{UInt8, Int64}
+    res = ccall(("std_map_uint8_t_int64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, Int64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Int64}},), iter)
+    return convert_result(Pair{UInt8, Int64}, res)::Pair{UInt8, Int64}
 end
 */
 extern "C" const std::pair<const uint8_t,int64_t> * std_map_uint8_t_int64_t_const_iterator_getindex(
@@ -22346,8 +22349,8 @@ extern "C" uint8_t std_map_uint8_t_bool_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, Bool})
-    res = ccall(("std_map_uint8_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{Bool}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Bool}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(Bool, res[2]))::Tuple{UInt8, Bool}
+    res = ccall(("std_map_uint8_t_bool_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, Bool}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Bool}},), iter)
+    return convert_result(Pair{UInt8, Bool}, res)::Pair{UInt8, Bool}
 end
 */
 extern "C" const std::pair<const uint8_t,bool> * std_map_uint8_t_bool_const_iterator_getindex(
@@ -22570,8 +22573,8 @@ extern "C" uint8_t std_map_uint8_t_double_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, Float64})
-    res = ccall(("std_map_uint8_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{Float64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Float64}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(Float64, res[2]))::Tuple{UInt8, Float64}
+    res = ccall(("std_map_uint8_t_double_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, Float64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Float64}},), iter)
+    return convert_result(Pair{UInt8, Float64}, res)::Pair{UInt8, Float64}
 end
 */
 extern "C" const std::pair<const uint8_t,double> * std_map_uint8_t_double_const_iterator_getindex(
@@ -22794,8 +22797,8 @@ extern "C" uint8_t std_map_uint8_t_uint32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, UInt32})
-    res = ccall(("std_map_uint8_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, UInt32}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(UInt32, res[2]))::Tuple{UInt8, UInt32}
+    res = ccall(("std_map_uint8_t_uint32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, UInt32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, UInt32}},), iter)
+    return convert_result(Pair{UInt8, UInt32}, res)::Pair{UInt8, UInt32}
 end
 */
 extern "C" const std::pair<const uint8_t,uint32_t> * std_map_uint8_t_uint32_t_const_iterator_getindex(
@@ -23018,8 +23021,8 @@ extern "C" uint8_t std_map_uint8_t_int32_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, Int32})
-    res = ccall(("std_map_uint8_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{Int32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Int32}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(Int32, res[2]))::Tuple{UInt8, Int32}
+    res = ccall(("std_map_uint8_t_int32_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, Int32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Int32}},), iter)
+    return convert_result(Pair{UInt8, Int32}, res)::Pair{UInt8, Int32}
 end
 */
 extern "C" const std::pair<const uint8_t,int32_t> * std_map_uint8_t_int32_t_const_iterator_getindex(
@@ -23242,8 +23245,8 @@ extern "C" uint8_t std_map_uint8_t_uint64_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, UInt64})
-    res = ccall(("std_map_uint8_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, UInt64}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(UInt64, res[2]))::Tuple{UInt8, UInt64}
+    res = ccall(("std_map_uint8_t_uint64_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, UInt64}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, UInt64}},), iter)
+    return convert_result(Pair{UInt8, UInt64}, res)::Pair{UInt8, UInt64}
 end
 */
 extern "C" const std::pair<const uint8_t,uint64_t> * std_map_uint8_t_uint64_t_const_iterator_getindex(
@@ -23466,8 +23469,8 @@ extern "C" uint8_t std_map_uint8_t_float_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, Float32})
-    res = ccall(("std_map_uint8_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{Float32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Float32}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(Float32, res[2]))::Tuple{UInt8, Float32}
+    res = ccall(("std_map_uint8_t_float_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, Float32}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Float32}},), iter)
+    return convert_result(Pair{UInt8, Float32}, res)::Pair{UInt8, Float32}
 end
 */
 extern "C" const std::pair<const uint8_t,float> * std_map_uint8_t_float_const_iterator_getindex(
@@ -23690,8 +23693,8 @@ extern "C" uint8_t std_map_uint8_t_void___const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, Ptr{Nothing}})
-    res = ccall(("std_map_uint8_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Ptr{Nothing}}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(Ptr{Nothing}, res[2]))::Tuple{UInt8, Ptr{Nothing}}
+    res = ccall(("std_map_uint8_t_void___const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, Ptr{Nothing}}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, Ptr{Nothing}}},), iter)
+    return convert_result(Pair{UInt8, Ptr{Nothing}}, res)::Pair{UInt8, Ptr{Nothing}}
 end
 */
 extern "C" const std::pair<const uint8_t,void *> * std_map_uint8_t_void___const_iterator_getindex(
@@ -23914,8 +23917,8 @@ extern "C" uint8_t std_map_uint8_t_uint8_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, UInt8})
-    res = ccall(("std_map_uint8_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, UInt8}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(UInt8, res[2]))::Tuple{UInt8, UInt8}
+    res = ccall(("std_map_uint8_t_uint8_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, UInt8}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, UInt8}},), iter)
+    return convert_result(Pair{UInt8, UInt8}, res)::Pair{UInt8, UInt8}
 end
 */
 extern "C" const std::pair<const uint8_t,uint8_t> * std_map_uint8_t_uint8_t_const_iterator_getindex(
@@ -24138,8 +24141,8 @@ extern "C" uint8_t std_map_uint8_t_uint16_t_const_iterator_equals(
 
 /*
 function Base.getindex(iter::Main.StdMaps.StdMapIterator{UInt8, UInt16})
-    res = ccall(("std_map_uint8_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{UInt8}, Ptr{UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, UInt16}},), iter)
-    return (convert_result(UInt8, res[1]), convert_result(UInt16, res[2]))::Tuple{UInt8, UInt16}
+    res = ccall(("std_map_uint8_t_uint16_t_const_iterator_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Pair{UInt8, UInt16}}, (Ptr{Main.StdMaps.StdMapIterator{UInt8, UInt16}},), iter)
+    return convert_result(Pair{UInt8, UInt16}, res)::Pair{UInt8, UInt16}
 end
 */
 extern "C" const std::pair<const uint8_t,uint16_t> * std_map_uint8_t_uint16_t_const_iterator_getindex(

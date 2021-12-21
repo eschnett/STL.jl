@@ -1,14 +1,12 @@
 #include <ccomplex>
 #include <cstdint>
 
-#include <cstddef>
 #include <string>
-#include <tuple>
 
 
 /*
 function StdString_new()
-    res = ccall(("std_string_new", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Nothing}, ())
+    res = ccall(("std_string_new", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Main.StdStrings.StdString}, ())
     return StdString(res)::Main.StdStrings.StdString
 end
 */
@@ -20,7 +18,7 @@ extern "C" std::string * std_string_new(
 
 /*
 function StdString_new(ptr::AbstractString, size::Integer)
-    res = ccall(("std_string_new_String", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Nothing}, (Ptr{Int8}, UInt64), ptr, size)
+    res = ccall(("std_string_new_String", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Main.StdStrings.StdString}, (Ptr{Int8}, UInt64), ptr, size)
     return StdString(res)::Main.StdStrings.StdString
 end
 */
@@ -33,7 +31,7 @@ extern "C" std::string * std_string_new_String(
 
 /*
 function StdString_delete(str::Main.StdStrings.StdString)
-    res = ccall(("std_string_delete", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Nothing, (Ptr{Nothing},), str)
+    res = ccall(("std_string_delete", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Nothing, (Ptr{Main.StdStrings.StdString},), str)
     return res::Nothing
 end
 */
@@ -45,7 +43,7 @@ extern "C" void std_string_delete(
 
 /*
 function Base.copy(str::Main.StdStrings.StdString)
-    res = ccall(("std_string_copy", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Nothing}, (Ptr{Nothing},), str)
+    res = ccall(("std_string_copy", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Ptr{Main.StdStrings.StdString}, (Ptr{Main.StdStrings.StdString},), str)
     return StdString(res)::Main.StdStrings.StdString
 end
 */
@@ -57,7 +55,7 @@ extern "C" std::string * std_string_copy(
 
 /*
 function Base.length(str::Main.StdStrings.StdString)
-    res = ccall(("std_string_length", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), UInt64, (Ptr{Nothing},), str)
+    res = ccall(("std_string_length", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), UInt64, (Ptr{Main.StdStrings.StdString},), str)
     return convert(Int, res)::Int64
 end
 */
@@ -69,7 +67,7 @@ extern "C" std::size_t std_string_length(
 
 /*
 function Base.getindex(str::Main.StdStrings.StdString, idx::Integer)
-    res = ccall(("std_string_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Int8, (Ptr{Nothing}, UInt64), str, idx)
+    res = ccall(("std_string_getindex", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Int8, (Ptr{Main.StdStrings.StdString}, UInt64), str, idx)
     return convert(Char, res)::Char
 end
 */
@@ -82,7 +80,7 @@ extern "C" char std_string_getindex(
 
 /*
 function Base.setindex!(str::Main.StdStrings.StdString, elt::Char, idx::Integer)
-    res = ccall(("std_string_setindex_", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Nothing, (Ptr{Nothing}, Int8, UInt64), str, convert(Cchar, elt), idx)
+    res = ccall(("std_string_setindex_", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Nothing, (Ptr{Main.StdStrings.StdString}, Int8, UInt64), str, convert(Cchar, elt), idx)
     return res::Nothing
 end
 */
@@ -96,7 +94,7 @@ extern "C" void std_string_setindex_(
 
 /*
 function pointer(str::Main.StdStrings.StdString)
-    res = ccall(("std_string_String", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, UInt64}, (Ptr{Nothing},), str)
+    res = ccall(("std_string_String", "/Users/eschnett/.julia/artifacts/b21b466bbe5de7d88c64564683c35d2527fc7eaa/lib/libSTL.dylib"), Tuple{Ptr{Int8}, UInt64}, (Ptr{Main.StdStrings.StdString},), str)
     return unsafe_string(res[1], res[2])::String
 end
 */

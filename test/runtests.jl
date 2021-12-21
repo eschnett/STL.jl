@@ -74,29 +74,29 @@ end
     free(ptr2)
 end
 
-#TODO @testset "std::string" begin
-#TODO     str = StdString()
-#TODO     @test str.cxx ≠ C_NULL
-#TODO     @test eltype(str) ≡ Char
-#TODO 
-#TODO     @test length(str) == 0
-#TODO     @test isempty(str)
-#TODO 
-#TODO     free(str)
-#TODO 
-#TODO     str = StdString("Hello, World!")
-#TODO     @test length(str) == 13
-#TODO 
-#TODO     @test str[0] == 'H'
-#TODO     @test str[7] == 'W'
-#TODO     @test str[12] == '!'
-#TODO 
-#TODO     str[12] = '\0'
-#TODO     @test length(str) == 13
-#TODO     @test str[12] == '\0'
-#TODO 
-#TODO     free(str)
-#TODO end
+@testset "std::string" begin
+    str = StdString()
+    @test str.cxx ≠ C_NULL
+    @test eltype(str) ≡ Char
+
+    @test length(str) == 0
+    @test isempty(str)
+
+    free(str)
+
+    str = StdString("Hello, World!")
+    @test length(str) == 13
+
+    @test str[0] == 'H'
+    @test str[7] == 'W'
+    @test str[12] == '!'
+
+    str[12] = '\0'
+    @test length(str) == 13
+    @test str[12] == '\0'
+
+    free(str)
+end
 
 @testset "std::vector<$T>" for T in StdVectors.types
     mkT(i) = T ≡ Bool ? i % Bool : T(i)
