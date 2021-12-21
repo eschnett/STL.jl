@@ -4,109 +4,156 @@ using ..Stds
 using CxxInterface
 using STL_jll
 
-const keys = Set([Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64])
-const types = Set([Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Cfloat, Cdouble])
-
 ################################################################################
 
 eval(cxxprelude("""
-    #include <cstddef>
     #include <map>
-    #include <utility>
+
+    static_assert(sizeof(bool) == 1, "");
+    """))
+
+# TODO
+eval(cxxprelude("""
+    #include <iostream>
     """))
 
 struct StdMap{K,T} <: AbstractDict{K,T}
-    cxx::Ptr{Cvoid}
-    StdMap{K,T}(cxx::Ptr{Cvoid}) where {K,T} = new{K,T}(cxx)
+    cxx::Ptr{StdMap{K,T}}
+    StdMap{K,T}(cxx::Ptr{StdMap{K,T}}) where {K,T} = new{K,T}(cxx)
 end
 export StdMap
-Base.cconvert(::Type{Ptr{Cvoid}}, map::StdMap) = map.cxx
+Base.cconvert(::Type{Ptr{StdMap{K,T}}}, map::StdMap{K,T}) where {K,T} = map.cxx
+
+Stds.convert_arg(::Type{Ptr{StdMap{K,T}}}, map::StdMap{K,T}) where {K,T} = map.cxx
+Stds.convert_result(::Type{StdMap{K,T}}, ptr::Ptr{StdMap{K,T}}) where {K,T} = StdMap{K,T}(ptr)
 
 StdMap{K,T}() where {K,T} = StdMap_new(K, T)
 
 struct StdMapIterator{K,T}
-    cxx::Ptr{Cvoid}
-    StdMapIterator{K,T}(cxx::Ptr{Cvoid}) where {K,T} = new{K,T}(cxx)
+    cxx::Ptr{StdMapIterator{K,T}}
+    StdMapIterator{K,T}(cxx::Ptr{StdMapIterator{K,T}}) where {K,T} = new{K,T}(cxx)
 end
 export StdMapIterator
-Base.cconvert(::Type{Ptr{Cvoid}}, map::StdMapIterator) = map.cxx
+Base.cconvert(::Type{Ptr{StdMapIterator{K,T}}}, map::StdMapIterator{K,T}) where {K,T} = map.cxx
+
+Stds.convert_arg(::Type{Ptr{StdMapIterator{K,T}}}, iter::StdMapIterator{K,T}) where {K,T} = iter.cxx
+Stds.convert_result(::Type{StdMapIterator{K,T}}, ptr::Ptr{StdMapIterator{K,T}}) where {K,T} = StdMapIterator{K,T}(ptr)
 
 StdMapIterator{K,T}() where {K,T} = StdMapIterator_new(K, T)
 
-for K in types, T in types
-    CK = cxxtype[K]
+const types = filter(T -> !(T <: Complex), Stds.value_types)
+const keys = filter(T -> T <: Integer, types)
+for K in keys, T in types
+    CK = K == Bool ? "bool" : cxxtype[K]
     NK = cxxname(CK)
-    CT = cxxtype[T]
+    CT = T == Bool ? "bool" : cxxtype[T]
     NT = cxxname(CT)
 
     eval(cxxfunction(FnName(Symbol(:StdMap_new), "std_map_$(NK)_$(NT)_new", libSTL),
-                     FnResult(Ptr{Cvoid}, "std::map<$CK,$CT> *", StdMap{K,T}, expr -> :(StdMap{$K,$T}($expr))),
+                     FnResult(Ptr{StdMap{K,T}}, "std::map<$CK,$CT> *", StdMap{K,T}, expr -> :(StdMap{$K,$T}($expr))),
                      [FnArg(:key, Nothing, "key", "void", Type{K}, identity; skip=true),
                       FnArg(:type, Nothing, "type", "void", Type{T}, identity; skip=true)], "return new std::map<$CK,$CT>;"))
 
     eval(cxxfunction(FnName(:StdMap_delete, "std_map_$(NK)_$(NT)_delete", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:map, Ptr{Cvoid}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)], "delete map;"))
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)], "delete map;"))
+
+    eval(cxxfunction(FnName(:(Base.copy), "std_map_$(NK)_$(NT)_copy", libSTL),
+                     FnResult(Ptr{StdMap{K,T}}, "std::map<$CK,$CT> *", StdMap{K,T}, expr -> :(StdMap{$K,$T}($expr))),
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
+                     "return new std::map<$CK,$CT>(*map);"))
 
     eval(cxxfunction(FnName(:(Base.length), "std_map_$(NK)_$(NT)_length", libSTL),
                      FnResult(Csize_t, "std::size_t", Int, expr -> :(convert(Int, $expr))),
-                     [FnArg(:map, Ptr{Cvoid}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
                      "return map->size();"))
 
     eval(cxxfunction(FnName(:(Base.haskey), "std_map_$(NK)_$(NT)_haskey", libSTL),
                      FnResult(Csize_t, "std::size_t", Bool, expr -> :(convert(Bool, $expr))),
-                     [FnArg(:map, Ptr{Cvoid}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
-                      FnArg(:key, K, "key", CK, Any, expr -> :(convert($K, $expr)))], "return map->count(key);"))
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
+                      FnArg(:key, Ptr{K}, "key", "$CK const *", Any, expr -> :(convert_arg(Ptr{$K}, convert($K, $expr))))],
+                     "return map->count(*key);"))
 
-    eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_getindex", libSTL), FnResult(T, CT),
-                     [FnArg(:map, Ptr{Cvoid}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
-                      FnArg(:key, K, "key", CK, Any, expr -> :(convert($K, $expr)))], "return map->at(key);"))
+    # if T == Bool
+    #     eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_getindex", libSTL), FnResult(T, CT),
+    #                      [FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
+    #                       FnArg(:key, Ptr{K}, "key", "$CK const *", Any, expr -> :(convert_arg(Ptr{$K}, convert($K, $expr))))],
+    #                      "return map->at(*key);"))
+    # else
+    eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_getindex", libSTL),
+                     FnResult(Ptr{T}, "$CT *", T, expr -> :(convert_result($T, $expr))),
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
+                      FnArg(:key, Ptr{K}, "key", "$CK const *", Any, expr -> :(convert_arg(Ptr{$K}, convert($K, $expr))))],
+                     "return &map->at(*key);"))
+    # end
 
     eval(cxxfunction(FnName(:(Base.setindex!), "std_map_$(NK)_$(NT)_setindex_", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:map, Ptr{Cvoid}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
-                      FnArg(:elt, T, "elt", CT, Any, expr -> :(convert($T, $expr))),
-                      FnArg(:key, K, "key", CK, Any, expr -> :(convert($K, $expr)))], "(*map)[key] = std::move(elt);"))
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
+                      FnArg(:elt, Ptr{T}, "elt", "$CT const *", Any, expr -> :(convert_arg(Ptr{$T}, convert($T, $expr)))),
+                      FnArg(:key, Ptr{K}, "key", "$CK const *", Any, expr -> :(convert_arg(Ptr{$K}, convert($K, $expr))))],
+                     "(*map)[*key] = *elt;"))
 
     eval(cxxfunction(FnName(:(Base.delete!), "std_map_$(NK)_$(NT)_delete_", libSTL),
                      FnResult(Nothing, "void", StdMap{K,T}, expr -> :map),
-                     [FnArg(:map, Ptr{Cvoid}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
-                      FnArg(:key, K, "key", CK, Any, expr -> :(convert($K, $expr)))], "map->erase(key);"))
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "std::map<$CK,$CT> * restrict", StdMap{K,T}, identity),
+                      FnArg(:key, Ptr{K}, "key", "$CK const *", Any, expr -> :(convert_arg(Ptr{$K}, convert($K, $expr))))],
+                     "map->erase(*key);"))
+
+    eval(cxxfunction(FnName(:cbegin, "std_map_$(NK)_$(NT)_cbegin", libSTL),
+                     FnResult(Ptr{StdMapIterator{K,T}}, "std::map<$CK,$CT>::const_iterator *", StdMapIterator{K,T},
+                              expr -> :(StdMapIterator{$K,$T}($expr))),
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
+                     "return new std::map<$CK,$CT>::const_iterator(map->cbegin());"))
+
+    eval(cxxfunction(FnName(:cend, "std_map_$(NK)_$(NT)_cend", libSTL),
+                     FnResult(Ptr{StdMapIterator{K,T}}, "std::map<$CK,$CT>::const_iterator *", StdMapIterator{K,T},
+                              expr -> :(StdMapIterator{$K,$T}($expr))),
+                     [FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
+                     "return new std::map<$CK,$CT>::const_iterator(map->cend());"))
+
+    # Iterators
 
     eval(cxxfunction(FnName(Symbol(:StdMapIterator_new), "std_map_$(NK)_$(NT)_const_iterator_new", libSTL),
-                     FnResult(Ptr{Cvoid}, "std::map<$CK,$CT>::const_iterator *", StdMapIterator{K,T},
+                     FnResult(Ptr{StdMap{K,T}}, "std::map<$CK,$CT>::const_iterator *", StdMapIterator{K,T},
                               expr -> :(StdMapIterator{$K,$T}($expr))),
                      [FnArg(:key, Nothing, "key", "void", Type{K}, identity; skip=true),
                       FnArg(:type, Nothing, "type", "void", Type{T}, identity; skip=true)],
                      "return new std::map<$CK,$CT>::const_iterator;"))
 
     eval(cxxfunction(FnName(:StdMapIterator_delete, "std_map_$(NK)_$(NT)_const_iterator_delete", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:map, Ptr{Cvoid}, "iter", "std::map<$CK,$CT>::const_iterator * restrict", StdMapIterator{K,T},
-                            identity)], "delete iter;"))
+                     [FnArg(:iter, Ptr{StdMapIterator{K,T}}, "iter", "std::map<$CK,$CT>::const_iterator * restrict",
+                            StdMapIterator{K,T}, identity)], "delete iter;"))
 
-    # We need to roll our own (mutable) iterator interface. We use:
-    # - `iterate!(::StdMapIterator, ::StdMap)`
-    # - `next!(::StdMapIterator)`
-    # - `done(::StdMapIterator, ::StdMap)::Bool`
-    # - `getindex(::StdMapIterator)`
-    # which mimics Julia's old iterator interface
+    eval(cxxfunction(FnName(:(Base.:(==)), "std_map_$(NK)_$(NT)_const_iterator_equals", libSTL), FnResult(Bool, "uint8_t"),
+                     [FnArg(:iter1, Ptr{StdMapIterator{K,T}}, "iter1", "const std::map<$CK,$CT>::const_iterator * restrict",
+                            StdMapIterator{K,T}, identity),
+                      FnArg(:iter2, Ptr{StdMapIterator{K,T}}, "iter2", "const std::map<$CK,$CT>::const_iterator * restrict",
+                            StdMapIterator{K,T}, identity)], "return *iter1 == *iter2;"))
 
-    eval(cxxfunction(FnName(:iterate!, "std_map_$(NK)_$(NT)_iterator_iterate_", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:iter, Ptr{Cvoid}, "iter", "std::map<$CK,$CT>::const_iterator * restrict", StdMapIterator{K,T},
-                            identity), FnArg(:map, Ptr{Cvoid}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
-                     "*iter = map->cbegin();"))
+    eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_const_iterator_getindex", libSTL),
+                     FnResult(Ptr{Pair{K,T}}, "const std::pair<const $CK,$CT> *", Pair{K,T},
+                              expr -> :(convert_result(Pair{$K,$T}, $expr))),
+                     [FnArg(:iter, Ptr{StdMapIterator{K,T}}, "iter", "std::map<$CK,$CT>::const_iterator * restrict",
+                            StdMapIterator{K,T}, identity)], "return &**iter;"))
 
-    eval(cxxfunction(FnName(:next!, "std_map_$(NK)_$(NT)_iterator_next_", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:iter, Ptr{Cvoid}, "iter", "std::map<$CK,$CT>::const_iterator * restrict", StdMapIterator{K,T},
-                            identity)], "++*iter;"))
+    eval(cxxfunction(FnName(:inc!, "std_map_$(NK)_$(NT)_const_iterator_inc_", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:iter, Ptr{StdMapIterator{K,T}}, "iter", "std::map<$CK,$CT>::const_iterator * restrict",
+                            StdMapIterator{K,T}, identity)], "++*iter;"))
 
-    eval(cxxfunction(FnName(:done, "std_map_$(NK)_$(NT)_iterator_done", libSTL),
-                     FnResult(Cint, "int", Bool, expr -> :(convert(Bool, $expr))),
-                     [FnArg(:iter, Ptr{Cvoid}, "iter", "const std::map<$CK,$CT>::const_iterator * restrict", StdMapIterator{K,T},
-                            identity), FnArg(:map, Ptr{Cvoid}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
+    eval(cxxfunction(FnName(:dec!, "std_map_$(NK)_$(NT)_const_iterator_dec_", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:iter, Ptr{StdMapIterator{K,T}}, "iter", "std::map<$CK,$CT>::const_iterator * restrict",
+                            StdMapIterator{K,T}, identity)], "--*iter;"))
+
+    eval(cxxfunction(FnName(:is_cbegin, "std_map_$(NK)_$(NT)_const_iterator_is_cbegin", libSTL), FnResult(Bool, "uint8_t"),
+                     [FnArg(:iter, Ptr{StdMapIterator{K,T}}, "iter", "const std::map<$CK,$CT>::const_iterator * restrict",
+                            StdMapIterator{K,T}, identity),
+                      FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
+                     "return *iter == map->cbegin();"))
+
+    eval(cxxfunction(FnName(:is_cend, "std_map_$(NK)_$(NT)_const_iterator_is_cend", libSTL), FnResult(Bool, "uint8_t"),
+                     [FnArg(:iter, Ptr{StdMapIterator{K,T}}, "iter", "const std::map<$CK,$CT>::const_iterator * restrict",
+                            StdMapIterator{K,T}, identity),
+                      FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK,$CT> * restrict", StdMap{K,T}, identity)],
                      "return *iter == map->cend();"))
-
-    eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_iterator_getindex", libSTL), FnResult(T, CT),
-                     [FnArg(:iter, Ptr{Cvoid}, "iter", "const std::map<$CK,$CT>::const_iterator * restrict", StdMapIterator{K,T},
-                            identity)], "return (*iter)->second;"))
 end
 
 Stds.free(map::StdMap) = StdMap_delete(map)
@@ -122,25 +169,27 @@ Base.eltype(::StdMap{K,T}) where {K,T} = T
 
 mutable struct GCStdMap{K,T} <: AbstractDict{K,T}
     managed::StdMap{K,T}
-    function GCStdMap{K,T}() where {K,T}
-        res = new{K,T}(StdMap{K,T}())
+    function GCStdMap{K,T}(map::StdMap{K,T}) where {K,T}
+        res = new{K,T}(map)
         finalizer(free, res)
         return res
     end
 end
 export GCStdMap
-Base.cconvert(::Type{Ptr{Cvoid}}, map::GCStdMap) = cconvert(map.managed)
+
+GCStdMap{K,T}() where {K,T} = GCStdMap{K,T}(StdMap{K,T}())
 
 mutable struct GCStdMapIterator{K,T}
     managed::StdMapIterator{K,T}
-    function GCStdMapIterator{K,T}() where {K,T}
-        res = new{K,T}(StdMapIterator{K,T}())
+    function GCStdMapIterator{K,T}(iter::StdMapIterator{K,T}) where {K,T}
+        res = new{K,T}(iter)
         finalizer(free, res)
         return res
     end
 end
 export GCStdMapIterator
-Base.cconvert(::Type{Ptr{Cvoid}}, map::GCStdMapIterator) = cconvert(map.managed)
+
+GCStdMapIterator{K,T}() where {K,T} = GCStdMapIterator{K,T}(StdMapIterator{K,T}())
 
 Stds.free(map::GCStdMap) = free(map.managed)
 Stds.free(iter::GCStdMapIterator) = free(iter.managed)
@@ -157,37 +206,34 @@ Base.eltype(::GCStdMap{K,T}) where {K,T} = eltype(StdMap{K,T})
 
 ################################################################################
 
-iterate!(iter::GCStdMapIterator{K,T}, map::StdMap{K,T}) where {K,T} = iterate!(iter.managed, map)
-done(iter::GCStdMapIterator{K,T}, map::StdMap{K,T}) where {K,T} = done(iter.managed, map)
-
-iterate!(iter::GCStdMapIterator{K,T}, map::GCStdMap{K,T}) where {K,T} = iterate!(iter.managed, map.managed)
-next!(iter::GCStdMapIterator) = next!(iter.managed)
-done(iter::GCStdMapIterator{K,T}, map::GCStdMap{K,T}) where {K,T} = done(iter.managed, map.managed)
+cbegin(map::GCStdMap{K,T}) where {K,T} = GCStdMapIterator{K,T}(cbegin(map.managed))
+cend(map::GCStdMap{K,T}) where {K,T} = GCStdMapIterator{K,T}(cend(map.managed))
+Base.:(==)(iter1::GCStdMapIterator{K,T}, iter2::GCStdMapIterator{K,T}) where {K,T} = iter1.managed == iter2.managed
 Base.getindex(iter::GCStdMapIterator) = getindex(iter.managed)
+inc!(iter::GCStdMapIterator) = inc!(iter.managed)
+dec!(iter::GCStdMapIterator) = dec!(iter.managed)
+is_cbegin(iter::GCStdMapIterator{K,T}, map::GCStdMap{K,T}) where {K,T} = is_cbegin(iter.managed, map.managed)
+is_end(iter::GCStdMapIterator{K,T}, map::GCStdMap{K,T}) where {K,T} = is_end(iter.managed, map.managed)
 
 function Base.iterate(map::StdMap{K,T}) where {K,T}
-    iter = GCStdMapIterator{K,T}()
-    iterate!(iter, map)
-    done(iter, map) && return nothing
+    iter = GCStdMapIterator{K,T}(cbegin(map))
+    is_cend(iter.managed, map) && return nothing
     return (iter[], iter)
 end
-
 function Base.iterate(map::StdMap{K,T}, iter::GCStdMapIterator{K,T}) where {K,T}
-    next!(iter)
-    done(iter, map) && return nothing
+    inc!(iter)
+    is_cend(iter.managed, map) && return nothing
     return (iter[], iter)
 end
 
 function Base.iterate(map::GCStdMap{K,T}) where {K,T}
-    iter = GCStdMapIterator{K,T}()
-    iterate!(iter, map)
-    done(iter, map) && return nothing
+    iter = cbegin(map)
+    is_cend(iter, map) && return nothing
     return (iter[], iter)
 end
-
 function Base.iterate(map::GCStdMap{K,T}, iter::GCStdMapIterator{K,T}) where {K,T}
-    next!(iter)
-    done(iter, map) && return nothing
+    inc!(iter)
+    is_cend(iter, map) && return nothing
     return (iter[], iter)
 end
 

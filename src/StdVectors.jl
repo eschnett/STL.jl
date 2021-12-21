@@ -4,63 +4,70 @@ using ..Stds
 using CxxInterface
 using STL_jll
 
-const types = Set([Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Cfloat, Cdouble, Complex{Cfloat}, Complex{Cdouble}])
-
 ################################################################################
 
 eval(cxxprelude("""
-    #include <cstddef>
-    #include <utility>
     #include <vector>
     """))
 
 struct StdVector{T} <: AbstractVector{T}
-    cxx::Ptr{Cvoid}
-    StdVector{T}(cxx::Ptr{Cvoid}) where {T} = new{T}(cxx)
+    cxx::Ptr{StdVector{T}}
+    StdVector{T}(cxx::Ptr{StdVector{T}}) where {T} = new{T}(cxx)
 end
 export StdVector
-Base.cconvert(::Type{Ptr{Cvoid}}, vec::StdVector) = vec.cxx
+Base.cconvert(::Type{Ptr{StdVector{T}}}, vec::StdVector{T}) where {T} = vec.cxx
+
+Stds.convert_arg(::Type{Ptr{StdVector{T}}}, vec::StdVector{T}) where {T} = vec.cxx
+Stds.convert_result(::Type{StdVector{T}}, ptr::Ptr{StdVector{T}}) where {T} = StdVector{T}(ptr)
 
 StdVector{T}() where {T} = StdVector_new(T)
 StdVector{T}(size::Integer) where {T} = StdVector_new(T, size)
 
+const types = Stds.value_types
 for T in types
-    CT = cxxtype[T]
+    CT = T == Bool ? "bool" : cxxtype[T]
     NT = cxxname(CT)
 
     eval(cxxfunction(FnName(:StdVector_new, "std_vector_$(NT)_new", libSTL),
-                     FnResult(Ptr{Cvoid}, "std::vector<$CT> *", StdVector{T}, expr -> :(StdVector{$T}($expr))),
+                     FnResult(Ptr{StdVector{T}}, "std::vector<$CT> *", StdVector{T}, expr -> :(StdVector{$T}($expr))),
                      [FnArg(:type, Nothing, "type", "void", Type{T}, identity; skip=true)], "return new std::vector<$CT>;"))
     eval(cxxfunction(FnName(:StdVector_new, "std_vector_$(NT)_new_std_size_t", libSTL),
-                     FnResult(Ptr{Cvoid}, "std::vector<$CT> *", StdVector{T}, expr -> :(StdVector{$T}($expr))),
+                     FnResult(Ptr{StdVector{T}}, "std::vector<$CT> *", StdVector{T}, expr -> :(StdVector{$T}($expr))),
                      [FnArg(:type, Nothing, "type", "void", Type{T}, identity; skip=true),
                       FnArg(:size, Csize_t, "size", "std::size_t", Integer, identity)], "return new std::vector<$CT>(size);"))
 
     eval(cxxfunction(FnName(:StdVector_delete, "std_vector_$(NT)_delete", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:vec, Ptr{Cvoid}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity)], "delete vec;"))
+                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity)], "delete vec;"))
 
     eval(cxxfunction(FnName(:(Base.copy), "std_vector_$(NT)_copy", libSTL),
-                     FnResult(Ptr{Cvoid}, "std::vector<$CT> *", StdVector{T}, expr -> :(StdVector{$T}($expr))),
-                     [FnArg(:ptr, Ptr{Cvoid}, "ptr", "std::vector<$CT> * restrict", StdVector{T}, identity)],
-                     "return new std::vector<$CT>(*ptr);"))
+                     FnResult(Ptr{StdVector{T}}, "std::vector<$CT> *", StdVector{T}, expr -> :(StdVector{$T}($expr))),
+                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "const std::vector<$CT> * restrict", StdVector{T}, identity)],
+                     "return new std::vector<$CT>(*vec);"))
 
     eval(cxxfunction(FnName(:(Base.resize!), "std_vector_$(NT)_resize_", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:vec, Ptr{Cvoid}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
+                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
                       FnArg(:size, Csize_t, "size", "std::size_t", Integer, identity)], "vec->resize(size);"))
 
     eval(cxxfunction(FnName(:(Base.length), "std_vector_$(NT)_length", libSTL),
                      FnResult(Csize_t, "std::size_t", Int, expr -> :(convert(Int, $expr))),
-                     [FnArg(:vec, Ptr{Cvoid}, "vec", "const std::vector<$CT> * restrict", StdVector{T}, identity)],
+                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "const std::vector<$CT> * restrict", StdVector{T}, identity)],
                      "return vec->size();"))
 
-    eval(cxxfunction(FnName(:(Base.getindex), "std_vector_$(NT)_getindex", libSTL), FnResult(T, CT),
-                     [FnArg(:vec, Ptr{Cvoid}, "vec", "const std::vector<$CT> * restrict", StdVector{T}, identity),
-                      FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "return (*vec)[idx];"))
+    if T == Bool
+        eval(cxxfunction(FnName(:(Base.getindex), "std_vector_$(NT)_getindex", libSTL), FnResult(T, CT),
+                         [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
+                          FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "return (*vec)[idx];"))
+    else
+        eval(cxxfunction(FnName(:(Base.getindex), "std_vector_$(NT)_getindex", libSTL),
+                         FnResult(Ptr{T}, "$CT *", T, expr -> :(convert_result($T, $expr))),
+                         [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
+                          FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "return &(*vec)[idx];"))
+    end
 
     eval(cxxfunction(FnName(:(Base.setindex!), "std_vector_$(NT)_setindex_", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:vec, Ptr{Cvoid}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
-                      FnArg(:elt, T, "elt", CT, Any, expr -> :(convert($T, $expr))),
-                      FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "(*vec)[idx] = std::move(elt);"))
+                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
+                      FnArg(:elt, Ptr{T}, "elt", "$CT const *", Any, expr -> :(convert_arg(Ptr{$T}, convert($T, $expr)))),
+                      FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "(*vec)[idx] = *elt;"))
 end
 
 Stds.free(vec::StdVector) = StdVector_delete(vec)
@@ -82,7 +89,6 @@ mutable struct GCStdVector{T} <: AbstractVector{T}
     end
 end
 export GCStdVector
-Base.cconvert(::Type{Ptr{Cvoid}}, vec::GCStdVector) = cconvert(vec.managed)
 
 GCStdVector{T}() where {T} = GCStdVector{T}(StdVector{T}())
 GCStdVector{T}(size::Integer) where {T} = GCStdVector{T}(StdVector{T}(size))
