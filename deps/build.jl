@@ -9,6 +9,13 @@ open("std_map.cxx", "w") do file
     return println(file, CxxInterface.end_generate_cxx())
 end
 
+println("Generating std_string.cxx...")
+open("std_string.cxx", "w") do file
+    CxxInterface.begin_generate_cxx()
+    include("../src/StdStrings.jl")
+    return println(file, CxxInterface.end_generate_cxx())
+end
+
 println("Generating std_shared_ptr.cxx...")
 open("std_shared_ptr.cxx", "w") do file
     CxxInterface.begin_generate_cxx()

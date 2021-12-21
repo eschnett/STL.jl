@@ -33,6 +33,58 @@ using Test
     free(map)
 end
 
+@testset "std::shared_ptr<$T>" for T in StdSharedPtrs.types
+    ptr = StdSharedPtr{T}()
+    @test ptr.cxx ≠ C_NULL
+    @test eltype(ptr) ≡ T
+
+    @test isempty(ptr)
+
+    ptr[] = T(42)
+    @test !isempty(ptr)
+    @test ptr[] == 42
+
+    @test use_count(ptr) == 1
+    ptr2 = copy(ptr)
+    @test ptr2[] == 42
+    @test use_count(ptr) == 2
+    @test use_count(ptr2) == 2
+
+    empty!(ptr)
+    @test isempty(ptr)
+    @test !isempty(ptr2)
+
+    free(ptr)
+
+    @test ptr2[] == 42
+
+    free(ptr2)
+end
+
+@testset "std::string" begin
+    str = StdString()
+    @test str.cxx ≠ C_NULL
+    @test eltype(str) ≡ Char
+
+    @test length(str) == 0
+    @test isempty(str)
+
+    free(str)
+
+    str = StdString("Hello, World!")
+    @test length(str) == 13
+
+    @test str[0] == 'H'
+    @test str[7] == 'W'
+    @test str[12] == '!'
+
+    str[12] = '\0'
+    @test length(str) == 13
+    @test str[12] == '\0'
+
+    free(str)
+end
+
 @testset "std::vector<$T>" for T in StdVectors.types
     vec = StdVector{T}()
     @test vec.cxx ≠ C_NULL
@@ -64,32 +116,4 @@ end
     @test isempty(vec)
 
     free(vec)
-end
-
-@testset "std::shared_ptr<$T>" for T in StdSharedPtrs.types
-    ptr = StdSharedPtr{T}()
-    @test ptr.cxx ≠ C_NULL
-    @test eltype(ptr) ≡ T
-
-    @test isempty(ptr)
-
-    ptr[] = T(42)
-    @test !isempty(ptr)
-    @test ptr[] == 42
-
-    @test use_count(ptr) == 1
-    ptr2 = copy(ptr)
-    @test ptr2[] == 42
-    @test use_count(ptr) == 2
-    @test use_count(ptr2) == 2
-
-    empty!(ptr)
-    @test isempty(ptr)
-    @test !isempty(ptr2)
-
-    free(ptr)
-
-    @test ptr2[] == 42
-
-    free(ptr2)
 end
