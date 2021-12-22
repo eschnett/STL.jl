@@ -45,7 +45,7 @@ function generate(::Type{StdSharedPtr{T}}) where {T}
                      [FnArg(:ptr, Ptr{StdSharedPtr{T}}, "ptr", "std::shared_ptr<$CT> * restrict", StdSharedPtr{T}, identity)],
                      "ptr->reset();"))
 
-    eval(cxxfunction(FnName(:(Base.isempty), "std_shared_ptr_$(NT)_isempty", libSTL), FnResult(Bool, "uint8_t"),
+    eval(cxxfunction(FnName(:(Base.isempty), "std_shared_ptr_$(NT)_isempty", libSTL), FnResult(Bool, "bool"),
                      [FnArg(:ptr, Ptr{StdSharedPtr{T}}, "ptr", "const std::shared_ptr<$CT> * restrict", StdSharedPtr{T}, identity)],
                      "return !*ptr;"))
 
@@ -71,6 +71,12 @@ function generate(::Type{StdSharedPtr{T}}) where {T}
                      "return ptr->use_count();"))
     @eval export use_count
 
+    eval(cxxfunction(FnName(:(Base.:(==)), "std_shared_ptr_$(NT)_equals", libSTL), FnResult(Bool, "bool"),
+                     [FnArg(:ptr1, Ptr{StdSharedPtr{T}}, "ptr1", "const std::shared_ptr<$CT> * restrict", StdSharedPtr{T},
+                            identity),
+                      FnArg(:ptr2, Ptr{StdSharedPtr{T}}, "ptr2", "const std::shared_ptr<$CT> * restrict", StdSharedPtr{T},
+                            identity)], "return *ptr1 == *ptr2;"))
+
     eval(cxxfunction(FnName(:make_shared, "std_make_shared_$(NT)", libSTL),
                      FnResult(Ptr{StdSharedPtr{T}}, "std::shared_ptr<$CT> *", StdSharedPtr{T}, expr -> :(StdSharedPtr{$T}($expr))),
                      [FnArg(:type, Nothing, "type", "void", Type{T}, identity; skip=true),
@@ -87,7 +93,7 @@ function generate(::Type{StdSharedPtr{T}}) where {T}
 end
 
 const types = Stds.value_types
-for T in types
+for T in sort!(collect(types); by=string)
     generate(StdSharedPtr{T})
 end
 

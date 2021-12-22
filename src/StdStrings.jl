@@ -22,7 +22,7 @@ Stds.convert_result(::Type{StdString}, ptr::Ptr{StdString}) = StdString(ptr)
 
 StdString() = StdString_new()
 StdString(str::AbstractString) = StdString_new(str, ncodeunits(str))
-Base.convert(String, str::StdString) = StdString_String(str)
+Base.convert(::Type{String}, str::StdString) = StdString_String(str)
 
 function generate(::Type{StdString})
     eval(cxxfunction(FnName(:StdString_new, "std_string_new", libSTL),
@@ -56,11 +56,18 @@ function generate(::Type{StdString})
                       FnArg(:elt, Cchar, "elt", "char", Char, expr -> :(convert(Cchar, $expr))),
                       FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "(*str)[idx] = elt;"))
 
-    return eval(cxxfunction(FnName(:pointer, "std_string_String", libSTL),
-                            FnResult(Tuple{Ptr{Cchar},Csize_t}, "std::tuple<const char *, std::size_t>", String,
-                                     expr -> :(unsafe_string($expr[1], $expr[2]))),
-                            [FnArg(:str, Ptr{StdString}, "str", "const std::string * restrict", StdString, identity)],
-                            "return std::make_tuple(str->c_str(), str->size());"))
+    eval(cxxfunction(FnName(:(Base.:(==)), "std_string_equals", libSTL), FnResult(Bool, "bool"),
+                     [FnArg(:str1, Ptr{StdString}, "str1", "const std::string * restrict", StdString, identity),
+                      FnArg(:str2, Ptr{StdString}, "str2", "const std::string * restrict", StdString, identity)],
+                     "return *str1 == *str2;"))
+
+    eval(cxxfunction(FnName(:pointer, "std_string_String", libSTL),
+                     FnResult(Tuple{Ptr{Cchar},Csize_t}, "std::tuple<const char *, std::size_t>", String,
+                              expr -> :(unsafe_string($expr[1], $expr[2]))),
+                     [FnArg(:str, Ptr{StdString}, "str", "const std::string * restrict", StdString, identity)],
+                     "return std::make_tuple(str->c_str(), str->size());"))
+
+    return nothing
 end
 
 generate(StdString)

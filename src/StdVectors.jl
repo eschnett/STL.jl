@@ -8,6 +8,7 @@ using STL_jll
 ################################################################################
 
 eval(cxxprelude("""
+    #include <string>
     #include <vector>
     """))
 
@@ -27,8 +28,7 @@ StdVector{T}(size::Integer) where {T} = StdVector_new(T, size)
 # Base.convert(Vector{T}, vec::StdVector) = ...
 
 function generate(::Type{StdVector{T}}) where {T}
-    #TODO CT = T == Bool ? "bool" : T == StdString ? "std::string" : cxxtype[T]
-    CT = T == Bool ? "bool" : cxxtype[T]
+    CT = T == Bool ? "bool" : T == StdString ? "std::string" : cxxtype[T]
     NT = cxxname(CT)
 
     eval(cxxfunction(FnName(:StdVector_new, "std_vector_$(NT)_new", libSTL),
@@ -67,15 +67,21 @@ function generate(::Type{StdVector{T}}) where {T}
                           FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "return &(*vec)[idx];"))
     end
 
-    return eval(cxxfunction(FnName(:(Base.setindex!), "std_vector_$(NT)_setindex_", libSTL), FnResult(Nothing, "void"),
-                            [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
-                             FnArg(:elt, Ptr{T}, "elt", "$CT const *", Any, expr -> :(convert_arg(Ptr{$T}, convert($T, $expr)))),
-                             FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "(*vec)[idx] = *elt;"))
+    eval(cxxfunction(FnName(:(Base.setindex!), "std_vector_$(NT)_setindex_", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
+                      FnArg(:elt, Ptr{T}, "elt", "$CT const *", Any, expr -> :(convert_arg(Ptr{$T}, convert($T, $expr)))),
+                      FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "(*vec)[idx] = *elt;"))
+
+    eval(cxxfunction(FnName(:(Base.:(==)), "std_vector_$(NT)_equals", libSTL), FnResult(Bool, "bool"),
+                     [FnArg(:vec1, Ptr{StdVector{T}}, "vec1", "const std::vector<$CT> * restrict", StdVector{T}, identity),
+                      FnArg(:vec2, Ptr{StdVector{T}}, "vec2", "const std::vector<$CT> * restrict", StdVector{T}, identity)],
+                     "return *vec1 == *vec2;"))
+
+    return nothing
 end
 
-#TODO const types = Stds.value_types ∪ Set([StdString])
-const types = Stds.value_types
-for T in types
+const types = Stds.value_types ∪ Set([StdString])
+for T in sort!(collect(types); by=string)
     generate(StdVector{T})
 end
 
