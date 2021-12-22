@@ -24,8 +24,7 @@ Stds.convert_result(::Type{StdSharedPtr{T}}, ptr::Ptr{StdSharedPtr{T}}) where {T
 
 StdSharedPtr{T}() where {T} = StdSharedPtr_new(T)
 
-const types = Stds.value_types
-for T in types
+function generate(::Type{StdSharedPtr{T}}) where {T}
     CT = T == Bool ? "bool" : cxxtype[T]
     NT = cxxname(CT)
 
@@ -70,7 +69,7 @@ for T in types
                      FnResult(Csize_t, "std::size_t", Int, expr -> :(convert(Int, $expr))),
                      [FnArg(:ptr, Ptr{StdSharedPtr{T}}, "ptr", "const std::shared_ptr<$CT> * restrict", StdSharedPtr{T}, identity)],
                      "return ptr->use_count();"))
-    export use_count
+    @eval export use_count
 
     eval(cxxfunction(FnName(:make_shared, "std_make_shared_$(NT)", libSTL),
                      FnResult(Ptr{StdSharedPtr{T}}, "std::shared_ptr<$CT> *", StdSharedPtr{T}, expr -> :(StdSharedPtr{$T}($expr))),
@@ -82,7 +81,14 @@ for T in types
                      ptr->swap(valptr);
                      return ptr;
                      """))
-    export make_shared
+    @eval export make_shared
+
+    return nothing
+end
+
+const types = Stds.value_types
+for T in types
+    generate(StdSharedPtr{T})
 end
 
 Stds.free(ptr::StdSharedPtr) = StdSharedPtr_delete(ptr)

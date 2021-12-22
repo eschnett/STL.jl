@@ -3,9 +3,11 @@ module STL
 using Reexport
 
 include("Stds.jl")
+
+include("StdStrings.jl")
+
 include("StdMaps.jl")
 include("StdSharedPtrs.jl")
-include("StdStrings.jl")
 include("StdVectors.jl")
 
 @reexport using .Stds

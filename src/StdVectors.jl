@@ -1,5 +1,6 @@
 module StdVectors
 
+using ..StdStrings
 using ..Stds
 using CxxInterface
 using STL_jll
@@ -25,8 +26,8 @@ StdVector{T}(size::Integer) where {T} = StdVector_new(T, size)
 # Base.convert(Vector, vec::StdVector) = ...
 # Base.convert(Vector{T}, vec::StdVector) = ...
 
-const types = Stds.value_types
-for T in types
+function generate(::Type{StdVector{T}}) where {T}
+    #TODO CT = T == Bool ? "bool" : T == StdString ? "std::string" : cxxtype[T]
     CT = T == Bool ? "bool" : cxxtype[T]
     NT = cxxname(CT)
 
@@ -66,10 +67,16 @@ for T in types
                           FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "return &(*vec)[idx];"))
     end
 
-    eval(cxxfunction(FnName(:(Base.setindex!), "std_vector_$(NT)_setindex_", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
-                      FnArg(:elt, Ptr{T}, "elt", "$CT const *", Any, expr -> :(convert_arg(Ptr{$T}, convert($T, $expr)))),
-                      FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "(*vec)[idx] = *elt;"))
+    return eval(cxxfunction(FnName(:(Base.setindex!), "std_vector_$(NT)_setindex_", libSTL), FnResult(Nothing, "void"),
+                            [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
+                             FnArg(:elt, Ptr{T}, "elt", "$CT const *", Any, expr -> :(convert_arg(Ptr{$T}, convert($T, $expr)))),
+                             FnArg(:idx, Csize_t, "idx", "std::size_t", Integer, identity)], "(*vec)[idx] = *elt;"))
+end
+
+#TODO const types = Stds.value_types ∪ Set([StdString])
+const types = Stds.value_types
+for T in types
+    generate(StdVector{T})
 end
 
 Stds.free(vec::StdVector) = StdVector_delete(vec)

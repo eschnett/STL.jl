@@ -132,3 +132,7 @@ end
 
     free(vec)
 end
+
+@testset "std::vector<std::string>" begin end
+
+@testset "std::map<std::string, bool>" begin end
