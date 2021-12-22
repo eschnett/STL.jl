@@ -1,102 +1,102 @@
 using STL
 using Test
 
-#TODO @testset "std::map<$K,$T>" for K in StdMaps.keys, T in StdMaps.types
-#TODO     mkK(i) = K ≡ Bool ? i % Bool : K <: Ptr ? T(i) : i
-#TODO     mkT(i) = T ≡ Bool ? i % Bool : T <: Ptr ? T(i) : i
-#TODO 
-#TODO     map = StdMap{K,T}()
-#TODO     @test keytype(map) ≡ K
-#TODO     @test eltype(map) ≡ T
-#TODO     @test map.cxx ≠ C_NULL
-#TODO 
-#TODO     @test length(map) == 0
-#TODO     @test isempty(map)
-#TODO 
-#TODO     N = K ≡ Bool ? 2 : 10
-#TODO     for i in 0:(N - 1)
-#TODO         map[mkK(i)] = mkT(i)
-#TODO     end
-#TODO     @test length(map) == N
-#TODO     for i in 0:(N - 1)
-#TODO         @test haskey(map, mkK(i))
-#TODO         @test map[mkK(i)] == mkT(i)
-#TODO         if K ≢ Bool
-#TODO             @test !haskey(map, mkK(i + 20))
-#TODO         end
-#TODO     end
-#TODO 
-#TODO     elts = Dict([elt for elt in map])
-#TODO     @test typeof(elts) == Dict{K,T}
-#TODO     @test elts == Dict([mkK(i) => mkT(i) for i in 0:(N - 1)])
-#TODO 
-#TODO     for i in 0:(N - 1)
-#TODO         @test haskey(map, mkK(i))
-#TODO         delete!(map, mkK(i))
-#TODO         @test !haskey(map, mkK(i))
-#TODO     end
-#TODO 
-#TODO     @test isempty(map)
-#TODO 
-#TODO     free(map)
-#TODO end
-#TODO 
-#TODO @testset "std::shared_ptr<$T>" for T in StdSharedPtrs.types
-#TODO     mkT(i) = T ≡ Bool ? i % Bool : T(i)
-#TODO 
-#TODO     ptr = StdSharedPtr{T}()
-#TODO     @test ptr.cxx ≠ C_NULL
-#TODO     @test eltype(ptr) ≡ T
-#TODO 
-#TODO     @test isempty(ptr)
-#TODO 
-#TODO     ptr = make_shared(T, mkT(24))
-#TODO     @test !isempty(ptr)
-#TODO     @test ptr[] == mkT(24)
-#TODO 
-#TODO     ptr[] = mkT(42)
-#TODO     @test ptr[] == mkT(42)
-#TODO 
-#TODO     @test use_count(ptr) == 1
-#TODO     ptr2 = copy(ptr)
-#TODO     @test ptr2[] == mkT(42)
-#TODO     @test use_count(ptr) == 2
-#TODO     @test use_count(ptr2) == 2
-#TODO 
-#TODO     empty!(ptr)
-#TODO     @test isempty(ptr)
-#TODO     @test !isempty(ptr2)
-#TODO 
-#TODO     free(ptr)
-#TODO 
-#TODO     @test ptr2[] == mkT(42)
-#TODO 
-#TODO     free(ptr2)
-#TODO end
-#TODO 
-#TODO @testset "std::string" begin
-#TODO     str = StdString()
-#TODO     @test str.cxx ≠ C_NULL
-#TODO     @test eltype(str) ≡ Char
-#TODO 
-#TODO     @test length(str) == 0
-#TODO     @test isempty(str)
-#TODO 
-#TODO     free(str)
-#TODO 
-#TODO     str = StdString("Hello, World!")
-#TODO     @test length(str) == 13
-#TODO 
-#TODO     @test str[0] == 'H'
-#TODO     @test str[7] == 'W'
-#TODO     @test str[12] == '!'
-#TODO 
-#TODO     str[12] = '\0'
-#TODO     @test length(str) == 13
-#TODO     @test str[12] == '\0'
-#TODO 
-#TODO     free(str)
-#TODO end
+@testset "std::map<$K,$T>" for K in StdMaps.keys, T in StdMaps.types
+    mkK(i) = K ≡ Bool ? i % Bool : K <: Ptr ? T(i) : i
+    mkT(i) = T ≡ Bool ? i % Bool : T <: Ptr ? T(i) : i
+
+    map = StdMap{K,T}()
+    @test keytype(map) ≡ K
+    @test eltype(map) ≡ T
+    @test map.cxx ≠ C_NULL
+
+    @test length(map) == 0
+    @test isempty(map)
+
+    N = K ≡ Bool ? 2 : 10
+    for i in 0:(N - 1)
+        map[mkK(i)] = mkT(i)
+    end
+    @test length(map) == N
+    for i in 0:(N - 1)
+        @test haskey(map, mkK(i))
+        @test map[mkK(i)] == mkT(i)
+        if K ≢ Bool
+            @test !haskey(map, mkK(i + 20))
+        end
+    end
+
+    elts = Dict([elt for elt in map])
+    @test typeof(elts) == Dict{K,T}
+    @test elts == Dict([mkK(i) => mkT(i) for i in 0:(N - 1)])
+
+    for i in 0:(N - 1)
+        @test haskey(map, mkK(i))
+        delete!(map, mkK(i))
+        @test !haskey(map, mkK(i))
+    end
+
+    @test isempty(map)
+
+    free(map)
+end
+
+@testset "std::shared_ptr<$T>" for T in StdSharedPtrs.types
+    mkT(i) = T ≡ Bool ? i % Bool : T(i)
+
+    ptr = StdSharedPtr{T}()
+    @test ptr.cxx ≠ C_NULL
+    @test eltype(ptr) ≡ T
+
+    @test isempty(ptr)
+
+    ptr = make_shared(T, mkT(24))
+    @test !isempty(ptr)
+    @test ptr[] == mkT(24)
+
+    ptr[] = mkT(42)
+    @test ptr[] == mkT(42)
+
+    @test use_count(ptr) == 1
+    ptr2 = copy(ptr)
+    @test ptr2[] == mkT(42)
+    @test use_count(ptr) == 2
+    @test use_count(ptr2) == 2
+
+    empty!(ptr)
+    @test isempty(ptr)
+    @test !isempty(ptr2)
+
+    free(ptr)
+
+    @test ptr2[] == mkT(42)
+
+    free(ptr2)
+end
+
+@testset "std::string" begin
+    str = StdString()
+    @test str.cxx ≠ C_NULL
+    @test eltype(str) ≡ Char
+
+    @test length(str) == 0
+    @test isempty(str)
+
+    free(str)
+
+    str = StdString("Hello, World!")
+    @test length(str) == 13
+
+    @test str[0] == 'H'
+    @test str[7] == 'W'
+    @test str[12] == '!'
+
+    str[12] = '\0'
+    @test length(str) == 13
+    @test str[12] == '\0'
+
+    free(str)
+end
 
 @testset "std::vector<$T>" for T in StdVectors.types
     # TODO: Need to free the generated StdString objects
