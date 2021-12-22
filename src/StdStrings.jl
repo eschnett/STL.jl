@@ -10,7 +10,9 @@ eval(cxxprelude("""
     #include <string>
     """))
 
-struct StdString
+abstract type AbstractStdString <: AbstractString end
+
+struct StdString <: AbstractStdString
     cxx::Ptr{StdString}
     StdString(cxx::Ptr{StdString}) = new(cxx)
 end
@@ -78,9 +80,14 @@ Base.isempty(str::StdString) = length(str) == 0
 
 Base.eltype(::StdString) = Char
 
+function Base.iterate(str::StdString, pos::Int=0)
+    pos == length(str) && return nothing
+    return str[pos], pos + 1
+end
+
 ################################################################################
 
-mutable struct GCStdString <: AbstractString
+mutable struct GCStdString <: AbstractStdString
     managed::StdString
     function GCStdString(str::StdString)
         res = new(str)
@@ -101,5 +108,6 @@ Base.isempty(str::GCStdString) = isempty(str.managed)
 Base.getindex(str::GCStdString, idx) = getindex(str.managed, idx)
 Base.setindex!(str::GCStdString, elt, idx) = setindex!(str.managed, elt, idx)
 Base.eltype(::GCStdString) = eltype(StdString)
+Base.iterate(str::GCStdString, pos...) = iterate(str.managed, pos...)
 
 end

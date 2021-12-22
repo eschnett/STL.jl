@@ -4,7 +4,7 @@
 
 /*
 function StdVector_new(type::Type{Bool})
-    res = ccall(("std_vector_bool_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Bool}}, ())
+    res = ccall(("std_vector_bool_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Bool}}, ())
     return StdVector{Bool}(res)::STL.StdVectors.StdVector{Bool}
 end
 */
@@ -16,7 +16,7 @@ extern "C" std::vector<bool> * std_vector_bool_new(
 
 /*
 function StdVector_new(type::Type{Bool}, size::Integer)
-    res = ccall(("std_vector_bool_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Bool}}, (UInt64,), size)
+    res = ccall(("std_vector_bool_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Bool}}, (UInt64,), size)
     return StdVector{Bool}(res)::STL.StdVectors.StdVector{Bool}
 end
 */
@@ -28,7 +28,7 @@ extern "C" std::vector<bool> * std_vector_bool_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{Bool})
-    res = ccall(("std_vector_bool_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Bool}},), vec)
+    res = ccall(("std_vector_bool_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Bool}},), vec)
     return res::Nothing
 end
 */
@@ -40,7 +40,7 @@ extern "C" void std_vector_bool_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{Bool})
-    res = ccall(("std_vector_bool_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Bool}}, (Ptr{STL.StdVectors.StdVector{Bool}},), vec)
+    res = ccall(("std_vector_bool_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Bool}}, (Ptr{STL.StdVectors.StdVector{Bool}},), vec)
     return StdVector{Bool}(res)::STL.StdVectors.StdVector{Bool}
 end
 */
@@ -52,7 +52,7 @@ extern "C" std::vector<bool> * std_vector_bool_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{Bool}, size::Integer)
-    res = ccall(("std_vector_bool_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Bool}}, UInt64), vec, size)
+    res = ccall(("std_vector_bool_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Bool}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -65,7 +65,7 @@ extern "C" void std_vector_bool_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{Bool})
-    res = ccall(("std_vector_bool_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Bool}},), vec)
+    res = ccall(("std_vector_bool_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Bool}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -77,7 +77,7 @@ extern "C" std::size_t std_vector_bool_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{Bool}, idx::Integer)
-    res = ccall(("std_vector_bool_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Bool}}, UInt64), vec, idx)
+    res = ccall(("std_vector_bool_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Bool}}, UInt64), vec, idx)
     return res::Bool
 end
 */
@@ -90,7 +90,7 @@ extern "C" bool std_vector_bool_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{Bool}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_bool_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Bool}}, Ptr{Bool}, UInt64), vec, convert_arg(Ptr{Bool}, convert(Bool, elt)), idx)
+    res = ccall(("std_vector_bool_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Bool}}, Ptr{Bool}, UInt64), vec, convert_arg(Ptr{Bool}, convert(Bool, elt)), idx)
     return res::Nothing
 end
 */
@@ -104,7 +104,7 @@ extern "C" void std_vector_bool_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{Bool}, vec2::STL.StdVectors.StdVector{Bool})
-    res = ccall(("std_vector_bool_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Bool}}, Ptr{STL.StdVectors.StdVector{Bool}}), vec1, vec2)
+    res = ccall(("std_vector_bool_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Bool}}, Ptr{STL.StdVectors.StdVector{Bool}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -117,7 +117,7 @@ extern "C" bool std_vector_bool_equals(
 
 /*
 function StdVector_new(type::Type{ComplexF32})
-    res = ccall(("std_vector_float__Complex_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF32}}, ())
+    res = ccall(("std_vector_float__Complex_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF32}}, ())
     return StdVector{ComplexF32}(res)::STL.StdVectors.StdVector{ComplexF32}
 end
 */
@@ -129,7 +129,7 @@ extern "C" std::vector<float _Complex> * std_vector_float__Complex_new(
 
 /*
 function StdVector_new(type::Type{ComplexF32}, size::Integer)
-    res = ccall(("std_vector_float__Complex_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF32}}, (UInt64,), size)
+    res = ccall(("std_vector_float__Complex_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF32}}, (UInt64,), size)
     return StdVector{ComplexF32}(res)::STL.StdVectors.StdVector{ComplexF32}
 end
 */
@@ -141,7 +141,7 @@ extern "C" std::vector<float _Complex> * std_vector_float__Complex_new_std_size_
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF32}},), vec)
+    res = ccall(("std_vector_float__Complex_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF32}},), vec)
     return res::Nothing
 end
 */
@@ -153,7 +153,7 @@ extern "C" void std_vector_float__Complex_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF32}}, (Ptr{STL.StdVectors.StdVector{ComplexF32}},), vec)
+    res = ccall(("std_vector_float__Complex_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF32}}, (Ptr{STL.StdVectors.StdVector{ComplexF32}},), vec)
     return StdVector{ComplexF32}(res)::STL.StdVectors.StdVector{ComplexF32}
 end
 */
@@ -165,7 +165,7 @@ extern "C" std::vector<float _Complex> * std_vector_float__Complex_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{ComplexF32}, size::Integer)
-    res = ccall(("std_vector_float__Complex_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF32}}, UInt64), vec, size)
+    res = ccall(("std_vector_float__Complex_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF32}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -178,7 +178,7 @@ extern "C" void std_vector_float__Complex_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{ComplexF32}},), vec)
+    res = ccall(("std_vector_float__Complex_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{ComplexF32}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -190,7 +190,7 @@ extern "C" std::size_t std_vector_float__Complex_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{ComplexF32}, idx::Integer)
-    res = ccall(("std_vector_float__Complex_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{ComplexF32}, (Ptr{STL.StdVectors.StdVector{ComplexF32}}, UInt64), vec, idx)
+    res = ccall(("std_vector_float__Complex_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{ComplexF32}, (Ptr{STL.StdVectors.StdVector{ComplexF32}}, UInt64), vec, idx)
     return convert_result(ComplexF32, res)::ComplexF32
 end
 */
@@ -203,7 +203,7 @@ extern "C" float _Complex * std_vector_float__Complex_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{ComplexF32}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_float__Complex_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF32}}, Ptr{ComplexF32}, UInt64), vec, convert_arg(Ptr{ComplexF32}, convert(ComplexF32, elt)), idx)
+    res = ccall(("std_vector_float__Complex_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF32}}, Ptr{ComplexF32}, UInt64), vec, convert_arg(Ptr{ComplexF32}, convert(ComplexF32, elt)), idx)
     return res::Nothing
 end
 */
@@ -217,7 +217,7 @@ extern "C" void std_vector_float__Complex_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{ComplexF32}, vec2::STL.StdVectors.StdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{ComplexF32}}, Ptr{STL.StdVectors.StdVector{ComplexF32}}), vec1, vec2)
+    res = ccall(("std_vector_float__Complex_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{ComplexF32}}, Ptr{STL.StdVectors.StdVector{ComplexF32}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -230,7 +230,7 @@ extern "C" bool std_vector_float__Complex_equals(
 
 /*
 function StdVector_new(type::Type{ComplexF64})
-    res = ccall(("std_vector_double__Complex_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF64}}, ())
+    res = ccall(("std_vector_double__Complex_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF64}}, ())
     return StdVector{ComplexF64}(res)::STL.StdVectors.StdVector{ComplexF64}
 end
 */
@@ -242,7 +242,7 @@ extern "C" std::vector<double _Complex> * std_vector_double__Complex_new(
 
 /*
 function StdVector_new(type::Type{ComplexF64}, size::Integer)
-    res = ccall(("std_vector_double__Complex_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF64}}, (UInt64,), size)
+    res = ccall(("std_vector_double__Complex_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF64}}, (UInt64,), size)
     return StdVector{ComplexF64}(res)::STL.StdVectors.StdVector{ComplexF64}
 end
 */
@@ -254,7 +254,7 @@ extern "C" std::vector<double _Complex> * std_vector_double__Complex_new_std_siz
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{ComplexF64})
-    res = ccall(("std_vector_double__Complex_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF64}},), vec)
+    res = ccall(("std_vector_double__Complex_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF64}},), vec)
     return res::Nothing
 end
 */
@@ -266,7 +266,7 @@ extern "C" void std_vector_double__Complex_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{ComplexF64})
-    res = ccall(("std_vector_double__Complex_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF64}}, (Ptr{STL.StdVectors.StdVector{ComplexF64}},), vec)
+    res = ccall(("std_vector_double__Complex_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{ComplexF64}}, (Ptr{STL.StdVectors.StdVector{ComplexF64}},), vec)
     return StdVector{ComplexF64}(res)::STL.StdVectors.StdVector{ComplexF64}
 end
 */
@@ -278,7 +278,7 @@ extern "C" std::vector<double _Complex> * std_vector_double__Complex_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{ComplexF64}, size::Integer)
-    res = ccall(("std_vector_double__Complex_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF64}}, UInt64), vec, size)
+    res = ccall(("std_vector_double__Complex_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF64}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -291,7 +291,7 @@ extern "C" void std_vector_double__Complex_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{ComplexF64})
-    res = ccall(("std_vector_double__Complex_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{ComplexF64}},), vec)
+    res = ccall(("std_vector_double__Complex_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{ComplexF64}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -303,7 +303,7 @@ extern "C" std::size_t std_vector_double__Complex_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{ComplexF64}, idx::Integer)
-    res = ccall(("std_vector_double__Complex_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{ComplexF64}, (Ptr{STL.StdVectors.StdVector{ComplexF64}}, UInt64), vec, idx)
+    res = ccall(("std_vector_double__Complex_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{ComplexF64}, (Ptr{STL.StdVectors.StdVector{ComplexF64}}, UInt64), vec, idx)
     return convert_result(ComplexF64, res)::ComplexF64
 end
 */
@@ -316,7 +316,7 @@ extern "C" double _Complex * std_vector_double__Complex_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{ComplexF64}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_double__Complex_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF64}}, Ptr{ComplexF64}, UInt64), vec, convert_arg(Ptr{ComplexF64}, convert(ComplexF64, elt)), idx)
+    res = ccall(("std_vector_double__Complex_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{ComplexF64}}, Ptr{ComplexF64}, UInt64), vec, convert_arg(Ptr{ComplexF64}, convert(ComplexF64, elt)), idx)
     return res::Nothing
 end
 */
@@ -330,7 +330,7 @@ extern "C" void std_vector_double__Complex_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{ComplexF64}, vec2::STL.StdVectors.StdVector{ComplexF64})
-    res = ccall(("std_vector_double__Complex_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{ComplexF64}}, Ptr{STL.StdVectors.StdVector{ComplexF64}}), vec1, vec2)
+    res = ccall(("std_vector_double__Complex_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{ComplexF64}}, Ptr{STL.StdVectors.StdVector{ComplexF64}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -343,7 +343,7 @@ extern "C" bool std_vector_double__Complex_equals(
 
 /*
 function StdVector_new(type::Type{Float32})
-    res = ccall(("std_vector_float_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float32}}, ())
+    res = ccall(("std_vector_float_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float32}}, ())
     return StdVector{Float32}(res)::STL.StdVectors.StdVector{Float32}
 end
 */
@@ -355,7 +355,7 @@ extern "C" std::vector<float> * std_vector_float_new(
 
 /*
 function StdVector_new(type::Type{Float32}, size::Integer)
-    res = ccall(("std_vector_float_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float32}}, (UInt64,), size)
+    res = ccall(("std_vector_float_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float32}}, (UInt64,), size)
     return StdVector{Float32}(res)::STL.StdVectors.StdVector{Float32}
 end
 */
@@ -367,7 +367,7 @@ extern "C" std::vector<float> * std_vector_float_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{Float32})
-    res = ccall(("std_vector_float_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float32}},), vec)
+    res = ccall(("std_vector_float_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float32}},), vec)
     return res::Nothing
 end
 */
@@ -379,7 +379,7 @@ extern "C" void std_vector_float_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{Float32})
-    res = ccall(("std_vector_float_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float32}}, (Ptr{STL.StdVectors.StdVector{Float32}},), vec)
+    res = ccall(("std_vector_float_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float32}}, (Ptr{STL.StdVectors.StdVector{Float32}},), vec)
     return StdVector{Float32}(res)::STL.StdVectors.StdVector{Float32}
 end
 */
@@ -391,7 +391,7 @@ extern "C" std::vector<float> * std_vector_float_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{Float32}, size::Integer)
-    res = ccall(("std_vector_float_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float32}}, UInt64), vec, size)
+    res = ccall(("std_vector_float_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float32}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -404,7 +404,7 @@ extern "C" void std_vector_float_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{Float32})
-    res = ccall(("std_vector_float_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Float32}},), vec)
+    res = ccall(("std_vector_float_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Float32}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -416,7 +416,7 @@ extern "C" std::size_t std_vector_float_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{Float32}, idx::Integer)
-    res = ccall(("std_vector_float_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{Float32}, (Ptr{STL.StdVectors.StdVector{Float32}}, UInt64), vec, idx)
+    res = ccall(("std_vector_float_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{Float32}, (Ptr{STL.StdVectors.StdVector{Float32}}, UInt64), vec, idx)
     return convert_result(Float32, res)::Float32
 end
 */
@@ -429,7 +429,7 @@ extern "C" float * std_vector_float_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{Float32}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_float_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float32}}, Ptr{Float32}, UInt64), vec, convert_arg(Ptr{Float32}, convert(Float32, elt)), idx)
+    res = ccall(("std_vector_float_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float32}}, Ptr{Float32}, UInt64), vec, convert_arg(Ptr{Float32}, convert(Float32, elt)), idx)
     return res::Nothing
 end
 */
@@ -443,7 +443,7 @@ extern "C" void std_vector_float_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{Float32}, vec2::STL.StdVectors.StdVector{Float32})
-    res = ccall(("std_vector_float_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Float32}}, Ptr{STL.StdVectors.StdVector{Float32}}), vec1, vec2)
+    res = ccall(("std_vector_float_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Float32}}, Ptr{STL.StdVectors.StdVector{Float32}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -456,7 +456,7 @@ extern "C" bool std_vector_float_equals(
 
 /*
 function StdVector_new(type::Type{Float64})
-    res = ccall(("std_vector_double_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float64}}, ())
+    res = ccall(("std_vector_double_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float64}}, ())
     return StdVector{Float64}(res)::STL.StdVectors.StdVector{Float64}
 end
 */
@@ -468,7 +468,7 @@ extern "C" std::vector<double> * std_vector_double_new(
 
 /*
 function StdVector_new(type::Type{Float64}, size::Integer)
-    res = ccall(("std_vector_double_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float64}}, (UInt64,), size)
+    res = ccall(("std_vector_double_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float64}}, (UInt64,), size)
     return StdVector{Float64}(res)::STL.StdVectors.StdVector{Float64}
 end
 */
@@ -480,7 +480,7 @@ extern "C" std::vector<double> * std_vector_double_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{Float64})
-    res = ccall(("std_vector_double_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float64}},), vec)
+    res = ccall(("std_vector_double_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float64}},), vec)
     return res::Nothing
 end
 */
@@ -492,7 +492,7 @@ extern "C" void std_vector_double_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{Float64})
-    res = ccall(("std_vector_double_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float64}}, (Ptr{STL.StdVectors.StdVector{Float64}},), vec)
+    res = ccall(("std_vector_double_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Float64}}, (Ptr{STL.StdVectors.StdVector{Float64}},), vec)
     return StdVector{Float64}(res)::STL.StdVectors.StdVector{Float64}
 end
 */
@@ -504,7 +504,7 @@ extern "C" std::vector<double> * std_vector_double_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{Float64}, size::Integer)
-    res = ccall(("std_vector_double_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float64}}, UInt64), vec, size)
+    res = ccall(("std_vector_double_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float64}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -517,7 +517,7 @@ extern "C" void std_vector_double_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{Float64})
-    res = ccall(("std_vector_double_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Float64}},), vec)
+    res = ccall(("std_vector_double_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Float64}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -529,7 +529,7 @@ extern "C" std::size_t std_vector_double_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{Float64}, idx::Integer)
-    res = ccall(("std_vector_double_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{Float64}, (Ptr{STL.StdVectors.StdVector{Float64}}, UInt64), vec, idx)
+    res = ccall(("std_vector_double_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{Float64}, (Ptr{STL.StdVectors.StdVector{Float64}}, UInt64), vec, idx)
     return convert_result(Float64, res)::Float64
 end
 */
@@ -542,7 +542,7 @@ extern "C" double * std_vector_double_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{Float64}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_double_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float64}}, Ptr{Float64}, UInt64), vec, convert_arg(Ptr{Float64}, convert(Float64, elt)), idx)
+    res = ccall(("std_vector_double_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Float64}}, Ptr{Float64}, UInt64), vec, convert_arg(Ptr{Float64}, convert(Float64, elt)), idx)
     return res::Nothing
 end
 */
@@ -556,7 +556,7 @@ extern "C" void std_vector_double_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{Float64}, vec2::STL.StdVectors.StdVector{Float64})
-    res = ccall(("std_vector_double_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Float64}}, Ptr{STL.StdVectors.StdVector{Float64}}), vec1, vec2)
+    res = ccall(("std_vector_double_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Float64}}, Ptr{STL.StdVectors.StdVector{Float64}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -569,7 +569,7 @@ extern "C" bool std_vector_double_equals(
 
 /*
 function StdVector_new(type::Type{Int16})
-    res = ccall(("std_vector_int16_t_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int16}}, ())
+    res = ccall(("std_vector_int16_t_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int16}}, ())
     return StdVector{Int16}(res)::STL.StdVectors.StdVector{Int16}
 end
 */
@@ -581,7 +581,7 @@ extern "C" std::vector<int16_t> * std_vector_int16_t_new(
 
 /*
 function StdVector_new(type::Type{Int16}, size::Integer)
-    res = ccall(("std_vector_int16_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int16}}, (UInt64,), size)
+    res = ccall(("std_vector_int16_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int16}}, (UInt64,), size)
     return StdVector{Int16}(res)::STL.StdVectors.StdVector{Int16}
 end
 */
@@ -593,7 +593,7 @@ extern "C" std::vector<int16_t> * std_vector_int16_t_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{Int16})
-    res = ccall(("std_vector_int16_t_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int16}},), vec)
+    res = ccall(("std_vector_int16_t_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int16}},), vec)
     return res::Nothing
 end
 */
@@ -605,7 +605,7 @@ extern "C" void std_vector_int16_t_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{Int16})
-    res = ccall(("std_vector_int16_t_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int16}}, (Ptr{STL.StdVectors.StdVector{Int16}},), vec)
+    res = ccall(("std_vector_int16_t_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int16}}, (Ptr{STL.StdVectors.StdVector{Int16}},), vec)
     return StdVector{Int16}(res)::STL.StdVectors.StdVector{Int16}
 end
 */
@@ -617,7 +617,7 @@ extern "C" std::vector<int16_t> * std_vector_int16_t_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{Int16}, size::Integer)
-    res = ccall(("std_vector_int16_t_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int16}}, UInt64), vec, size)
+    res = ccall(("std_vector_int16_t_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int16}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -630,7 +630,7 @@ extern "C" void std_vector_int16_t_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{Int16})
-    res = ccall(("std_vector_int16_t_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Int16}},), vec)
+    res = ccall(("std_vector_int16_t_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Int16}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -642,7 +642,7 @@ extern "C" std::size_t std_vector_int16_t_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{Int16}, idx::Integer)
-    res = ccall(("std_vector_int16_t_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{Int16}, (Ptr{STL.StdVectors.StdVector{Int16}}, UInt64), vec, idx)
+    res = ccall(("std_vector_int16_t_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{Int16}, (Ptr{STL.StdVectors.StdVector{Int16}}, UInt64), vec, idx)
     return convert_result(Int16, res)::Int16
 end
 */
@@ -655,7 +655,7 @@ extern "C" int16_t * std_vector_int16_t_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{Int16}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_int16_t_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int16}}, Ptr{Int16}, UInt64), vec, convert_arg(Ptr{Int16}, convert(Int16, elt)), idx)
+    res = ccall(("std_vector_int16_t_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int16}}, Ptr{Int16}, UInt64), vec, convert_arg(Ptr{Int16}, convert(Int16, elt)), idx)
     return res::Nothing
 end
 */
@@ -669,7 +669,7 @@ extern "C" void std_vector_int16_t_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{Int16}, vec2::STL.StdVectors.StdVector{Int16})
-    res = ccall(("std_vector_int16_t_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Int16}}, Ptr{STL.StdVectors.StdVector{Int16}}), vec1, vec2)
+    res = ccall(("std_vector_int16_t_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Int16}}, Ptr{STL.StdVectors.StdVector{Int16}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -682,7 +682,7 @@ extern "C" bool std_vector_int16_t_equals(
 
 /*
 function StdVector_new(type::Type{Int32})
-    res = ccall(("std_vector_int32_t_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int32}}, ())
+    res = ccall(("std_vector_int32_t_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int32}}, ())
     return StdVector{Int32}(res)::STL.StdVectors.StdVector{Int32}
 end
 */
@@ -694,7 +694,7 @@ extern "C" std::vector<int32_t> * std_vector_int32_t_new(
 
 /*
 function StdVector_new(type::Type{Int32}, size::Integer)
-    res = ccall(("std_vector_int32_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int32}}, (UInt64,), size)
+    res = ccall(("std_vector_int32_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int32}}, (UInt64,), size)
     return StdVector{Int32}(res)::STL.StdVectors.StdVector{Int32}
 end
 */
@@ -706,7 +706,7 @@ extern "C" std::vector<int32_t> * std_vector_int32_t_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{Int32})
-    res = ccall(("std_vector_int32_t_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int32}},), vec)
+    res = ccall(("std_vector_int32_t_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int32}},), vec)
     return res::Nothing
 end
 */
@@ -718,7 +718,7 @@ extern "C" void std_vector_int32_t_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{Int32})
-    res = ccall(("std_vector_int32_t_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int32}}, (Ptr{STL.StdVectors.StdVector{Int32}},), vec)
+    res = ccall(("std_vector_int32_t_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int32}}, (Ptr{STL.StdVectors.StdVector{Int32}},), vec)
     return StdVector{Int32}(res)::STL.StdVectors.StdVector{Int32}
 end
 */
@@ -730,7 +730,7 @@ extern "C" std::vector<int32_t> * std_vector_int32_t_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{Int32}, size::Integer)
-    res = ccall(("std_vector_int32_t_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int32}}, UInt64), vec, size)
+    res = ccall(("std_vector_int32_t_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int32}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -743,7 +743,7 @@ extern "C" void std_vector_int32_t_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{Int32})
-    res = ccall(("std_vector_int32_t_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Int32}},), vec)
+    res = ccall(("std_vector_int32_t_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Int32}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -755,7 +755,7 @@ extern "C" std::size_t std_vector_int32_t_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{Int32}, idx::Integer)
-    res = ccall(("std_vector_int32_t_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{Int32}, (Ptr{STL.StdVectors.StdVector{Int32}}, UInt64), vec, idx)
+    res = ccall(("std_vector_int32_t_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{Int32}, (Ptr{STL.StdVectors.StdVector{Int32}}, UInt64), vec, idx)
     return convert_result(Int32, res)::Int32
 end
 */
@@ -768,7 +768,7 @@ extern "C" int32_t * std_vector_int32_t_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{Int32}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_int32_t_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int32}}, Ptr{Int32}, UInt64), vec, convert_arg(Ptr{Int32}, convert(Int32, elt)), idx)
+    res = ccall(("std_vector_int32_t_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int32}}, Ptr{Int32}, UInt64), vec, convert_arg(Ptr{Int32}, convert(Int32, elt)), idx)
     return res::Nothing
 end
 */
@@ -782,7 +782,7 @@ extern "C" void std_vector_int32_t_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{Int32}, vec2::STL.StdVectors.StdVector{Int32})
-    res = ccall(("std_vector_int32_t_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Int32}}, Ptr{STL.StdVectors.StdVector{Int32}}), vec1, vec2)
+    res = ccall(("std_vector_int32_t_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Int32}}, Ptr{STL.StdVectors.StdVector{Int32}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -795,7 +795,7 @@ extern "C" bool std_vector_int32_t_equals(
 
 /*
 function StdVector_new(type::Type{Int64})
-    res = ccall(("std_vector_int64_t_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int64}}, ())
+    res = ccall(("std_vector_int64_t_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int64}}, ())
     return StdVector{Int64}(res)::STL.StdVectors.StdVector{Int64}
 end
 */
@@ -807,7 +807,7 @@ extern "C" std::vector<int64_t> * std_vector_int64_t_new(
 
 /*
 function StdVector_new(type::Type{Int64}, size::Integer)
-    res = ccall(("std_vector_int64_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int64}}, (UInt64,), size)
+    res = ccall(("std_vector_int64_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int64}}, (UInt64,), size)
     return StdVector{Int64}(res)::STL.StdVectors.StdVector{Int64}
 end
 */
@@ -819,7 +819,7 @@ extern "C" std::vector<int64_t> * std_vector_int64_t_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{Int64})
-    res = ccall(("std_vector_int64_t_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int64}},), vec)
+    res = ccall(("std_vector_int64_t_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int64}},), vec)
     return res::Nothing
 end
 */
@@ -831,7 +831,7 @@ extern "C" void std_vector_int64_t_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{Int64})
-    res = ccall(("std_vector_int64_t_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int64}}, (Ptr{STL.StdVectors.StdVector{Int64}},), vec)
+    res = ccall(("std_vector_int64_t_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int64}}, (Ptr{STL.StdVectors.StdVector{Int64}},), vec)
     return StdVector{Int64}(res)::STL.StdVectors.StdVector{Int64}
 end
 */
@@ -843,7 +843,7 @@ extern "C" std::vector<int64_t> * std_vector_int64_t_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{Int64}, size::Integer)
-    res = ccall(("std_vector_int64_t_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int64}}, UInt64), vec, size)
+    res = ccall(("std_vector_int64_t_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int64}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -856,7 +856,7 @@ extern "C" void std_vector_int64_t_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{Int64})
-    res = ccall(("std_vector_int64_t_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Int64}},), vec)
+    res = ccall(("std_vector_int64_t_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Int64}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -868,7 +868,7 @@ extern "C" std::size_t std_vector_int64_t_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{Int64}, idx::Integer)
-    res = ccall(("std_vector_int64_t_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{Int64}, (Ptr{STL.StdVectors.StdVector{Int64}}, UInt64), vec, idx)
+    res = ccall(("std_vector_int64_t_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{Int64}, (Ptr{STL.StdVectors.StdVector{Int64}}, UInt64), vec, idx)
     return convert_result(Int64, res)::Int64
 end
 */
@@ -881,7 +881,7 @@ extern "C" int64_t * std_vector_int64_t_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{Int64}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_int64_t_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int64}}, Ptr{Int64}, UInt64), vec, convert_arg(Ptr{Int64}, convert(Int64, elt)), idx)
+    res = ccall(("std_vector_int64_t_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int64}}, Ptr{Int64}, UInt64), vec, convert_arg(Ptr{Int64}, convert(Int64, elt)), idx)
     return res::Nothing
 end
 */
@@ -895,7 +895,7 @@ extern "C" void std_vector_int64_t_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{Int64}, vec2::STL.StdVectors.StdVector{Int64})
-    res = ccall(("std_vector_int64_t_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Int64}}, Ptr{STL.StdVectors.StdVector{Int64}}), vec1, vec2)
+    res = ccall(("std_vector_int64_t_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Int64}}, Ptr{STL.StdVectors.StdVector{Int64}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -908,7 +908,7 @@ extern "C" bool std_vector_int64_t_equals(
 
 /*
 function StdVector_new(type::Type{Int8})
-    res = ccall(("std_vector_int8_t_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int8}}, ())
+    res = ccall(("std_vector_int8_t_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int8}}, ())
     return StdVector{Int8}(res)::STL.StdVectors.StdVector{Int8}
 end
 */
@@ -920,7 +920,7 @@ extern "C" std::vector<int8_t> * std_vector_int8_t_new(
 
 /*
 function StdVector_new(type::Type{Int8}, size::Integer)
-    res = ccall(("std_vector_int8_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int8}}, (UInt64,), size)
+    res = ccall(("std_vector_int8_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int8}}, (UInt64,), size)
     return StdVector{Int8}(res)::STL.StdVectors.StdVector{Int8}
 end
 */
@@ -932,7 +932,7 @@ extern "C" std::vector<int8_t> * std_vector_int8_t_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{Int8})
-    res = ccall(("std_vector_int8_t_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int8}},), vec)
+    res = ccall(("std_vector_int8_t_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int8}},), vec)
     return res::Nothing
 end
 */
@@ -944,7 +944,7 @@ extern "C" void std_vector_int8_t_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{Int8})
-    res = ccall(("std_vector_int8_t_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int8}}, (Ptr{STL.StdVectors.StdVector{Int8}},), vec)
+    res = ccall(("std_vector_int8_t_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Int8}}, (Ptr{STL.StdVectors.StdVector{Int8}},), vec)
     return StdVector{Int8}(res)::STL.StdVectors.StdVector{Int8}
 end
 */
@@ -956,7 +956,7 @@ extern "C" std::vector<int8_t> * std_vector_int8_t_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{Int8}, size::Integer)
-    res = ccall(("std_vector_int8_t_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int8}}, UInt64), vec, size)
+    res = ccall(("std_vector_int8_t_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int8}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -969,7 +969,7 @@ extern "C" void std_vector_int8_t_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{Int8})
-    res = ccall(("std_vector_int8_t_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Int8}},), vec)
+    res = ccall(("std_vector_int8_t_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Int8}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -981,7 +981,7 @@ extern "C" std::size_t std_vector_int8_t_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{Int8}, idx::Integer)
-    res = ccall(("std_vector_int8_t_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{Int8}, (Ptr{STL.StdVectors.StdVector{Int8}}, UInt64), vec, idx)
+    res = ccall(("std_vector_int8_t_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{Int8}, (Ptr{STL.StdVectors.StdVector{Int8}}, UInt64), vec, idx)
     return convert_result(Int8, res)::Int8
 end
 */
@@ -994,7 +994,7 @@ extern "C" int8_t * std_vector_int8_t_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{Int8}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_int8_t_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int8}}, Ptr{Int8}, UInt64), vec, convert_arg(Ptr{Int8}, convert(Int8, elt)), idx)
+    res = ccall(("std_vector_int8_t_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Int8}}, Ptr{Int8}, UInt64), vec, convert_arg(Ptr{Int8}, convert(Int8, elt)), idx)
     return res::Nothing
 end
 */
@@ -1008,7 +1008,7 @@ extern "C" void std_vector_int8_t_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{Int8}, vec2::STL.StdVectors.StdVector{Int8})
-    res = ccall(("std_vector_int8_t_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Int8}}, Ptr{STL.StdVectors.StdVector{Int8}}), vec1, vec2)
+    res = ccall(("std_vector_int8_t_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Int8}}, Ptr{STL.StdVectors.StdVector{Int8}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -1021,7 +1021,7 @@ extern "C" bool std_vector_int8_t_equals(
 
 /*
 function StdVector_new(type::Type{Ptr{Nothing}})
-    res = ccall(("std_vector_void___new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, ())
+    res = ccall(("std_vector_void___new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, ())
     return StdVector{Ptr{Nothing}}(res)::STL.StdVectors.StdVector{Ptr{Nothing}}
 end
 */
@@ -1033,7 +1033,7 @@ extern "C" std::vector<void *> * std_vector_void___new(
 
 /*
 function StdVector_new(type::Type{Ptr{Nothing}}, size::Integer)
-    res = ccall(("std_vector_void___new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, (UInt64,), size)
+    res = ccall(("std_vector_void___new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, (UInt64,), size)
     return StdVector{Ptr{Nothing}}(res)::STL.StdVectors.StdVector{Ptr{Nothing}}
 end
 */
@@ -1045,7 +1045,7 @@ extern "C" std::vector<void *> * std_vector_void___new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{Ptr{Nothing}})
-    res = ccall(("std_vector_void___delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}},), vec)
+    res = ccall(("std_vector_void___delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}},), vec)
     return res::Nothing
 end
 */
@@ -1057,7 +1057,7 @@ extern "C" void std_vector_void___delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{Ptr{Nothing}})
-    res = ccall(("std_vector_void___copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}},), vec)
+    res = ccall(("std_vector_void___copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}},), vec)
     return StdVector{Ptr{Nothing}}(res)::STL.StdVectors.StdVector{Ptr{Nothing}}
 end
 */
@@ -1069,7 +1069,7 @@ extern "C" std::vector<void *> * std_vector_void___copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{Ptr{Nothing}}, size::Integer)
-    res = ccall(("std_vector_void___resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, UInt64), vec, size)
+    res = ccall(("std_vector_void___resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -1082,7 +1082,7 @@ extern "C" void std_vector_void___resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{Ptr{Nothing}})
-    res = ccall(("std_vector_void___length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}},), vec)
+    res = ccall(("std_vector_void___length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -1094,7 +1094,7 @@ extern "C" std::size_t std_vector_void___length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{Ptr{Nothing}}, idx::Integer)
-    res = ccall(("std_vector_void___getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{Ptr{Nothing}}, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, UInt64), vec, idx)
+    res = ccall(("std_vector_void___getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{Ptr{Nothing}}, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, UInt64), vec, idx)
     return convert_result(Ptr{Nothing}, res)::Ptr{Nothing}
 end
 */
@@ -1107,7 +1107,7 @@ extern "C" void * * std_vector_void___getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{Ptr{Nothing}}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_void___setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, Ptr{Ptr{Nothing}}, UInt64), vec, convert_arg(Ptr{Ptr{Nothing}}, convert(Ptr{Nothing}, elt)), idx)
+    res = ccall(("std_vector_void___setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, Ptr{Ptr{Nothing}}, UInt64), vec, convert_arg(Ptr{Ptr{Nothing}}, convert(Ptr{Nothing}, elt)), idx)
     return res::Nothing
 end
 */
@@ -1121,7 +1121,7 @@ extern "C" void std_vector_void___setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{Ptr{Nothing}}, vec2::STL.StdVectors.StdVector{Ptr{Nothing}})
-    res = ccall(("std_vector_void___equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}), vec1, vec2)
+    res = ccall(("std_vector_void___equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}, Ptr{STL.StdVectors.StdVector{Ptr{Nothing}}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -1134,7 +1134,7 @@ extern "C" bool std_vector_void___equals(
 
 /*
 function StdVector_new(type::Type{STL.StdStrings.StdString})
-    res = ccall(("std_vector_std__string_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, ())
+    res = ccall(("std_vector_std__string_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, ())
     return StdVector{STL.StdStrings.StdString}(res)::STL.StdVectors.StdVector{STL.StdStrings.StdString}
 end
 */
@@ -1146,7 +1146,7 @@ extern "C" std::vector<std::string> * std_vector_std__string_new(
 
 /*
 function StdVector_new(type::Type{STL.StdStrings.StdString}, size::Integer)
-    res = ccall(("std_vector_std__string_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, (UInt64,), size)
+    res = ccall(("std_vector_std__string_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, (UInt64,), size)
     return StdVector{STL.StdStrings.StdString}(res)::STL.StdVectors.StdVector{STL.StdStrings.StdString}
 end
 */
@@ -1158,7 +1158,7 @@ extern "C" std::vector<std::string> * std_vector_std__string_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{STL.StdStrings.StdString})
-    res = ccall(("std_vector_std__string_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}},), vec)
+    res = ccall(("std_vector_std__string_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}},), vec)
     return res::Nothing
 end
 */
@@ -1170,7 +1170,7 @@ extern "C" void std_vector_std__string_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{STL.StdStrings.StdString})
-    res = ccall(("std_vector_std__string_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}},), vec)
+    res = ccall(("std_vector_std__string_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}},), vec)
     return StdVector{STL.StdStrings.StdString}(res)::STL.StdVectors.StdVector{STL.StdStrings.StdString}
 end
 */
@@ -1182,7 +1182,7 @@ extern "C" std::vector<std::string> * std_vector_std__string_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{STL.StdStrings.StdString}, size::Integer)
-    res = ccall(("std_vector_std__string_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, UInt64), vec, size)
+    res = ccall(("std_vector_std__string_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -1195,7 +1195,7 @@ extern "C" void std_vector_std__string_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{STL.StdStrings.StdString})
-    res = ccall(("std_vector_std__string_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}},), vec)
+    res = ccall(("std_vector_std__string_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -1207,7 +1207,7 @@ extern "C" std::size_t std_vector_std__string_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{STL.StdStrings.StdString}, idx::Integer)
-    res = ccall(("std_vector_std__string_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdStrings.StdString}, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, UInt64), vec, idx)
+    res = ccall(("std_vector_std__string_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdStrings.StdString}, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, UInt64), vec, idx)
     return convert_result(STL.StdStrings.StdString, res)::STL.StdStrings.StdString
 end
 */
@@ -1220,7 +1220,7 @@ extern "C" std::string * std_vector_std__string_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{STL.StdStrings.StdString}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_std__string_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, Ptr{STL.StdStrings.StdString}, UInt64), vec, convert_arg(Ptr{STL.StdStrings.StdString}, convert(STL.StdStrings.StdString, elt)), idx)
+    res = ccall(("std_vector_std__string_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, Ptr{STL.StdStrings.StdString}, UInt64), vec, convert_arg(Ptr{STL.StdStrings.StdString}, convert(STL.StdStrings.StdString, elt)), idx)
     return res::Nothing
 end
 */
@@ -1234,7 +1234,7 @@ extern "C" void std_vector_std__string_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{STL.StdStrings.StdString}, vec2::STL.StdVectors.StdVector{STL.StdStrings.StdString})
-    res = ccall(("std_vector_std__string_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}), vec1, vec2)
+    res = ccall(("std_vector_std__string_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}, Ptr{STL.StdVectors.StdVector{STL.StdStrings.StdString}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -1247,7 +1247,7 @@ extern "C" bool std_vector_std__string_equals(
 
 /*
 function StdVector_new(type::Type{UInt16})
-    res = ccall(("std_vector_uint16_t_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt16}}, ())
+    res = ccall(("std_vector_uint16_t_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt16}}, ())
     return StdVector{UInt16}(res)::STL.StdVectors.StdVector{UInt16}
 end
 */
@@ -1259,7 +1259,7 @@ extern "C" std::vector<uint16_t> * std_vector_uint16_t_new(
 
 /*
 function StdVector_new(type::Type{UInt16}, size::Integer)
-    res = ccall(("std_vector_uint16_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt16}}, (UInt64,), size)
+    res = ccall(("std_vector_uint16_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt16}}, (UInt64,), size)
     return StdVector{UInt16}(res)::STL.StdVectors.StdVector{UInt16}
 end
 */
@@ -1271,7 +1271,7 @@ extern "C" std::vector<uint16_t> * std_vector_uint16_t_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt16}},), vec)
+    res = ccall(("std_vector_uint16_t_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt16}},), vec)
     return res::Nothing
 end
 */
@@ -1283,7 +1283,7 @@ extern "C" void std_vector_uint16_t_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt16}}, (Ptr{STL.StdVectors.StdVector{UInt16}},), vec)
+    res = ccall(("std_vector_uint16_t_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt16}}, (Ptr{STL.StdVectors.StdVector{UInt16}},), vec)
     return StdVector{UInt16}(res)::STL.StdVectors.StdVector{UInt16}
 end
 */
@@ -1295,7 +1295,7 @@ extern "C" std::vector<uint16_t> * std_vector_uint16_t_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{UInt16}, size::Integer)
-    res = ccall(("std_vector_uint16_t_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt16}}, UInt64), vec, size)
+    res = ccall(("std_vector_uint16_t_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt16}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -1308,7 +1308,7 @@ extern "C" void std_vector_uint16_t_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{UInt16}},), vec)
+    res = ccall(("std_vector_uint16_t_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{UInt16}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -1320,7 +1320,7 @@ extern "C" std::size_t std_vector_uint16_t_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{UInt16}, idx::Integer)
-    res = ccall(("std_vector_uint16_t_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{UInt16}, (Ptr{STL.StdVectors.StdVector{UInt16}}, UInt64), vec, idx)
+    res = ccall(("std_vector_uint16_t_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{UInt16}, (Ptr{STL.StdVectors.StdVector{UInt16}}, UInt64), vec, idx)
     return convert_result(UInt16, res)::UInt16
 end
 */
@@ -1333,7 +1333,7 @@ extern "C" uint16_t * std_vector_uint16_t_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{UInt16}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_uint16_t_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt16}}, Ptr{UInt16}, UInt64), vec, convert_arg(Ptr{UInt16}, convert(UInt16, elt)), idx)
+    res = ccall(("std_vector_uint16_t_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt16}}, Ptr{UInt16}, UInt64), vec, convert_arg(Ptr{UInt16}, convert(UInt16, elt)), idx)
     return res::Nothing
 end
 */
@@ -1347,7 +1347,7 @@ extern "C" void std_vector_uint16_t_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{UInt16}, vec2::STL.StdVectors.StdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{UInt16}}, Ptr{STL.StdVectors.StdVector{UInt16}}), vec1, vec2)
+    res = ccall(("std_vector_uint16_t_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{UInt16}}, Ptr{STL.StdVectors.StdVector{UInt16}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -1360,7 +1360,7 @@ extern "C" bool std_vector_uint16_t_equals(
 
 /*
 function StdVector_new(type::Type{UInt32})
-    res = ccall(("std_vector_uint32_t_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt32}}, ())
+    res = ccall(("std_vector_uint32_t_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt32}}, ())
     return StdVector{UInt32}(res)::STL.StdVectors.StdVector{UInt32}
 end
 */
@@ -1372,7 +1372,7 @@ extern "C" std::vector<uint32_t> * std_vector_uint32_t_new(
 
 /*
 function StdVector_new(type::Type{UInt32}, size::Integer)
-    res = ccall(("std_vector_uint32_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt32}}, (UInt64,), size)
+    res = ccall(("std_vector_uint32_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt32}}, (UInt64,), size)
     return StdVector{UInt32}(res)::STL.StdVectors.StdVector{UInt32}
 end
 */
@@ -1384,7 +1384,7 @@ extern "C" std::vector<uint32_t> * std_vector_uint32_t_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt32}},), vec)
+    res = ccall(("std_vector_uint32_t_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt32}},), vec)
     return res::Nothing
 end
 */
@@ -1396,7 +1396,7 @@ extern "C" void std_vector_uint32_t_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt32}}, (Ptr{STL.StdVectors.StdVector{UInt32}},), vec)
+    res = ccall(("std_vector_uint32_t_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt32}}, (Ptr{STL.StdVectors.StdVector{UInt32}},), vec)
     return StdVector{UInt32}(res)::STL.StdVectors.StdVector{UInt32}
 end
 */
@@ -1408,7 +1408,7 @@ extern "C" std::vector<uint32_t> * std_vector_uint32_t_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{UInt32}, size::Integer)
-    res = ccall(("std_vector_uint32_t_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt32}}, UInt64), vec, size)
+    res = ccall(("std_vector_uint32_t_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt32}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -1421,7 +1421,7 @@ extern "C" void std_vector_uint32_t_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{UInt32}},), vec)
+    res = ccall(("std_vector_uint32_t_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{UInt32}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -1433,7 +1433,7 @@ extern "C" std::size_t std_vector_uint32_t_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{UInt32}, idx::Integer)
-    res = ccall(("std_vector_uint32_t_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{UInt32}, (Ptr{STL.StdVectors.StdVector{UInt32}}, UInt64), vec, idx)
+    res = ccall(("std_vector_uint32_t_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{UInt32}, (Ptr{STL.StdVectors.StdVector{UInt32}}, UInt64), vec, idx)
     return convert_result(UInt32, res)::UInt32
 end
 */
@@ -1446,7 +1446,7 @@ extern "C" uint32_t * std_vector_uint32_t_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{UInt32}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_uint32_t_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt32}}, Ptr{UInt32}, UInt64), vec, convert_arg(Ptr{UInt32}, convert(UInt32, elt)), idx)
+    res = ccall(("std_vector_uint32_t_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt32}}, Ptr{UInt32}, UInt64), vec, convert_arg(Ptr{UInt32}, convert(UInt32, elt)), idx)
     return res::Nothing
 end
 */
@@ -1460,7 +1460,7 @@ extern "C" void std_vector_uint32_t_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{UInt32}, vec2::STL.StdVectors.StdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{UInt32}}, Ptr{STL.StdVectors.StdVector{UInt32}}), vec1, vec2)
+    res = ccall(("std_vector_uint32_t_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{UInt32}}, Ptr{STL.StdVectors.StdVector{UInt32}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -1473,7 +1473,7 @@ extern "C" bool std_vector_uint32_t_equals(
 
 /*
 function StdVector_new(type::Type{UInt64})
-    res = ccall(("std_vector_uint64_t_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt64}}, ())
+    res = ccall(("std_vector_uint64_t_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt64}}, ())
     return StdVector{UInt64}(res)::STL.StdVectors.StdVector{UInt64}
 end
 */
@@ -1485,7 +1485,7 @@ extern "C" std::vector<uint64_t> * std_vector_uint64_t_new(
 
 /*
 function StdVector_new(type::Type{UInt64}, size::Integer)
-    res = ccall(("std_vector_uint64_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt64}}, (UInt64,), size)
+    res = ccall(("std_vector_uint64_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt64}}, (UInt64,), size)
     return StdVector{UInt64}(res)::STL.StdVectors.StdVector{UInt64}
 end
 */
@@ -1497,7 +1497,7 @@ extern "C" std::vector<uint64_t> * std_vector_uint64_t_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{UInt64})
-    res = ccall(("std_vector_uint64_t_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt64}},), vec)
+    res = ccall(("std_vector_uint64_t_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt64}},), vec)
     return res::Nothing
 end
 */
@@ -1509,7 +1509,7 @@ extern "C" void std_vector_uint64_t_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{UInt64})
-    res = ccall(("std_vector_uint64_t_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt64}}, (Ptr{STL.StdVectors.StdVector{UInt64}},), vec)
+    res = ccall(("std_vector_uint64_t_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt64}}, (Ptr{STL.StdVectors.StdVector{UInt64}},), vec)
     return StdVector{UInt64}(res)::STL.StdVectors.StdVector{UInt64}
 end
 */
@@ -1521,7 +1521,7 @@ extern "C" std::vector<uint64_t> * std_vector_uint64_t_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{UInt64}, size::Integer)
-    res = ccall(("std_vector_uint64_t_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt64}}, UInt64), vec, size)
+    res = ccall(("std_vector_uint64_t_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt64}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -1534,7 +1534,7 @@ extern "C" void std_vector_uint64_t_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{UInt64})
-    res = ccall(("std_vector_uint64_t_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{UInt64}},), vec)
+    res = ccall(("std_vector_uint64_t_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{UInt64}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -1546,7 +1546,7 @@ extern "C" std::size_t std_vector_uint64_t_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{UInt64}, idx::Integer)
-    res = ccall(("std_vector_uint64_t_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{UInt64}, (Ptr{STL.StdVectors.StdVector{UInt64}}, UInt64), vec, idx)
+    res = ccall(("std_vector_uint64_t_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{UInt64}, (Ptr{STL.StdVectors.StdVector{UInt64}}, UInt64), vec, idx)
     return convert_result(UInt64, res)::UInt64
 end
 */
@@ -1559,7 +1559,7 @@ extern "C" uint64_t * std_vector_uint64_t_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{UInt64}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_uint64_t_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt64}}, Ptr{UInt64}, UInt64), vec, convert_arg(Ptr{UInt64}, convert(UInt64, elt)), idx)
+    res = ccall(("std_vector_uint64_t_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt64}}, Ptr{UInt64}, UInt64), vec, convert_arg(Ptr{UInt64}, convert(UInt64, elt)), idx)
     return res::Nothing
 end
 */
@@ -1573,7 +1573,7 @@ extern "C" void std_vector_uint64_t_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{UInt64}, vec2::STL.StdVectors.StdVector{UInt64})
-    res = ccall(("std_vector_uint64_t_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{UInt64}}, Ptr{STL.StdVectors.StdVector{UInt64}}), vec1, vec2)
+    res = ccall(("std_vector_uint64_t_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{UInt64}}, Ptr{STL.StdVectors.StdVector{UInt64}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -1586,7 +1586,7 @@ extern "C" bool std_vector_uint64_t_equals(
 
 /*
 function StdVector_new(type::Type{UInt8})
-    res = ccall(("std_vector_uint8_t_new", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt8}}, ())
+    res = ccall(("std_vector_uint8_t_new", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt8}}, ())
     return StdVector{UInt8}(res)::STL.StdVectors.StdVector{UInt8}
 end
 */
@@ -1598,7 +1598,7 @@ extern "C" std::vector<uint8_t> * std_vector_uint8_t_new(
 
 /*
 function StdVector_new(type::Type{UInt8}, size::Integer)
-    res = ccall(("std_vector_uint8_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt8}}, (UInt64,), size)
+    res = ccall(("std_vector_uint8_t_new_std_size_t", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt8}}, (UInt64,), size)
     return StdVector{UInt8}(res)::STL.StdVectors.StdVector{UInt8}
 end
 */
@@ -1610,7 +1610,7 @@ extern "C" std::vector<uint8_t> * std_vector_uint8_t_new_std_size_t(
 
 /*
 function StdVector_delete(vec::STL.StdVectors.StdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_delete", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt8}},), vec)
+    res = ccall(("std_vector_uint8_t_delete", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt8}},), vec)
     return res::Nothing
 end
 */
@@ -1622,7 +1622,7 @@ extern "C" void std_vector_uint8_t_delete(
 
 /*
 function Base.copy(vec::STL.StdVectors.StdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_copy", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt8}}, (Ptr{STL.StdVectors.StdVector{UInt8}},), vec)
+    res = ccall(("std_vector_uint8_t_copy", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{STL.StdVectors.StdVector{UInt8}}, (Ptr{STL.StdVectors.StdVector{UInt8}},), vec)
     return StdVector{UInt8}(res)::STL.StdVectors.StdVector{UInt8}
 end
 */
@@ -1634,7 +1634,7 @@ extern "C" std::vector<uint8_t> * std_vector_uint8_t_copy(
 
 /*
 function Base.resize!(vec::STL.StdVectors.StdVector{UInt8}, size::Integer)
-    res = ccall(("std_vector_uint8_t_resize_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt8}}, UInt64), vec, size)
+    res = ccall(("std_vector_uint8_t_resize_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt8}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -1647,7 +1647,7 @@ extern "C" void std_vector_uint8_t_resize_(
 
 /*
 function Base.length(vec::STL.StdVectors.StdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_length", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{UInt8}},), vec)
+    res = ccall(("std_vector_uint8_t_length", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdVectors.StdVector{UInt8}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -1659,7 +1659,7 @@ extern "C" std::size_t std_vector_uint8_t_length(
 
 /*
 function Base.getindex(vec::STL.StdVectors.StdVector{UInt8}, idx::Integer)
-    res = ccall(("std_vector_uint8_t_getindex", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Ptr{UInt8}, (Ptr{STL.StdVectors.StdVector{UInt8}}, UInt64), vec, idx)
+    res = ccall(("std_vector_uint8_t_getindex", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Ptr{UInt8}, (Ptr{STL.StdVectors.StdVector{UInt8}}, UInt64), vec, idx)
     return convert_result(UInt8, res)::UInt8
 end
 */
@@ -1672,7 +1672,7 @@ extern "C" uint8_t * std_vector_uint8_t_getindex(
 
 /*
 function Base.setindex!(vec::STL.StdVectors.StdVector{UInt8}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_uint8_t_setindex_", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt8}}, Ptr{UInt8}, UInt64), vec, convert_arg(Ptr{UInt8}, convert(UInt8, elt)), idx)
+    res = ccall(("std_vector_uint8_t_setindex_", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdVectors.StdVector{UInt8}}, Ptr{UInt8}, UInt64), vec, convert_arg(Ptr{UInt8}, convert(UInt8, elt)), idx)
     return res::Nothing
 end
 */
@@ -1686,7 +1686,7 @@ extern "C" void std_vector_uint8_t_setindex_(
 
 /*
 function Base.:(==)(vec1::STL.StdVectors.StdVector{UInt8}, vec2::STL.StdVectors.StdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_equals", "/Users/eschnett/.julia/artifacts/4fe33bb541fedaadf6a56f15890dfacf89808500/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{UInt8}}, Ptr{STL.StdVectors.StdVector{UInt8}}), vec1, vec2)
+    res = ccall(("std_vector_uint8_t_equals", "/Users/eschnett/.julia/artifacts/78ef876be130e127fb44d4bcf9a4c544853ed406/lib/libSTL.dylib"), Bool, (Ptr{STL.StdVectors.StdVector{UInt8}}, Ptr{STL.StdVectors.StdVector{UInt8}}), vec1, vec2)
     return res::Bool
 end
 */

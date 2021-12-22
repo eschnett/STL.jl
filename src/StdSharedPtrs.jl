@@ -12,7 +12,9 @@ eval(cxxprelude("""
     static_assert(sizeof(bool) == 1, "");
     """))
 
-struct StdSharedPtr{T}
+abstract type AbstractStdSharedPtr{T} end
+
+struct StdSharedPtr{T} <: AbstractStdSharedPtr{T}
     cxx::Ptr{StdSharedPtr{T}}
     StdSharedPtr{T}(cxx::Ptr{StdSharedPtr{T}}) where {T} = new{T}(cxx)
 end
@@ -103,7 +105,7 @@ Base.eltype(::StdSharedPtr{T}) where {T} = T
 
 ################################################################################
 
-mutable struct GCStdSharedPtr{T}
+mutable struct GCStdSharedPtr{T} <: AbstractStdSharedPtr{T}
     managed::StdSharedPtr{T}
     function GCStdSharedPtr{T}(ptr::StdSharedPtr{T}) where {T}
         res = new{T}(ptr)

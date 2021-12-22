@@ -13,7 +13,9 @@ eval(cxxprelude("""
     static_assert(sizeof(bool) == 1, "");
     """))
 
-struct StdMap{K,T} <: AbstractDict{K,T}
+abstract type AbstractStdMap{K,T} <: AbstractDict{K,T} end
+
+struct StdMap{K,T} <: AbstractStdMap{K,T}
     cxx::Ptr{StdMap{K,T}}
     StdMap{K,T}(cxx::Ptr{StdMap{K,T}}) where {K,T} = new{K,T}(cxx)
 end
@@ -174,7 +176,7 @@ Base.eltype(::StdMap{K,T}) where {K,T} = T
 
 ################################################################################
 
-mutable struct GCStdMap{K,T} <: AbstractDict{K,T}
+mutable struct GCStdMap{K,T} <: AbstractStdMap{K,T}
     managed::StdMap{K,T}
     function GCStdMap{K,T}(map::StdMap{K,T}) where {K,T}
         res = new{K,T}(map)

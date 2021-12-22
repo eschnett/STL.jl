@@ -12,7 +12,9 @@ eval(cxxprelude("""
     #include <vector>
     """))
 
-struct StdVector{T} <: AbstractVector{T}
+abstract type AbstractStdVector{T} <: AbstractVector{T} end
+
+struct StdVector{T} <: AbstractStdVector{T}
     cxx::Ptr{StdVector{T}}
     StdVector{T}(cxx::Ptr{StdVector{T}}) where {T} = new{T}(cxx)
 end
@@ -95,7 +97,7 @@ Base.eltype(::StdVector{T}) where {T} = T
 
 ################################################################################
 
-mutable struct GCStdVector{T} <: AbstractVector{T}
+mutable struct GCStdVector{T} <: AbstractStdVector{T}
     managed::StdVector{T}
     function GCStdVector{T}(vec::StdVector{T}) where {T}
         res = new{T}(vec)
