@@ -5,14 +5,17 @@ version = "0.1.0"
 
 [deps]
 CxxInterface = "62027b0a-52e9-423e-ab47-e314c210e772"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 STL_jll = "69cf8a62-f9ae-5d65-8d00-30585a4771ef"
+TestAbstractTypes = "eeddca60-27f6-4483-8676-7b6aefcc60ae"
 
 [compat]
 julia = "1.0"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+TestAbstractTypes = "eeddca60-27f6-4483-8676-7b6aefcc60ae"
 
 [targets]
-test = ["Test"]
+test = ["Test", "TestAbstractTypes"]

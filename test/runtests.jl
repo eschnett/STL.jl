@@ -1,5 +1,7 @@
+using Random
 using STL
 using Test
+using TestAbstractTypes
 
 @testset "std::map<$K,$T>" for K in StdMaps.keys, T in StdMaps.types
     mkK(i) = K ≡ Bool ? i % Bool : K <: Ptr ? T(i) : i
@@ -76,8 +78,8 @@ end
 
 @testset "std::string" begin
     str = StdString()
+    T = eltype(str)
     @test str.cxx ≠ C_NULL
-    @test eltype(str) ≡ Char
 
     @test length(str) == 0
     @test isempty(str)
@@ -87,13 +89,13 @@ end
     str = StdString("Hello, World!")
     @test length(str) == 13
 
-    @test str[0] == 'H'
-    @test str[7] == 'W'
-    @test str[12] == '!'
+    @test str[1] == T('H')
+    @test str[8] == T('W')
+    @test str[13] == T('!')
 
-    str[12] = '\0'
+    str[13] = '\0'
     @test length(str) == 13
-    @test str[12] == '\0'
+    @test str[13] == T('\0')
 
     free(str)
 end
@@ -134,6 +136,6 @@ end
     free(vec)
 end
 
-@testset "std::vector<std::string>" begin end
-
-@testset "std::map<std::string, bool>" begin end
+# Set reproducible random number seed
+Random.seed!(0)
+testAbstractString(GCStdString, generator(GCStdString))
