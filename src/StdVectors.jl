@@ -26,8 +26,9 @@ Stds.convert_result(::Type{StdVector{T}}, ptr::Ptr{StdVector{T}}) where {T} = St
 
 StdVector{T}() where {T} = StdVector_new(T)
 StdVector{T}(size::Integer) where {T} = StdVector_new(T, size)
-# Base.convert(::Type{Vector}, vec::StdVector) = ...
-# Base.convert(::Type{Vector{T}}, vec::StdVector) = ...
+
+Base.convert(::Type{Vector{T}}, vec::StdVector{T}) where {T} = T[elt for elt in vec]
+Base.convert(::Type{Vector}, vec::StdVector{T}) where {T} = convert(Vector{T}, vec)
 
 function generate(::Type{StdVector{T}}) where {T}
     CT = T == Bool ? "bool" : T == StdString ? "std::string" : cxxtype[T]
@@ -92,8 +93,15 @@ Stds.free(vec::StdVector) = StdVector_delete(vec)
 Base.empty!(vec::StdVector) = resize!(vec, 0)
 Base.isempty(vec::StdVector) = length(vec) == 0
 Base.size(vec::StdVector) = (length(vec),)
+Base.firstindex(vec::StdVector) = 0
+Base.lastindex(vec::StdVector) = length(vec) - 1
 
 Base.eltype(::StdVector{T}) where {T} = T
+
+function Base.iterate(vec::StdVector, pos::Int=0)
+    pos ≥ length(vec) && return nothing
+    return vec[pos], pos + 1
+end
 
 ################################################################################
 
@@ -110,6 +118,9 @@ export GCStdVector
 GCStdVector{T}() where {T} = GCStdVector{T}(StdVector{T}())
 GCStdVector{T}(size::Integer) where {T} = GCStdVector{T}(StdVector{T}(size))
 
+Base.convert(::Type{Vector{T}}, vec::GCStdVector{T}) where {T} = convert(Vector{T}, vec.managed)
+Base.convert(::Type{Vector}, vec::GCStdVector) = convert(Vector, vec.managed)
+
 Stds.free(vec::GCStdVector) = free(vec.managed)
 
 Base.resize!(vec::GCStdVector, size) = resize!(vec.managed, size)
@@ -119,6 +130,10 @@ Base.isempty(vec::GCStdVector) = isempty(vec.managed)
 Base.getindex(vec::GCStdVector, idx) = getindex(vec.managed, idx)
 Base.setindex!(vec::GCStdVector, elt, idx) = setindex!(vec.managed, elt, idx)
 Base.size(vec::GCStdVector) = size(vec.managed)
+Base.firstindex(vec::GCStdVector) = firstindex(vec.managed)
+Base.lastindex(vec::GCStdVector) = lastindex(vec.managed)
 Base.eltype(::GCStdVector{T}) where {T} = eltype(StdVector{T})
+Base.iterate(vec::GCStdVector) = iterate(vec.managed)
+Base.iterate(vec::GCStdVector, pos::Integer) = iterate(vec.managed, pos)
 
 end

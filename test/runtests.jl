@@ -4,8 +4,9 @@ using Test
 using TestAbstractTypes
 
 @testset "std::map<$K,$T>" for K in StdMaps.keys, T in StdMaps.types
-    mkK(i) = K ≡ Bool ? i % Bool : K <: Ptr ? T(i) : i
-    mkT(i) = T ≡ Bool ? i % Bool : T <: Ptr ? T(i) : i
+    # TODO: Need to free the generated StdString objects
+    mkK(i) = K ≡ Bool ? i % Bool : K ≡ StdString ? StdString(string(i)) : K <: Ptr ? K(i) : i
+    mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
 
     map = StdMap{K,T}()
     @test keytype(map) ≡ K
@@ -102,7 +103,7 @@ end
 
 @testset "std::vector<$T>" for T in StdVectors.types
     # TODO: Need to free the generated StdString objects
-    mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T(i)
+    mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
 
     vec = StdVector{T}()
     @test vec.cxx ≠ C_NULL
@@ -122,6 +123,13 @@ end
     for i in 0:9
         @test vec[i] == mkT(i)
     end
+
+    elts = convert(Vector{T}, vec)
+    @test elts == [mkT(i) for i in 0:9]
+
+    elts = [elt for elt in vec]
+    @test typeof(elts) == Vector{T}
+    @test elts == [mkT(i) for i in 0:9]
 
     resize!(vec, 20)
     @test length(vec) == 20

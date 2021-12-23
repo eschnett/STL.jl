@@ -8,6 +8,8 @@ using STL_jll
 ################################################################################
 
 eval(cxxprelude("""
+    #include <cstddef>
+    #include <string>
     #include <map>
 
     static_assert(sizeof(bool) == 1, "");
@@ -40,9 +42,9 @@ Stds.convert_result(::Type{StdMapIterator{K,T}}, ptr::Ptr{StdMapIterator{K,T}}) 
 StdMapIterator{K,T}() where {K,T} = StdMapIterator_new(K, T)
 
 function generate(::Type{StdMap{K,T}}) where {K,T}
-    CK = K == Bool ? "bool" : cxxtype[K]
+    CK = K == Bool ? "bool" : K == StdString ? "std::string" : cxxtype[K]
     NK = cxxname(CK)
-    CT = T == Bool ? "bool" : cxxtype[T]
+    CT = T == Bool ? "bool" : T == StdString ? "std::string" : cxxtype[T]
     NT = cxxname(CT)
 
     eval(cxxfunction(FnName(Symbol(:StdMap_new), "std_map_$(NK)_$(NT)_new", libSTL),
@@ -131,10 +133,15 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
                             StdMapIterator{K,T}, identity)], "return *iter1 == *iter2;"))
 
     eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_const_iterator_getindex", libSTL),
-                     FnResult(Ptr{Pair{K,T}}, "const std::pair<const $CK, $CT> *", Pair{K,T},
-                              expr -> :(convert_result(Pair{$K,$T}, $expr))),
+                     FnResult(Pair{Ptr{K},Ptr{T}}, "const std::pair<$CK const *, $CT const *>", Pair{K,T},
+                              expr -> :(convert_result($K, $expr[1]) => convert_result($T, $expr[2]))),
                      [FnArg(:iter, Ptr{StdMapIterator{K,T}}, "iter", "std::map<$CK, $CT>::const_iterator * restrict",
-                            StdMapIterator{K,T}, identity)], "return &**iter;"))
+                            StdMapIterator{K,T}, identity)], """
+                                        using P = std::pair<$CK const *, $CT const *>;
+                                        static_assert(offsetof(P, first) == $(fieldoffset(Pair{Ptr{K},Ptr{T}}, 1)), "");
+                                        static_assert(offsetof(P, second) == $(fieldoffset(Pair{Ptr{K},Ptr{T}}, 2)), "");
+                                        return P(&(*iter)->first, &(*iter)->second);
+                                        """))
 
     eval(cxxfunction(FnName(:inc!, "std_map_$(NK)_$(NT)_const_iterator_inc_", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:iter, Ptr{StdMapIterator{K,T}}, "iter", "std::map<$CK, $CT>::const_iterator * restrict",
@@ -160,7 +167,7 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
 end
 
 const types = filter(T -> !(T <: Complex), Stds.value_types)
-const keys = filter(T -> T <: Integer, types)
+const keys = filter(T -> T <: Integer, types) ∪ Set([StdString])
 for K in sort!(collect(keys); by=string), T in sort!(collect(types); by=string)
     generate(StdMap{K,T})
 end

@@ -130,7 +130,7 @@ function Base.show(io::IO, str::StdString)
         if ch ∈ ('"', '\\')
             print(io, '\\', ch)
         elseif !isprint(ch)
-            print(io, '\\', Int(ch)) # TODO
+            print(io, "\\u", string(Int(ch); base=16, pad=2))
         else
             print(io, ch)
         end

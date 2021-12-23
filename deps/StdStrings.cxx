@@ -3,7 +3,7 @@
 
 /*
 function StdString_new()
-    res = ccall(("std_string_new", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Ptr{STL.StdStrings.StdString}, ())
+    res = ccall(("std_string_new", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Ptr{STL.StdStrings.StdString}, ())
     return StdString(res)::STL.StdStrings.StdString
 end
 */
@@ -15,7 +15,7 @@ extern "C" std::string * std_string_new(
 
 /*
 function StdString_new(ptr::AbstractString, size::Integer)
-    res = ccall(("std_string_new_String", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Ptr{STL.StdStrings.StdString}, (Ptr{Int8}, UInt64), ptr, size)
+    res = ccall(("std_string_new_String", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Ptr{STL.StdStrings.StdString}, (Ptr{Int8}, UInt64), ptr, size)
     return StdString(res)::STL.StdStrings.StdString
 end
 */
@@ -28,7 +28,7 @@ extern "C" std::string * std_string_new_String(
 
 /*
 function StdString_delete(str::STL.StdStrings.StdString)
-    res = ccall(("std_string_delete", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdStrings.StdString},), str)
+    res = ccall(("std_string_delete", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdStrings.StdString},), str)
     return res::Nothing
 end
 */
@@ -40,7 +40,7 @@ extern "C" void std_string_delete(
 
 /*
 function Base.copy(str::STL.StdStrings.StdString)
-    res = ccall(("std_string_copy", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Ptr{STL.StdStrings.StdString}, (Ptr{STL.StdStrings.StdString},), str)
+    res = ccall(("std_string_copy", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Ptr{STL.StdStrings.StdString}, (Ptr{STL.StdStrings.StdString},), str)
     return StdString(res)::STL.StdStrings.StdString
 end
 */
@@ -52,7 +52,7 @@ extern "C" std::string * std_string_copy(
 
 /*
 function Base.length(str::STL.StdStrings.StdString)
-    res = ccall(("std_string_length", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdStrings.StdString},), str)
+    res = ccall(("std_string_length", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), UInt64, (Ptr{STL.StdStrings.StdString},), str)
     return convert(Int, res)::Int64
 end
 */
@@ -64,7 +64,7 @@ extern "C" std::size_t std_string_length(
 
 /*
 function Base.getindex(str::STL.StdStrings.StdString, idx::Integer)
-    res = ccall(("std_string_getindex", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Int8, (Ptr{STL.StdStrings.StdString}, UInt64), str, idx - 1)
+    res = ccall(("std_string_getindex", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Int8, (Ptr{STL.StdStrings.StdString}, UInt64), str, idx - 1)
     return StdChar(res)::STL.StdStrings.StdChar
 end
 */
@@ -77,7 +77,7 @@ extern "C" char std_string_getindex(
 
 /*
 function Base.setindex!(str::STL.StdStrings.StdString, elt::Union{AbstractChar, Integer}, idx::Integer)
-    res = ccall(("std_string_setindex_", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdStrings.StdString}, Int8, UInt64), str, convert(StdChar, elt), idx - 1)
+    res = ccall(("std_string_setindex_", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Nothing, (Ptr{STL.StdStrings.StdString}, Int8, UInt64), str, convert(StdChar, elt), idx - 1)
     return res::Nothing
 end
 */
@@ -91,7 +91,7 @@ extern "C" void std_string_setindex_(
 
 /*
 function Base.:(==)(str1::STL.StdStrings.StdString, str2::STL.StdStrings.StdString)
-    res = ccall(("std_string_equals", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Bool, (Ptr{STL.StdStrings.StdString}, Ptr{STL.StdStrings.StdString}), str1, str2)
+    res = ccall(("std_string_equals", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Bool, (Ptr{STL.StdStrings.StdString}, Ptr{STL.StdStrings.StdString}), str1, str2)
     return res::Bool
 end
 */
@@ -104,7 +104,7 @@ extern "C" bool std_string_equals(
 
 /*
 function Base.:<(str1::STL.StdStrings.StdString, str2::STL.StdStrings.StdString)
-    res = ccall(("std_string_less", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Bool, (Ptr{STL.StdStrings.StdString}, Ptr{STL.StdStrings.StdString}), str1, str2)
+    res = ccall(("std_string_less", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Bool, (Ptr{STL.StdStrings.StdString}, Ptr{STL.StdStrings.StdString}), str1, str2)
     return res::Bool
 end
 */
@@ -117,7 +117,7 @@ extern "C" bool std_string_less(
 
 /*
 function Base.cmp(str1::STL.StdStrings.StdString, str2::STL.StdStrings.StdString)
-    res = ccall(("std_string_cmp", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Int32, (Ptr{STL.StdStrings.StdString}, Ptr{STL.StdStrings.StdString}), str1, str2)
+    res = ccall(("std_string_cmp", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Int32, (Ptr{STL.StdStrings.StdString}, Ptr{STL.StdStrings.StdString}), str1, str2)
     return if res == 0
                 0
             else
@@ -138,7 +138,7 @@ extern "C" int std_string_cmp(
 
 /*
 function pointer(str::STL.StdStrings.StdString)
-    res = ccall(("std_string_String", "/Users/eschnett/.julia/artifacts/22925fb8ad6d21c160844920eed53ac7663b368c/lib/libSTL.dylib"), Tuple{Ptr{Int8}, UInt64}, (Ptr{STL.StdStrings.StdString},), str)
+    res = ccall(("std_string_String", "/Users/eschnett/.julia/artifacts/a57262ed94ef476aca256c72894a61c242b64c99/lib/libSTL.dylib"), Tuple{Ptr{Int8}, UInt64}, (Ptr{STL.StdStrings.StdString},), str)
     return unsafe_string(res[1], res[2])::String
 end
 */
