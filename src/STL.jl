@@ -1,19 +1,17 @@
 module STL
 
-using Reexport
+using CxxInterface
+using STL_jll
+using TestAbstractTypes
 
-include("Stds.jl")
+eval(cxxsetup())
 
-include("StdStrings.jl")
+include("Defs.jl")
+include("Types.jl")
 
-include("StdMaps.jl")
-include("StdSharedPtrs.jl")
-include("StdVectors.jl")
-
-@reexport using .Stds
-@reexport using .StdMaps
-@reexport using .StdSharedPtrs
-@reexport using .StdStrings
-@reexport using .StdVectors
+include("StdMap.jl")
+include("StdSharedPtr.jl")
+include("StdString.jl")
+include("StdVector.jl")
 
 end

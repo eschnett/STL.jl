@@ -1,28 +1,16 @@
-module StdVectors
+# StdVector
 
-using ..StdStrings
-using ..Stds
-using CxxInterface
-using STL_jll
-
-################################################################################
-
-eval(cxxprelude("""
+eval(cxxnewfile("StdVector.cxx", """
     #include <string>
     #include <vector>
+
+    static_assert(sizeof(bool) == 1, "");
     """))
 
-abstract type AbstractStdVector{T} <: AbstractVector{T} end
-
-struct StdVector{T} <: AbstractStdVector{T}
-    cxx::Ptr{StdVector{T}}
-    StdVector{T}(cxx::Ptr{StdVector{T}}) where {T} = new{T}(cxx)
-end
-export StdVector
 Base.cconvert(::Type{Ptr{StdVector{T}}}, vec::StdVector{T}) where {T} = vec.cxx
 
-Stds.convert_arg(::Type{Ptr{StdVector{T}}}, vec::StdVector{T}) where {T} = vec.cxx
-Stds.convert_result(::Type{StdVector{T}}, ptr::Ptr{StdVector{T}}) where {T} = StdVector{T}(ptr)
+convert_arg(::Type{Ptr{StdVector{T}}}, vec::StdVector{T}) where {T} = vec.cxx
+convert_result(::Type{StdVector{T}}, ptr::Ptr{StdVector{T}}) where {T} = StdVector{T}(ptr)
 
 StdVector{T}() where {T} = StdVector_new(T)
 StdVector{T}(size::Integer) where {T} = StdVector_new(T, size)
@@ -83,12 +71,12 @@ function generate(::Type{StdVector{T}}) where {T}
     return nothing
 end
 
-const types = Stds.value_types ∪ Set([StdString])
-for T in sort!(collect(types); by=string)
+const StdVector_types = value_types ∪ Set([StdString])
+for T in sort!(collect(StdVector_types); by=string)
     generate(StdVector{T})
 end
 
-Stds.free(vec::StdVector) = StdVector_delete(vec)
+free(vec::StdVector) = StdVector_delete(vec)
 
 Base.empty!(vec::StdVector) = resize!(vec, 0)
 Base.isempty(vec::StdVector) = length(vec) == 0
@@ -105,23 +93,13 @@ end
 
 ################################################################################
 
-mutable struct GCStdVector{T} <: AbstractStdVector{T}
-    managed::StdVector{T}
-    function GCStdVector{T}(vec::StdVector{T}) where {T}
-        res = new{T}(vec)
-        finalizer(free, res)
-        return res
-    end
-end
-export GCStdVector
-
 GCStdVector{T}() where {T} = GCStdVector{T}(StdVector{T}())
 GCStdVector{T}(size::Integer) where {T} = GCStdVector{T}(StdVector{T}(size))
 
 Base.convert(::Type{Vector{T}}, vec::GCStdVector{T}) where {T} = convert(Vector{T}, vec.managed)
 Base.convert(::Type{Vector}, vec::GCStdVector) = convert(Vector, vec.managed)
 
-Stds.free(vec::GCStdVector) = free(vec.managed)
+free(vec::GCStdVector) = free(vec.managed)
 
 Base.resize!(vec::GCStdVector, size) = resize!(vec.managed, size)
 Base.empty!(vec::GCStdVector) = empty!(vec.managed)
@@ -136,4 +114,66 @@ Base.eltype(::GCStdVector{T}) where {T} = eltype(StdVector{T})
 Base.iterate(vec::GCStdVector) = iterate(vec.managed)
 Base.iterate(vec::GCStdVector, pos::Integer) = iterate(vec.managed, pos)
 
+################################################################################
+
+Base.cconvert(::Type{Ptr{StdSharedStdVector{T}}}, vec::StdSharedStdVector{T}) where {T} = vec.cxx
+
+convert_arg(::Type{Ptr{StdSharedStdVector{T}}}, vec::StdSharedStdVector{T}) where {T} = vec.cxx
+convert_result(::Type{StdSharedStdVector{T}}, ptr::Ptr{StdSharedStdVector{T}}) where {T} = StdSharedStdVector{T}(ptr)
+
+StdSharedStdVector{T}() where {T} = StdSharedStdVector_new(T)
+StdSharedStdVector{T}(size::Integer) where {T} = StdSharedStdVector_new(T, size)
+
+Base.convert(::Type{Vector{T}}, vec::StdSharedStdVector{T}) where {T} = T[elt for elt in vec]
+Base.convert(::Type{Vector}, vec::StdSharedStdVector{T}) where {T} = convert(Vector{T}, vec)
+
+function generate(::Type{StdSharedStdVector{T}}) where {T}
+    CT = T == Bool ? "bool" : T == StdString ? "std::string" : cxxtype[T]
+    NT = cxxname(CT)
+
+    eval(cxxfunction(FnName(:StdSharedStdVector_new, "std_shared_std_vector_$(NT)_new", libSTL),
+                     FnResult(Ptr{StdSharedStdVector{T}}, "std::shared<std::vector<$CT>> *", StdSharedStdVector{T},
+                              expr -> :(StdSharedStdVector{$T}($expr))),
+                     [FnArg(:type, Nothing, "type", "void", Type{T}, identity; skip=true)], """
+                     auto valptr = std::make_shared<std::vector<$CT>>();
+                     auto ptr = new std::shared_ptr<std::vector<$CT>>;
+                     ptr->swap(valptr);
+                     return ptr;
+                     """))
+    eval(cxxfunction(FnName(:StdSharedStdVector_new, "std_shared_std_vector_$(NT)_new_std_size_t", libSTL),
+                     FnResult(Ptr{StdSharedStdVector{T}}, "std::shared<std::vector<$CT>> *", StdSharedStdVector{T},
+                              expr -> :(StdSharedStdVector{$T}($expr))),
+                     [FnArg(:type, Nothing, "type", "void", Type{T}, identity; skip=true),
+                      FnArg(:size, Csize_t, "size", "std::size_t", Integer, identity)], """
+                     auto valptr = std::make_shared<std::vector<$CT>>(size);
+                     auto ptr = new std::shared_ptr<std::vector<$CT>>;
+                     ptr->swap(valptr);
+                     return ptr;
+                     """))
+
+    return eval(cxxfunction(FnName(:StdSharedStdVector_delete, "std_shared_std_vector_$(NT)_delete", libSTL),
+                            FnResult(Nothing, "void"),
+                            [FnArg(:vec, Ptr{StdSharedStdVector{T}}, "vec", "std::shared<std::vector<$CT>> * restrict",
+                                   StdSharedStdVector{T}, identity)], "delete vec;"))
 end
+
+SharedStdVector{T}() where {T} = SharedStdVector{T}(StdSharedStdVector{T}())
+SharedStdVector{T}(size::Integer) where {T} = SharedStdVector{T}(StdSharedStdVector{T}(size))
+
+Base.convert(::Type{Vector{T}}, vec::SharedStdVector{T}) where {T} = convert(Vector{T}, vec.managed)
+Base.convert(::Type{Vector}, vec::SharedStdVector) = convert(Vector, vec.managed)
+
+free(vec::SharedStdVector) = free(vec.managed)
+
+# Base.resize!(vec::SharedStdVector, size) = resize!(vec.managed, size)
+# Base.empty!(vec::SharedStdVector) = empty!(vec.managed)
+# Base.length(vec::SharedStdVector) = length(vec.managed)
+# Base.isempty(vec::SharedStdVector) = isempty(vec.managed)
+# Base.getindex(vec::SharedStdVector, idx) = getindex(vec.managed, idx)
+# Base.setindex!(vec::SharedStdVector, elt, idx) = setindex!(vec.managed, elt, idx)
+# Base.size(vec::SharedStdVector) = size(vec.managed)
+# Base.firstindex(vec::SharedStdVector) = firstindex(vec.managed)
+# Base.lastindex(vec::SharedStdVector) = lastindex(vec.managed)
+# Base.eltype(::SharedStdVector{T}) where {T} = eltype(StdVector{T})
+# Base.iterate(vec::SharedStdVector) = iterate(vec.managed)
+# Base.iterate(vec::SharedStdVector, pos::Integer) = iterate(vec.managed, pos)

@@ -1,28 +1,13 @@
-module StdSharedPtrs
+# StdSharedPtr
 
-using ..Stds
-using CxxInterface
-using STL_jll
-
-################################################################################
-
-eval(cxxprelude("""
+eval(cxxnewfile("StdSharedPtr.cxx", """
     #include <memory>
-
-    static_assert(sizeof(bool) == 1, "");
     """))
 
-abstract type AbstractStdSharedPtr{T} end
-
-struct StdSharedPtr{T} <: AbstractStdSharedPtr{T}
-    cxx::Ptr{StdSharedPtr{T}}
-    StdSharedPtr{T}(cxx::Ptr{StdSharedPtr{T}}) where {T} = new{T}(cxx)
-end
-export StdSharedPtr
 Base.cconvert(::Type{Ptr{StdSharedPtr{T}}}, ptr::StdSharedPtr{T}) where {T} = ptr.cxx
 
-Stds.convert_arg(::Type{Ptr{StdSharedPtr{T}}}, ptr::StdSharedPtr{T}) where {T} = ptr.cxx
-Stds.convert_result(::Type{StdSharedPtr{T}}, ptr::Ptr{StdSharedPtr{T}}) where {T} = StdSharedPtr{T}(ptr)
+convert_arg(::Type{Ptr{StdSharedPtr{T}}}, ptr::StdSharedPtr{T}) where {T} = ptr.cxx
+convert_result(::Type{StdSharedPtr{T}}, ptr::Ptr{StdSharedPtr{T}}) where {T} = StdSharedPtr{T}(ptr)
 
 StdSharedPtr{T}() where {T} = StdSharedPtr_new(T)
 
@@ -94,35 +79,23 @@ function generate(::Type{StdSharedPtr{T}}) where {T}
     return nothing
 end
 
-const types = Stds.value_types
-for T in sort!(collect(types); by=string)
+const StdSharedPtr_types = value_types
+for T in sort!(collect(StdSharedPtr_types); by=string)
     generate(StdSharedPtr{T})
 end
 
-Stds.free(ptr::StdSharedPtr) = StdSharedPtr_delete(ptr)
+free(ptr::StdSharedPtr) = StdSharedPtr_delete(ptr)
 
 Base.eltype(::StdSharedPtr{T}) where {T} = T
 
 ################################################################################
 
-mutable struct GCStdSharedPtr{T} <: AbstractStdSharedPtr{T}
-    managed::StdSharedPtr{T}
-    function GCStdSharedPtr{T}(ptr::StdSharedPtr{T}) where {T}
-        res = new{T}(ptr)
-        finalizer(free, res)
-        return res
-    end
-end
-export GCStdSharedPtr
-
 GCStdSharedPtr{T}() where {T} = GCStdSharedPtr{T}(StdSharedPtr{T}())
 
-Stds.free(ptr::GCStdSharedPtr) = free(vec.managed)
+free(ptr::GCStdSharedPtr) = free(vec.managed)
 
 Base.empty(ptr::GCStdSharedPtr) = empty!(ptr.managed)
 Base.isempty(ptr::GCStdSharedPtr) = isempty(ptr.managed)
 Base.getindex(ptr::GCStdSharedPtr) = getindex(ptr.managed)
 Base.setindex!(ptr::GCStdSharedPtr, val) = setindex!(ptr.managed, val)
 Base.eltype(::GCStdSharedPtr{T}) where {T} = eltype(StdSharedPtr{T})
-
-end

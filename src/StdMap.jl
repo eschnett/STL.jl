@@ -1,43 +1,23 @@
-module StdMaps
+# StdMap
 
-using ..StdStrings
-using ..Stds
-using CxxInterface
-using STL_jll
-
-################################################################################
-
-eval(cxxprelude("""
-    #include <cstddef>
-    #include <string>
+eval(cxxnewfile("StdMap.cxx", """
     #include <map>
+    #include <string>
 
     static_assert(sizeof(bool) == 1, "");
     """))
 
-abstract type AbstractStdMap{K,T} <: AbstractDict{K,T} end
-
-struct StdMap{K,T} <: AbstractStdMap{K,T}
-    cxx::Ptr{StdMap{K,T}}
-    StdMap{K,T}(cxx::Ptr{StdMap{K,T}}) where {K,T} = new{K,T}(cxx)
-end
-export StdMap
 Base.cconvert(::Type{Ptr{StdMap{K,T}}}, map::StdMap{K,T}) where {K,T} = map.cxx
 
-Stds.convert_arg(::Type{Ptr{StdMap{K,T}}}, map::StdMap{K,T}) where {K,T} = map.cxx
-Stds.convert_result(::Type{StdMap{K,T}}, ptr::Ptr{StdMap{K,T}}) where {K,T} = StdMap{K,T}(ptr)
+convert_arg(::Type{Ptr{StdMap{K,T}}}, map::StdMap{K,T}) where {K,T} = map.cxx
+convert_result(::Type{StdMap{K,T}}, ptr::Ptr{StdMap{K,T}}) where {K,T} = StdMap{K,T}(ptr)
 
 StdMap{K,T}() where {K,T} = StdMap_new(K, T)
 
-struct StdMapIterator{K,T}
-    cxx::Ptr{StdMapIterator{K,T}}
-    StdMapIterator{K,T}(cxx::Ptr{StdMapIterator{K,T}}) where {K,T} = new{K,T}(cxx)
-end
-export StdMapIterator
 Base.cconvert(::Type{Ptr{StdMapIterator{K,T}}}, map::StdMapIterator{K,T}) where {K,T} = map.cxx
 
-Stds.convert_arg(::Type{Ptr{StdMapIterator{K,T}}}, iter::StdMapIterator{K,T}) where {K,T} = iter.cxx
-Stds.convert_result(::Type{StdMapIterator{K,T}}, ptr::Ptr{StdMapIterator{K,T}}) where {K,T} = StdMapIterator{K,T}(ptr)
+convert_arg(::Type{Ptr{StdMapIterator{K,T}}}, iter::StdMapIterator{K,T}) where {K,T} = iter.cxx
+convert_result(::Type{StdMapIterator{K,T}}, ptr::Ptr{StdMapIterator{K,T}}) where {K,T} = StdMapIterator{K,T}(ptr)
 
 StdMapIterator{K,T}() where {K,T} = StdMapIterator_new(K, T)
 
@@ -166,14 +146,14 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
     return nothing
 end
 
-const types = filter(T -> !(T <: Complex), Stds.value_types)
-const keys = filter(T -> T <: Integer, types) ∪ Set([StdString])
-for K in sort!(collect(keys); by=string), T in sort!(collect(types); by=string)
+const StdMap_types = filter(T -> !(T <: Complex), value_types)
+const StdMap_keys = filter(T -> T <: Integer, StdMap_types) ∪ Set([StdString])
+for K in sort!(collect(StdMap_keys); by=string), T in sort!(collect(StdMap_types); by=string)
     generate(StdMap{K,T})
 end
 
-Stds.free(map::StdMap) = StdMap_delete(map)
-Stds.free(iter::StdMapIterator) = StdMapIterator_delete(iter)
+free(map::StdMap) = StdMap_delete(map)
+free(iter::StdMapIterator) = StdMapIterator_delete(iter)
 
 Base.isempty(map::StdMap) = length(map) == 0
 Base.size(map::StdMap) = (length(map),)
@@ -183,32 +163,12 @@ Base.eltype(::StdMap{K,T}) where {K,T} = T
 
 ################################################################################
 
-mutable struct GCStdMap{K,T} <: AbstractStdMap{K,T}
-    managed::StdMap{K,T}
-    function GCStdMap{K,T}(map::StdMap{K,T}) where {K,T}
-        res = new{K,T}(map)
-        finalizer(free, res)
-        return res
-    end
-end
-export GCStdMap
-
 GCStdMap{K,T}() where {K,T} = GCStdMap{K,T}(StdMap{K,T}())
-
-mutable struct GCStdMapIterator{K,T}
-    managed::StdMapIterator{K,T}
-    function GCStdMapIterator{K,T}(iter::StdMapIterator{K,T}) where {K,T}
-        res = new{K,T}(iter)
-        finalizer(free, res)
-        return res
-    end
-end
-export GCStdMapIterator
 
 GCStdMapIterator{K,T}() where {K,T} = GCStdMapIterator{K,T}(StdMapIterator{K,T}())
 
-Stds.free(map::GCStdMap) = free(map.managed)
-Stds.free(iter::GCStdMapIterator) = free(iter.managed)
+free(map::GCStdMap) = free(map.managed)
+free(iter::GCStdMapIterator) = free(iter.managed)
 
 Base.length(map::GCStdMap) = length(map.managed)
 Base.isempty(map::GCStdMap) = isempty(map.managed)
@@ -251,6 +211,4 @@ function Base.iterate(map::GCStdMap{K,T}, iter::GCStdMapIterator{K,T}) where {K,
     inc!(iter)
     is_cend(iter, map) && return nothing
     return (iter[], iter)
-end
-
 end

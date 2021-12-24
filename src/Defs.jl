@@ -1,4 +1,4 @@
-module Stds
+# Defs
 
 # Free a C++ object
 function free end
@@ -56,4 +56,3 @@ convert_result(::Type{T}, ptr::Ptr{T}) where {T<:Union{value_types...}} = unsafe
 #     res2 = convert_result(T2, Ptr{T2}(ptr + fieldoffset(Tuple{T1,T2}, 2)))
 #     return Tuple{T1,T2}((res1, res2))
 # end
-end

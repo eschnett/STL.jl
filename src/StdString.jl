@@ -1,30 +1,21 @@
-module StdStrings
+# StdString
 
-using ..Stds
-using CxxInterface
-using STL_jll
-using TestAbstractTypes
-
-################################################################################
-
-eval(cxxprelude("""
+eval(cxxnewfile("StdString.cxx", """
     #include <string>
+
+    static_assert(sizeof(bool) == 1, "");
     """))
 
 ################################################################################
 
-struct StdChar <: AbstractChar
-    cxx::Cchar
-end
-export StdChar
 Base.cconvert(::Type{Cchar}, ch::StdChar) = ch.cxx
 
 StdChar(ch::AbstractChar) = StdChar(Cuchar(ch) % Cchar)
 StdChar(i::Integer) = StdChar(Cuchar(i) % Cchar)
 Base.Char(ch::StdChar) = Char(ch.cxx % Cuchar)
 
-Stds.convert_arg(::Type{Ptr{StdChar}}, ch::StdChar) = ch.cxx
-Stds.convert_result(::Type{StdChar}, ptr::Ptr{StdChar}) = unsafe_load(ptr)
+convert_arg(::Type{Ptr{StdChar}}, ch::StdChar) = ch.cxx
+convert_result(::Type{StdChar}, ptr::Ptr{StdChar}) = unsafe_load(ptr)
 
 Base.codepoint(ch::StdChar) = ch.cxx
 
@@ -33,17 +24,10 @@ Base.show(io::IO, ch::StdChar) = show(io, Char(ch))
 
 ################################################################################
 
-abstract type AbstractStdString <: AbstractString end
-
-struct StdString <: AbstractStdString
-    cxx::Ptr{StdString}
-    StdString(cxx::Ptr{StdString}) = new(cxx)
-end
-export StdString
 Base.cconvert(::Type{Ptr{StdString}}, str::StdString) = str.cxx
 
-Stds.convert_arg(::Type{Ptr{StdString}}, str::StdString) = str.cxx
-Stds.convert_result(::Type{StdString}, ptr::Ptr{StdString}) = StdString(ptr)
+convert_arg(::Type{Ptr{StdString}}, str::StdString) = str.cxx
+convert_result(::Type{StdString}, ptr::Ptr{StdString}) = StdString(ptr)
 
 StdString() = StdString_new()
 StdString(str::AbstractString) = StdString_new(str, ncodeunits(str))
@@ -106,7 +90,7 @@ end
 
 generate(StdString)
 
-Stds.free(str::StdString) = StdString_delete(str)
+free(str::StdString) = StdString_delete(str)
 
 Base.isempty(str::StdString) = length(str) == 0
 
@@ -141,21 +125,11 @@ end
 
 ################################################################################
 
-mutable struct GCStdString <: AbstractStdString
-    managed::StdString
-    function GCStdString(str::StdString)
-        res = new(str)
-        finalizer(free, res)
-        return res
-    end
-end
-export GCStdString
-
 GCStdString() = GCStdString(StdString())
 GCStdString(str::AbstractString) = GCStdString(StdString(str))
 Base.convert(::Type{String}, str::GCStdString) = convert(String, str.managed)
 
-Stds.free(str::GCStdString) = free(str.managed)
+free(str::GCStdString) = free(str.managed)
 
 Base.length(str::GCStdString) = length(str.managed)
 Base.isempty(str::GCStdString) = isempty(str.managed)
@@ -210,6 +184,4 @@ function TestAbstractTypes.generator(::Type{GCStdString})
         end
     end
     return Channel{GCStdString}(gen)
-end
-
 end

@@ -3,8 +3,8 @@ using STL
 using Test
 using TestAbstractTypes
 
-@testset "std::map<$K,$T>" for K in StdMaps.keys, T in StdMaps.types
-    # TODO: Need to free the generated StdString objects
+@testset "std::map<$K,$T>" for K in STL.StdMap_keys, T in STL.StdMap_types
+    # TODO: Need to free the generatedp StdString objects
     mkK(i) = K ≡ Bool ? i % Bool : K ≡ StdString ? StdString(string(i)) : K <: Ptr ? K(i) : i
     mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
 
@@ -44,7 +44,7 @@ using TestAbstractTypes
     free(map)
 end
 
-@testset "std::shared_ptr<$T>" for T in StdSharedPtrs.types
+@testset "std::shared_ptr<$T>" for T in STL.StdSharedPtr_types
     mkT(i) = T ≡ Bool ? i % Bool : T(i)
 
     ptr = StdSharedPtr{T}()
@@ -101,7 +101,7 @@ end
     free(str)
 end
 
-@testset "std::vector<$T>" for T in StdVectors.types
+@testset "std::vector<$T>" for T in STL.StdVector_types
     # TODO: Need to free the generated StdString objects
     mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
 
