@@ -94,15 +94,15 @@ export GCStdString
 abstract type AbstractStdVector{T} <: AbstractVector{T} end
 export AbstractStdVector
 
-struct StdVector{T} <: AbstractStdVector{T}
-    cxx::Ptr{StdVector{T}}
-    StdVector{T}(cxx::Ptr{StdVector{T}}) where {T} = new{T}(cxx)
+struct RefStdVector{T} <: AbstractStdVector{T}
+    cxx::Ptr{RefStdVector{T}}
+    RefStdVector{T}(cxx::Ptr{RefStdVector{T}}) where {T} = new{T}(cxx)
 end
-export StdVector
+export RefStdVector
 
 mutable struct GCStdVector{T} <: AbstractStdVector{T}
-    managed::StdVector{T}
-    function GCStdVector{T}(vec::StdVector{T}) where {T}
+    managed::RefStdVector{T}
+    function GCStdVector{T}(vec::RefStdVector{T}) where {T}
         res = new{T}(vec)
         finalizer(free, res)
         return res

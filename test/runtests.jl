@@ -105,7 +105,7 @@ end
     # TODO: Need to free the generated StdString objects
     mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
 
-    vec = StdVector{T}()
+    vec = RefStdVector{T}()
     @test vec.cxx ≠ C_NULL
     @test eltype(vec) ≡ T
 
@@ -114,7 +114,7 @@ end
 
     free(vec)
 
-    vec = StdVector{T}(10)
+    vec = RefStdVector{T}(10)
     @test length(vec) == 10
 
     for i in 0:9
