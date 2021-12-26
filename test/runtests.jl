@@ -101,20 +101,22 @@ end
     free(str)
 end
 
-@testset "std::vector<$T>" for T in STL.StdVector_types
+GC.gc(true)
+@testset "$V{$T}" for V in [RefStdVector, GCStdVector, SharedStdVector], T in sort!(collect(STL.StdVector_types); by=string)[1:1]
     # TODO: Need to free the generated StdString objects
     mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
 
-    vec = RefStdVector{T}()
-    @test vec.cxx ≠ C_NULL
+    vec = V{T}()
     @test eltype(vec) ≡ T
 
     @test length(vec) == 0
     @test isempty(vec)
 
-    free(vec)
+    if vec isa RefStdVector
+        free(vec)
+    end
 
-    vec = RefStdVector{T}(10)
+    vec = V{T}(10)
     @test length(vec) == 10
 
     for i in 0:9
@@ -141,7 +143,10 @@ end
     empty!(vec)
     @test isempty(vec)
 
-    free(vec)
+    if vec isa RefStdVector
+        free(vec)
+    end
+    GC.gc(true)
 end
 
 # Set reproducible random number seed
