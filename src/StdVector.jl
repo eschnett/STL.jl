@@ -43,7 +43,7 @@ function generate(::Type{StdVector{T}}) where {T}
 
     eval(cxxfunction(FnName(:GCStdVector_destruct, "std_vector_$(NT)_destruct", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{StdVector{T}}, "ptr", "std::vector<$CT> * restrict", GCStdVector{T}, identity)],
-                     "ptr->~vector<$CT>();"))
+                     "ptr->~vector();"))
 
     eval(cxxfunction(FnName(:GCStdVector_copy_construct, "std_vector_$(NT)_copy_construct", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{StdVector{T}}, "ptr", "std::vector<$CT> * restrict", GCStdVector{T}, identity),
@@ -74,7 +74,7 @@ function generate(::Type{StdVector{T}}) where {T}
     eval(cxxfunction(FnName(:SharedStdVector_destruct, "std_shared_ptr_std_vector_$(NT)_placement_delete", libSTL),
                      FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{Cvoid}, "ptr", "std::shared_ptr<std::vector<$CT>> * restrict", SharedStdVector{T},
-                            expr -> :(pointer_from_objref($expr)))], "ptr->~shared_ptr<std::vector<$CT>>();"))
+                            expr -> :(pointer_from_objref($expr)))], "ptr->~shared_ptr();"))
 
     eval(cxxfunction(FnName(:SharedStdVector_copy_construct, "std_shared_ptr_std_vector_$(NT)_placement_copy", libSTL),
                      FnResult(Nothing, "void"),
@@ -122,6 +122,19 @@ function generate(::Type{StdVector{T}}) where {T}
                      [FnArg(:vec1, Ptr{StdVector{T}}, "vec1", "const std::vector<$CT> * restrict", StdVector{T}, identity),
                       FnArg(:vec2, Ptr{StdVector{T}}, "vec2", "const std::vector<$CT> * restrict", StdVector{T}, identity)],
                      "return *vec1 == *vec2;"))
+    # eval(cxxfunction(FnName(:(Base.:(<)), "std_vector_$(NT)_less", libSTL), FnResult(Bool, "bool"),
+    #                  [FnArg(:vec1, Ptr{StdVector{T}}, "vec1", "const std::vector<$CT> * restrict", StdVector{T}, identity),
+    #                   FnArg(:vec2, Ptr{StdVector{T}}, "vec2", "const std::vector<$CT> * restrict", StdVector{T}, identity)],
+    #                  "return *vec1 < *vec2;"))
+
+    eval(cxxfunction(FnName(:(Base.push!), "std_vector_$(NT)_push_", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity),
+                      FnArg(:elt, Ptr{T}, "elt", "$CT const *", Any, expr -> :(convert_arg(Ptr{$T}, convert($T, $expr))))],
+                     "vec->push_back(*elt);"))
+    eval(cxxfunction(FnName(:pop_back!, "std_vector_$(NT)_pop_back_", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity)],
+                     "vec->pop_back();"))
+    @eval Base.pop!(vec::StdVector) = (elt = vec[end]; pop_back!(vec); elt)
 
     return nothing
 end
@@ -132,8 +145,6 @@ for T in sort!(collect(StdVector_types); by=string)
 end
 
 free(vec::RefStdVector) = RefStdVector_delete(vec)
-#TODO free(vec::GCStdVector) = GCStdVector_delete(vec)
-#TODO free(vec::SharedStdVector) = SharedStdVector_delete(vec)
 
 ################################################################################
 

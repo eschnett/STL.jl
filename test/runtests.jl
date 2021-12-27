@@ -3,46 +3,46 @@ using STL
 using Test
 using TestAbstractTypes
 
-@testset "std::map<$K,$T>" for K in STL.StdMap_keys, T in STL.StdMap_types
-    # TODO: Need to free the generatedp StdString objects
-    mkK(i) = K ≡ Bool ? i % Bool : K ≡ StdString ? StdString(string(i)) : K <: Ptr ? K(i) : i
-    mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
-
-    map = StdMap{K,T}()
-    @test keytype(map) ≡ K
-    @test eltype(map) ≡ T
-    @test map.cxx ≠ C_NULL
-
-    @test length(map) == 0
-    @test isempty(map)
-
-    N = K ≡ Bool ? 2 : 10
-    for i in 0:(N - 1)
-        map[mkK(i)] = mkT(i)
-    end
-    @test length(map) == N
-    for i in 0:(N - 1)
-        @test haskey(map, mkK(i))
-        @test map[mkK(i)] == mkT(i)
-        if K ≢ Bool
-            @test !haskey(map, mkK(i + 20))
-        end
-    end
-
-    elts = Dict([elt for elt in map])
-    @test typeof(elts) == Dict{K,T}
-    @test elts == Dict([mkK(i) => mkT(i) for i in 0:(N - 1)])
-
-    for i in 0:(N - 1)
-        @test haskey(map, mkK(i))
-        delete!(map, mkK(i))
-        @test !haskey(map, mkK(i))
-    end
-
-    @test isempty(map)
-
-    free(map)
-end
+#TODO @testset "std::map<$K,$T>" for K in STL.StdMap_keys, T in STL.StdMap_types
+#TODO     # TODO: Need to free the generatedp StdString objects
+#TODO     mkK(i) = K ≡ Bool ? i % Bool : K ≡ StdString ? StdString(string(i)) : K <: Ptr ? K(i) : i
+#TODO     mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
+#TODO 
+#TODO     map = StdMap{K,T}()
+#TODO     @test keytype(map) ≡ K
+#TODO     @test eltype(map) ≡ T
+#TODO     @test map.cxx ≠ C_NULL
+#TODO 
+#TODO     @test length(map) == 0
+#TODO     @test isempty(map)
+#TODO 
+#TODO     N = K ≡ Bool ? 2 : 10
+#TODO     for i in 0:(N - 1)
+#TODO         map[mkK(i)] = mkT(i)
+#TODO     end
+#TODO     @test length(map) == N
+#TODO     for i in 0:(N - 1)
+#TODO         @test haskey(map, mkK(i))
+#TODO         @test map[mkK(i)] == mkT(i)
+#TODO         if K ≢ Bool
+#TODO             @test !haskey(map, mkK(i + 20))
+#TODO         end
+#TODO     end
+#TODO 
+#TODO     elts = Dict([elt for elt in map])
+#TODO     @test typeof(elts) == Dict{K,T}
+#TODO     @test elts == Dict([mkK(i) => mkT(i) for i in 0:(N - 1)])
+#TODO 
+#TODO     for i in 0:(N - 1)
+#TODO         @test haskey(map, mkK(i))
+#TODO         delete!(map, mkK(i))
+#TODO         @test !haskey(map, mkK(i))
+#TODO     end
+#TODO 
+#TODO     @test isempty(map)
+#TODO 
+#TODO     free(map)
+#TODO end
 
 @testset "std::shared_ptr<$T>" for T in STL.StdSharedPtr_types
     mkT(i) = T ≡ Bool ? i % Bool : T(i)
@@ -77,17 +77,18 @@ end
     free(ptr2)
 end
 
-@testset "std::string" begin
-    str = StdString()
+@testset "$S" for S in [RefStdString, GCStdString, SharedStdString]
+    str = S()
     T = eltype(str)
-    @test str.cxx ≠ C_NULL
 
     @test length(str) == 0
     @test isempty(str)
 
-    free(str)
+    if S isa RefStdString
+        free(str)
+    end
 
-    str = StdString("Hello, World!")
+    str = S("Hello, World!")
     @test length(str) == 13
 
     @test str[1] == T('H')
@@ -98,10 +99,12 @@ end
     @test length(str) == 13
     @test str[13] == T('\0')
 
-    free(str)
+    if S isa RefStdString
+        free(str)
+    end
+    GC.gc(true)
 end
 
-GC.gc(true)
 @testset "$V{$T}" for V in [RefStdVector, GCStdVector, SharedStdVector], T in sort!(collect(STL.StdVector_types); by=string)[1:1]
     # TODO: Need to free the generated StdString objects
     mkT(i) = T ≡ Bool ? i % Bool : T ≡ StdString ? StdString(string(i)) : T <: Ptr ? T(i) : i
@@ -151,4 +154,10 @@ end
 
 # Set reproducible random number seed
 Random.seed!(0)
+testAbstractChar(StdChar, generator(StdChar))
+Random.seed!(0)
+testAbstractString(RefStdString, generator(RefStdString))
+Random.seed!(0)
 testAbstractString(GCStdString, generator(GCStdString))
+Random.seed!(0)
+testAbstractString(SharedStdString, generator(SharedStdString))

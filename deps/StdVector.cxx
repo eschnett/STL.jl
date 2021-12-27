@@ -92,7 +92,7 @@ end
 extern "C" void std_vector_bool_destruct(
     std::vector<bool> * restrict ptr
 ) {
-    ptr->~vector<bool>();
+    ptr->~vector();
 }
 
 /*
@@ -148,7 +148,7 @@ end
 extern "C" void std_shared_ptr_std_vector_bool_placement_delete(
     std::shared_ptr<std::vector<bool>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<bool>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -244,6 +244,31 @@ extern "C" bool std_vector_bool_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{Bool}, elt::Any)
+    res = ccall(("std_vector_bool_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Bool}}, Ptr{Bool}), vec, convert_arg(Ptr{Bool}, convert(Bool, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_bool_push_(
+    std::vector<bool> * restrict vec,
+    bool const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{Bool})
+    res = ccall(("std_vector_bool_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Bool}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_bool_pop_back_(
+    std::vector<bool> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{ComplexF32})
     res = ccall(("std_vector_float__Complex_new", "libSTL.dylib"), Ptr{STL.StdVector{ComplexF32}}, ())
     return RefStdVector{ComplexF32}(res)::STL.RefStdVector{ComplexF32}
@@ -327,7 +352,7 @@ end
 extern "C" void std_vector_float__Complex_destruct(
     std::vector<float _Complex> * restrict ptr
 ) {
-    ptr->~vector<float _Complex>();
+    ptr->~vector();
 }
 
 /*
@@ -383,7 +408,7 @@ end
 extern "C" void std_shared_ptr_std_vector_float__Complex_placement_delete(
     std::shared_ptr<std::vector<float _Complex>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<float _Complex>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -479,6 +504,31 @@ extern "C" bool std_vector_float__Complex_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{ComplexF32}, elt::Any)
+    res = ccall(("std_vector_float__Complex_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}}, Ptr{ComplexF32}), vec, convert_arg(Ptr{ComplexF32}, convert(ComplexF32, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_float__Complex_push_(
+    std::vector<float _Complex> * restrict vec,
+    float _Complex const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{ComplexF32})
+    res = ccall(("std_vector_float__Complex_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_float__Complex_pop_back_(
+    std::vector<float _Complex> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{ComplexF64})
     res = ccall(("std_vector_double__Complex_new", "libSTL.dylib"), Ptr{STL.StdVector{ComplexF64}}, ())
     return RefStdVector{ComplexF64}(res)::STL.RefStdVector{ComplexF64}
@@ -562,7 +612,7 @@ end
 extern "C" void std_vector_double__Complex_destruct(
     std::vector<double _Complex> * restrict ptr
 ) {
-    ptr->~vector<double _Complex>();
+    ptr->~vector();
 }
 
 /*
@@ -618,7 +668,7 @@ end
 extern "C" void std_shared_ptr_std_vector_double__Complex_placement_delete(
     std::shared_ptr<std::vector<double _Complex>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<double _Complex>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -714,6 +764,31 @@ extern "C" bool std_vector_double__Complex_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{ComplexF64}, elt::Any)
+    res = ccall(("std_vector_double__Complex_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF64}}, Ptr{ComplexF64}), vec, convert_arg(Ptr{ComplexF64}, convert(ComplexF64, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_double__Complex_push_(
+    std::vector<double _Complex> * restrict vec,
+    double _Complex const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{ComplexF64})
+    res = ccall(("std_vector_double__Complex_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF64}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_double__Complex_pop_back_(
+    std::vector<double _Complex> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{Float32})
     res = ccall(("std_vector_float_new", "libSTL.dylib"), Ptr{STL.StdVector{Float32}}, ())
     return RefStdVector{Float32}(res)::STL.RefStdVector{Float32}
@@ -797,7 +872,7 @@ end
 extern "C" void std_vector_float_destruct(
     std::vector<float> * restrict ptr
 ) {
-    ptr->~vector<float>();
+    ptr->~vector();
 }
 
 /*
@@ -853,7 +928,7 @@ end
 extern "C" void std_shared_ptr_std_vector_float_placement_delete(
     std::shared_ptr<std::vector<float>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<float>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -949,6 +1024,31 @@ extern "C" bool std_vector_float_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{Float32}, elt::Any)
+    res = ccall(("std_vector_float_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}}, Ptr{Float32}), vec, convert_arg(Ptr{Float32}, convert(Float32, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_float_push_(
+    std::vector<float> * restrict vec,
+    float const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{Float32})
+    res = ccall(("std_vector_float_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_float_pop_back_(
+    std::vector<float> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{Float64})
     res = ccall(("std_vector_double_new", "libSTL.dylib"), Ptr{STL.StdVector{Float64}}, ())
     return RefStdVector{Float64}(res)::STL.RefStdVector{Float64}
@@ -1032,7 +1132,7 @@ end
 extern "C" void std_vector_double_destruct(
     std::vector<double> * restrict ptr
 ) {
-    ptr->~vector<double>();
+    ptr->~vector();
 }
 
 /*
@@ -1088,7 +1188,7 @@ end
 extern "C" void std_shared_ptr_std_vector_double_placement_delete(
     std::shared_ptr<std::vector<double>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<double>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -1184,6 +1284,31 @@ extern "C" bool std_vector_double_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{Float64}, elt::Any)
+    res = ccall(("std_vector_double_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float64}}, Ptr{Float64}), vec, convert_arg(Ptr{Float64}, convert(Float64, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_double_push_(
+    std::vector<double> * restrict vec,
+    double const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{Float64})
+    res = ccall(("std_vector_double_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float64}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_double_pop_back_(
+    std::vector<double> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{Int16})
     res = ccall(("std_vector_int16_t_new", "libSTL.dylib"), Ptr{STL.StdVector{Int16}}, ())
     return RefStdVector{Int16}(res)::STL.RefStdVector{Int16}
@@ -1267,7 +1392,7 @@ end
 extern "C" void std_vector_int16_t_destruct(
     std::vector<int16_t> * restrict ptr
 ) {
-    ptr->~vector<int16_t>();
+    ptr->~vector();
 }
 
 /*
@@ -1323,7 +1448,7 @@ end
 extern "C" void std_shared_ptr_std_vector_int16_t_placement_delete(
     std::shared_ptr<std::vector<int16_t>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<int16_t>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -1419,6 +1544,31 @@ extern "C" bool std_vector_int16_t_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{Int16}, elt::Any)
+    res = ccall(("std_vector_int16_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}}, Ptr{Int16}), vec, convert_arg(Ptr{Int16}, convert(Int16, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_int16_t_push_(
+    std::vector<int16_t> * restrict vec,
+    int16_t const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{Int16})
+    res = ccall(("std_vector_int16_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_int16_t_pop_back_(
+    std::vector<int16_t> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{Int32})
     res = ccall(("std_vector_int32_t_new", "libSTL.dylib"), Ptr{STL.StdVector{Int32}}, ())
     return RefStdVector{Int32}(res)::STL.RefStdVector{Int32}
@@ -1502,7 +1652,7 @@ end
 extern "C" void std_vector_int32_t_destruct(
     std::vector<int32_t> * restrict ptr
 ) {
-    ptr->~vector<int32_t>();
+    ptr->~vector();
 }
 
 /*
@@ -1558,7 +1708,7 @@ end
 extern "C" void std_shared_ptr_std_vector_int32_t_placement_delete(
     std::shared_ptr<std::vector<int32_t>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<int32_t>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -1654,6 +1804,31 @@ extern "C" bool std_vector_int32_t_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{Int32}, elt::Any)
+    res = ccall(("std_vector_int32_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}}, Ptr{Int32}), vec, convert_arg(Ptr{Int32}, convert(Int32, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_int32_t_push_(
+    std::vector<int32_t> * restrict vec,
+    int32_t const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{Int32})
+    res = ccall(("std_vector_int32_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_int32_t_pop_back_(
+    std::vector<int32_t> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{Int64})
     res = ccall(("std_vector_int64_t_new", "libSTL.dylib"), Ptr{STL.StdVector{Int64}}, ())
     return RefStdVector{Int64}(res)::STL.RefStdVector{Int64}
@@ -1737,7 +1912,7 @@ end
 extern "C" void std_vector_int64_t_destruct(
     std::vector<int64_t> * restrict ptr
 ) {
-    ptr->~vector<int64_t>();
+    ptr->~vector();
 }
 
 /*
@@ -1793,7 +1968,7 @@ end
 extern "C" void std_shared_ptr_std_vector_int64_t_placement_delete(
     std::shared_ptr<std::vector<int64_t>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<int64_t>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -1889,6 +2064,31 @@ extern "C" bool std_vector_int64_t_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{Int64}, elt::Any)
+    res = ccall(("std_vector_int64_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int64}}, Ptr{Int64}), vec, convert_arg(Ptr{Int64}, convert(Int64, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_int64_t_push_(
+    std::vector<int64_t> * restrict vec,
+    int64_t const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{Int64})
+    res = ccall(("std_vector_int64_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int64}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_int64_t_pop_back_(
+    std::vector<int64_t> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{Int8})
     res = ccall(("std_vector_int8_t_new", "libSTL.dylib"), Ptr{STL.StdVector{Int8}}, ())
     return RefStdVector{Int8}(res)::STL.RefStdVector{Int8}
@@ -1972,7 +2172,7 @@ end
 extern "C" void std_vector_int8_t_destruct(
     std::vector<int8_t> * restrict ptr
 ) {
-    ptr->~vector<int8_t>();
+    ptr->~vector();
 }
 
 /*
@@ -2028,7 +2228,7 @@ end
 extern "C" void std_shared_ptr_std_vector_int8_t_placement_delete(
     std::shared_ptr<std::vector<int8_t>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<int8_t>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -2124,6 +2324,31 @@ extern "C" bool std_vector_int8_t_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{Int8}, elt::Any)
+    res = ccall(("std_vector_int8_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int8}}, Ptr{Int8}), vec, convert_arg(Ptr{Int8}, convert(Int8, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_int8_t_push_(
+    std::vector<int8_t> * restrict vec,
+    int8_t const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{Int8})
+    res = ccall(("std_vector_int8_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int8}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_int8_t_pop_back_(
+    std::vector<int8_t> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{Ptr{Nothing}})
     res = ccall(("std_vector_void___new", "libSTL.dylib"), Ptr{STL.StdVector{Ptr{Nothing}}}, ())
     return RefStdVector{Ptr{Nothing}}(res)::STL.RefStdVector{Ptr{Nothing}}
@@ -2207,7 +2432,7 @@ end
 extern "C" void std_vector_void___destruct(
     std::vector<void *> * restrict ptr
 ) {
-    ptr->~vector<void *>();
+    ptr->~vector();
 }
 
 /*
@@ -2263,7 +2488,7 @@ end
 extern "C" void std_shared_ptr_std_vector_void___placement_delete(
     std::shared_ptr<std::vector<void *>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<void *>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -2359,6 +2584,31 @@ extern "C" bool std_vector_void___equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{Ptr{Nothing}}, elt::Any)
+    res = ccall(("std_vector_void___push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Ptr{Nothing}}}, Ptr{Ptr{Nothing}}), vec, convert_arg(Ptr{Ptr{Nothing}}, convert(Ptr{Nothing}, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_void___push_(
+    std::vector<void *> * restrict vec,
+    void * const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{Ptr{Nothing}})
+    res = ccall(("std_vector_void___pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Ptr{Nothing}}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_void___pop_back_(
+    std::vector<void *> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{STL.StdString})
     res = ccall(("std_vector_std__string_new", "libSTL.dylib"), Ptr{STL.StdVector{STL.StdString}}, ())
     return RefStdVector{STL.StdString}(res)::STL.RefStdVector{STL.StdString}
@@ -2442,7 +2692,7 @@ end
 extern "C" void std_vector_std__string_destruct(
     std::vector<std::string> * restrict ptr
 ) {
-    ptr->~vector<std::string>();
+    ptr->~vector();
 }
 
 /*
@@ -2498,7 +2748,7 @@ end
 extern "C" void std_shared_ptr_std_vector_std__string_placement_delete(
     std::shared_ptr<std::vector<std::string>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<std::string>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -2594,6 +2844,31 @@ extern "C" bool std_vector_std__string_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{STL.StdString}, elt::Any)
+    res = ccall(("std_vector_std__string_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}}, Ptr{STL.StdString}), vec, convert_arg(Ptr{STL.StdString}, convert(STL.StdString, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__string_push_(
+    std::vector<std::string> * restrict vec,
+    std::string const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{STL.StdString})
+    res = ccall(("std_vector_std__string_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__string_pop_back_(
+    std::vector<std::string> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{UInt16})
     res = ccall(("std_vector_uint16_t_new", "libSTL.dylib"), Ptr{STL.StdVector{UInt16}}, ())
     return RefStdVector{UInt16}(res)::STL.RefStdVector{UInt16}
@@ -2677,7 +2952,7 @@ end
 extern "C" void std_vector_uint16_t_destruct(
     std::vector<uint16_t> * restrict ptr
 ) {
-    ptr->~vector<uint16_t>();
+    ptr->~vector();
 }
 
 /*
@@ -2733,7 +3008,7 @@ end
 extern "C" void std_shared_ptr_std_vector_uint16_t_placement_delete(
     std::shared_ptr<std::vector<uint16_t>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<uint16_t>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -2829,6 +3104,31 @@ extern "C" bool std_vector_uint16_t_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{UInt16}, elt::Any)
+    res = ccall(("std_vector_uint16_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}}, Ptr{UInt16}), vec, convert_arg(Ptr{UInt16}, convert(UInt16, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_uint16_t_push_(
+    std::vector<uint16_t> * restrict vec,
+    uint16_t const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{UInt16})
+    res = ccall(("std_vector_uint16_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_uint16_t_pop_back_(
+    std::vector<uint16_t> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{UInt32})
     res = ccall(("std_vector_uint32_t_new", "libSTL.dylib"), Ptr{STL.StdVector{UInt32}}, ())
     return RefStdVector{UInt32}(res)::STL.RefStdVector{UInt32}
@@ -2912,7 +3212,7 @@ end
 extern "C" void std_vector_uint32_t_destruct(
     std::vector<uint32_t> * restrict ptr
 ) {
-    ptr->~vector<uint32_t>();
+    ptr->~vector();
 }
 
 /*
@@ -2968,7 +3268,7 @@ end
 extern "C" void std_shared_ptr_std_vector_uint32_t_placement_delete(
     std::shared_ptr<std::vector<uint32_t>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<uint32_t>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -3064,6 +3364,31 @@ extern "C" bool std_vector_uint32_t_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{UInt32}, elt::Any)
+    res = ccall(("std_vector_uint32_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}}, Ptr{UInt32}), vec, convert_arg(Ptr{UInt32}, convert(UInt32, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_uint32_t_push_(
+    std::vector<uint32_t> * restrict vec,
+    uint32_t const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{UInt32})
+    res = ccall(("std_vector_uint32_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_uint32_t_pop_back_(
+    std::vector<uint32_t> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{UInt64})
     res = ccall(("std_vector_uint64_t_new", "libSTL.dylib"), Ptr{STL.StdVector{UInt64}}, ())
     return RefStdVector{UInt64}(res)::STL.RefStdVector{UInt64}
@@ -3147,7 +3472,7 @@ end
 extern "C" void std_vector_uint64_t_destruct(
     std::vector<uint64_t> * restrict ptr
 ) {
-    ptr->~vector<uint64_t>();
+    ptr->~vector();
 }
 
 /*
@@ -3203,7 +3528,7 @@ end
 extern "C" void std_shared_ptr_std_vector_uint64_t_placement_delete(
     std::shared_ptr<std::vector<uint64_t>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<uint64_t>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -3299,6 +3624,31 @@ extern "C" bool std_vector_uint64_t_equals(
 }
 
 /*
+function Base.push!(vec::STL.StdVector{UInt64}, elt::Any)
+    res = ccall(("std_vector_uint64_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt64}}, Ptr{UInt64}), vec, convert_arg(Ptr{UInt64}, convert(UInt64, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_uint64_t_push_(
+    std::vector<uint64_t> * restrict vec,
+    uint64_t const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{UInt64})
+    res = ccall(("std_vector_uint64_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt64}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_uint64_t_pop_back_(
+    std::vector<uint64_t> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
 function RefStdVector_new(type::Type{UInt8})
     res = ccall(("std_vector_uint8_t_new", "libSTL.dylib"), Ptr{STL.StdVector{UInt8}}, ())
     return RefStdVector{UInt8}(res)::STL.RefStdVector{UInt8}
@@ -3382,7 +3732,7 @@ end
 extern "C" void std_vector_uint8_t_destruct(
     std::vector<uint8_t> * restrict ptr
 ) {
-    ptr->~vector<uint8_t>();
+    ptr->~vector();
 }
 
 /*
@@ -3438,7 +3788,7 @@ end
 extern "C" void std_shared_ptr_std_vector_uint8_t_placement_delete(
     std::shared_ptr<std::vector<uint8_t>> * restrict ptr
 ) {
-    ptr->~shared_ptr<std::vector<uint8_t>>();
+    ptr->~shared_ptr();
 }
 
 /*
@@ -3531,5 +3881,30 @@ extern "C" bool std_vector_uint8_t_equals(
     const std::vector<uint8_t> * restrict vec2
 ) {
     return *vec1 == *vec2;
+}
+
+/*
+function Base.push!(vec::STL.StdVector{UInt8}, elt::Any)
+    res = ccall(("std_vector_uint8_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}}, Ptr{UInt8}), vec, convert_arg(Ptr{UInt8}, convert(UInt8, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_uint8_t_push_(
+    std::vector<uint8_t> * restrict vec,
+    uint8_t const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{UInt8})
+    res = ccall(("std_vector_uint8_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_uint8_t_pop_back_(
+    std::vector<uint8_t> * restrict vec
+) {
+    vec->pop_back();
 }
 

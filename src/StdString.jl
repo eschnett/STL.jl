@@ -1,21 +1,14 @@
 # StdString
 
 eval(cxxnewfile("StdString.cxx", """
+    #include <memory>
     #include <string>
+    #include <utility>
 
     static_assert(sizeof(bool) == 1, "");
     """))
 
 ################################################################################
-
-Base.cconvert(::Type{Cchar}, ch::StdChar) = ch.cxx
-
-StdChar(ch::AbstractChar) = StdChar(Cuchar(ch) % Cchar)
-StdChar(i::Integer) = StdChar(Cuchar(i) % Cchar)
-Base.Char(ch::StdChar) = Char(ch.cxx % Cuchar)
-
-convert_arg(::Type{Ptr{StdChar}}, ch::StdChar) = ch.cxx
-convert_result(::Type{StdChar}, ptr::Ptr{StdChar}) = unsafe_load(ptr)
 
 Base.codepoint(ch::StdChar) = ch.cxx
 
@@ -24,31 +17,87 @@ Base.show(io::IO, ch::StdChar) = show(io, Char(ch))
 
 ################################################################################
 
-Base.cconvert(::Type{Ptr{StdString}}, str::StdString) = str.cxx
-
-convert_arg(::Type{Ptr{StdString}}, str::StdString) = str.cxx
-convert_result(::Type{StdString}, ptr::Ptr{StdString}) = StdString(ptr)
-
-StdString() = StdString_new()
-StdString(str::AbstractString) = StdString_new(str, ncodeunits(str))
-Base.convert(::Type{String}, str::StdString) = StdString_String(str)
-
 function generate(::Type{StdString})
-    eval(cxxfunction(FnName(:StdString_new, "std_string_new", libSTL),
-                     FnResult(Ptr{StdString}, "std::string *", StdString, expr -> :(StdString($expr))), FnArg[],
+    eval(cxxfunction(FnName(:RefStdString_new, "std_string_new", libSTL),
+                     FnResult(Ptr{StdString}, "std::string *", RefStdString, expr -> :(RefStdString($expr))), FnArg[],
                      "return new std::string;"))
-    eval(cxxfunction(FnName(:StdString_new, "std_string_new_String", libSTL),
-                     FnResult(Ptr{StdString}, "std::string *", StdString, expr -> :(StdString($expr))),
+    eval(cxxfunction(FnName(:RefStdString_new, "std_string_new_const_char_ptr_std_size_t", libSTL),
+                     FnResult(Ptr{StdString}, "std::string *", RefStdString, expr -> :(RefStdString($expr))),
                      [FnArg(:ptr, Ptr{Cchar}, "ptr", "const char *", AbstractString, identity),
                       FnArg(:size, Csize_t, "size", "std::size_t", Integer, identity)], "return new std::string(ptr, size);"))
 
-    eval(cxxfunction(FnName(:StdString_delete, "std_string_delete", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:str, Ptr{StdString}, "str", "std::string * restrict", StdString, identity)], "delete str;"))
+    eval(cxxfunction(FnName(:RefStdString_delete, "std_string_delete", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:str, Ptr{StdString}, "str", "std::string * restrict", RefStdString, identity)], "delete str;"))
 
     eval(cxxfunction(FnName(:(Base.copy), "std_string_copy", libSTL),
-                     FnResult(Ptr{StdString}, "std::string *", StdString, expr -> :(StdString($expr))),
-                     [FnArg(:str, Ptr{StdString}, "str", "std::string * restrict", StdString, identity)],
+                     FnResult(Ptr{StdString}, "std::string *", RefStdString, expr -> :(RefStdString($expr))),
+                     [FnArg(:str, Ptr{StdString}, "str", "std::string * restrict", RefStdString, identity)],
                      "return new std::string(*str);"))
+
+    # GCStdString
+
+    eval(cxxcode("static_assert(sizeof(std::string) <= $GCStdString_size, \"\");"))
+
+    eval(cxxfunction(FnName(:GCStdString_construct, "std_string_construct", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:ptr, Ptr{StdString}, "ptr", "void *", GCStdString, identity)], "new(ptr) std::string;"))
+    eval(cxxfunction(FnName(:GCStdString_construct, "std_string_construct_const_char_ptr_std_size_t", libSTL),
+                     FnResult(Nothing, "void"),
+                     [FnArg(:ptr, Ptr{StdString}, "ptr", "void *", GCStdString, identity),
+                      FnArg(:str, Ptr{Cchar}, "str", "const char *", AbstractString, identity),
+                      FnArg(:size, Csize_t, "size", "std::size_t", Integer, identity)], "new(ptr) std::string(str, size);"))
+
+    eval(cxxfunction(FnName(:GCStdString_destruct, "std_string_destruct", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:ptr, Ptr{StdString}, "ptr", "std::string * restrict", GCStdString, identity)],
+                     "ptr->~basic_string();"))
+
+    eval(cxxfunction(FnName(:GCStdString_copy_construct, "std_string_copy_construct", libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:ptr, Ptr{StdString}, "ptr", "std::string * restrict", GCStdString, identity),
+                      FnArg(:str, Ptr{StdString}, "str", "const std::string * restrict", GCStdString, identity)],
+                     "new(ptr) std::string(*str);"))
+    @eval Base.copy(str::GCStdString) = GCStdString(Base.copy, str)
+
+    # SharedStdString
+
+    eval(cxxcode("static_assert(sizeof(std::shared_ptr<std::string>) <= $SharedStdString_size, \"\");"))
+
+    eval(cxxfunction(FnName(:SharedStdString_construct, "std_shared_ptr_std_string_placement_new", libSTL),
+                     FnResult(Nothing, "void"),
+                     [FnArg(:ptr, Ptr{Cvoid}, "ptr", "void *", SharedStdString, expr -> :(pointer_from_objref($expr)))],
+                     """
+                     auto res = new(ptr) std::shared_ptr<std::string>;
+                     *res = std::make_shared<std::string>();
+                     """))
+    eval(cxxfunction(FnName(:SharedStdString_construct, "std_shared_ptr_std_string_placement_new_const_char_ptr_std_size_t",
+                            libSTL), FnResult(Nothing, "void"),
+                     [FnArg(:ptr, Ptr{Cvoid}, "ptr", "void *", SharedStdString, expr -> :(pointer_from_objref($expr))),
+                      FnArg(:str, Ptr{Cchar}, "str", "const char *", AbstractString, identity),
+                      FnArg(:size, Csize_t, "size", "std::size_t", Integer, identity)],
+                     """
+                     auto res = new(ptr) std::shared_ptr<std::string>;
+                     *res = std::make_shared<std::string>(str, size);
+                     """))
+
+    eval(cxxfunction(FnName(:SharedStdString_destruct, "std_shared_ptr_std_string_placement_delete", libSTL),
+                     FnResult(Nothing, "void"),
+                     [FnArg(:ptr, Ptr{Cvoid}, "ptr", "std::shared_ptr<std::string> * restrict", SharedStdString,
+                            expr -> :(pointer_from_objref($expr)))], "ptr->~shared_ptr();"))
+
+    eval(cxxfunction(FnName(:SharedStdString_copy_construct, "std_shared_ptr_std_string_placement_copy", libSTL),
+                     FnResult(Nothing, "void"),
+                     [FnArg(:ptr, Ptr{Cvoid}, "ptr", "void *", SharedStdString, expr -> :(pointer_from_objref($expr))),
+                      FnArg(:str, Ptr{StdString}, "str", "const std::string * restrict", SharedStdString, identity)],
+                     """
+                     auto res = new(ptr) std::shared_ptr<std::string>;
+                     *res = std::make_shared<std::string>(*str);
+                     """))
+    @eval Base.copy(str::SharedStdString) = SharedStdString(Base.copy, str)
+
+    eval(cxxfunction(FnName(:SharedStdString_get, "std_shared_ptr_std_string_get", libSTL),
+                     FnResult(Ptr{StdString}, "std::string *"),
+                     [FnArg(:ptr, Ptr{Cvoid}, "ptr", "std::shared_ptr<std::string> * restrict", SharedStdString,
+                            expr -> :(pointer_from_objref($expr)))], "return ptr->get();"))
+
+    # StdString
 
     eval(cxxfunction(FnName(:(Base.length), "std_string_length", libSTL),
                      FnResult(Csize_t, "std::size_t", Int, expr -> :(convert(Int, $expr))),
@@ -79,11 +128,11 @@ function generate(::Type{StdString})
                       FnArg(:str2, Ptr{StdString}, "str2", "const std::string * restrict", StdString, identity)],
                      "return str1->compare(*str2);"))
 
-    eval(cxxfunction(FnName(:pointer, "std_string_String", libSTL),
-                     FnResult(Tuple{Ptr{Cchar},Csize_t}, "std::tuple<const char *, std::size_t>", String,
+    eval(cxxfunction(FnName(:(Base.string), "std_string_String", libSTL),
+                     FnResult(Pair{Ptr{Cchar},Csize_t}, "std::pair<const char *, std::size_t>", String,
                               expr -> :(unsafe_string($expr[1], $expr[2]))),
                      [FnArg(:str, Ptr{StdString}, "str", "const std::string * restrict", StdString, identity)],
-                     "return std::make_tuple(str->c_str(), str->size());"))
+                     "return std::pair<const char *, std::size_t>(str->c_str(), str->size());"))
 
     return nothing
 end
@@ -92,9 +141,12 @@ generate(StdString)
 
 free(str::StdString) = StdString_delete(str)
 
-Base.isempty(str::StdString) = length(str) == 0
+################################################################################
 
-Base.eltype(::Type{StdString}) = StdChar
+Base.convert(::Type{String}, str::StdString) = string(str)
+
+Base.isempty(str::StdString) = length(str) == 0
+Base.eltype(::Type{<:StdString}) = StdChar
 
 function Base.iterate(str::StdString, pos::Int=1)
     pos > length(str) && return nothing
@@ -123,37 +175,14 @@ function Base.show(io::IO, str::StdString)
     return nothing
 end
 
-################################################################################
-
-GCStdString() = GCStdString(StdString())
-GCStdString(str::AbstractString) = GCStdString(StdString(str))
-Base.convert(::Type{String}, str::GCStdString) = convert(String, str.managed)
-
-free(str::GCStdString) = free(str.managed)
-
-Base.length(str::GCStdString) = length(str.managed)
-Base.isempty(str::GCStdString) = isempty(str.managed)
-Base.getindex(str::GCStdString, idx::Integer) = getindex(str.managed, idx)
-Base.setindex!(str::GCStdString, elt, idx::Integer) = setindex!(str.managed, elt, idx)
-Base.eltype(::Type{GCStdString}) = eltype(StdString)
-Base.:(==)(str1::GCStdString, str2::GCStdString) = str1.managed == str2.managed
-Base.:(<)(str1::GCStdString, str2::GCStdString) = str1.managed < str2.managed
-Base.cmp(str1::GCStdString, str2::GCStdString) = comp(str1.managed, str2.managed)
-Base.iterate(str::GCStdString) = iterate(str.managed)
-Base.iterate(str::GCStdString, pos::Integer) = iterate(str.managed, pos)
-Base.print(io::IO, str::GCStdString) = print(io, str.managed)
-Base.show(io::IO, str::GCStdString) = show(io, str.managed)
-
-################################################################################
-
-Base.ncodeunits(str::AbstractStdString) = length(str)
-Base.codeunit(::AbstractStdString) = Cchar
-Base.firstindex(::AbstractStdString) = 1
-Base.lastindex(str::AbstractStdString) = length(str)
-Base.thisind(str::AbstractStdString, i::Int) = Int(i)
-Base.prevind(str::AbstractStdString, i::Int) = Int(i) - 1
-Base.nextind(str::AbstractStdString, i::Int) = Int(i) + 1
-Base.isvalid(::AbstractStdString, ::Int) = true
+Base.ncodeunits(str::StdString) = length(str)
+Base.codeunit(::StdString) = Cchar
+Base.firstindex(::StdString) = 1
+Base.lastindex(str::StdString) = length(str)
+Base.thisind(str::StdString, i::Int) = Int(i)
+Base.prevind(str::StdString, i::Int) = Int(i) - 1
+Base.nextind(str::StdString, i::Int) = Int(i) + 1
+Base.isvalid(::StdString, ::Int) = true
 
 ################################################################################
 
@@ -166,22 +195,32 @@ function TestAbstractTypes.generator(::Type{StdChar})
     return Channel{StdChar}(gen)
 end
 
-function TestAbstractTypes.generator(::Type{StdString})
+function TestAbstractTypes.generator(::Type{RefStdString})
     source = generator(String)
-    function gen(channel::Channel{StdString})
+    function gen(channel::Channel{RefStdString})
         while true
-            put!(channel, StdString(take!(source)))
+            put!(channel, RefStdString(take!(source)))
         end
     end
-    return Channel{StdString}(gen)
+    return Channel{RefStdString}(gen)
 end
 
 function TestAbstractTypes.generator(::Type{GCStdString})
     source = generator(String)
     function gen(channel::Channel{GCStdString})
         while true
-            put!(channel, GCStdString(StdString(take!(source))))
+            put!(channel, GCStdString(take!(source)))
         end
     end
     return Channel{GCStdString}(gen)
+end
+
+function TestAbstractTypes.generator(::Type{SharedStdString})
+    source = generator(String)
+    function gen(channel::Channel{SharedStdString})
+        while true
+            put!(channel, SharedStdString(take!(source)))
+        end
+    end
+    return Channel{SharedStdString}(gen)
 end

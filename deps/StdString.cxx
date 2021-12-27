@@ -1,15 +1,17 @@
 #include <ccomplex>
 #include <cstdint>
 
+#include <memory>
 #include <string>
+#include <utility>
 
 static_assert(sizeof(bool) == 1, "");
 
 
 /*
-function StdString_new()
+function RefStdString_new()
     res = ccall(("std_string_new", "libSTL.dylib"), Ptr{STL.StdString}, ())
-    return StdString(res)::STL.StdString
+    return RefStdString(res)::STL.RefStdString
 end
 */
 extern "C" std::string * std_string_new(
@@ -19,12 +21,12 @@ extern "C" std::string * std_string_new(
 }
 
 /*
-function StdString_new(ptr::AbstractString, size::Integer)
-    res = ccall(("std_string_new_String", "libSTL.dylib"), Ptr{STL.StdString}, (Ptr{Int8}, UInt64), ptr, size)
-    return StdString(res)::STL.StdString
+function RefStdString_new(ptr::AbstractString, size::Integer)
+    res = ccall(("std_string_new_const_char_ptr_std_size_t", "libSTL.dylib"), Ptr{STL.StdString}, (Ptr{Int8}, UInt64), ptr, size)
+    return RefStdString(res)::STL.RefStdString
 end
 */
-extern "C" std::string * std_string_new_String(
+extern "C" std::string * std_string_new_const_char_ptr_std_size_t(
     const char * ptr,
     std::size_t size
 ) {
@@ -32,7 +34,7 @@ extern "C" std::string * std_string_new_String(
 }
 
 /*
-function StdString_delete(str::STL.StdString)
+function RefStdString_delete(str::STL.RefStdString)
     res = ccall(("std_string_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdString},), str)
     return res::Nothing
 end
@@ -44,15 +46,139 @@ extern "C" void std_string_delete(
 }
 
 /*
-function Base.copy(str::STL.StdString)
+function Base.copy(str::STL.RefStdString)
     res = ccall(("std_string_copy", "libSTL.dylib"), Ptr{STL.StdString}, (Ptr{STL.StdString},), str)
-    return StdString(res)::STL.StdString
+    return RefStdString(res)::STL.RefStdString
 end
 */
 extern "C" std::string * std_string_copy(
     std::string * restrict str
 ) {
     return new std::string(*str);
+}
+
+static_assert(sizeof(std::string) <= 32, "");
+
+/*
+function GCStdString_construct(ptr::STL.GCStdString)
+    res = ccall(("std_string_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdString},), ptr)
+    return res::Nothing
+end
+*/
+extern "C" void std_string_construct(
+    void * ptr
+) {
+    new(ptr) std::string;
+}
+
+/*
+function GCStdString_construct(ptr::STL.GCStdString, str::AbstractString, size::Integer)
+    res = ccall(("std_string_construct_const_char_ptr_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdString}, Ptr{Int8}, UInt64), ptr, str, size)
+    return res::Nothing
+end
+*/
+extern "C" void std_string_construct_const_char_ptr_std_size_t(
+    void * ptr,
+    const char * str,
+    std::size_t size
+) {
+    new(ptr) std::string(str, size);
+}
+
+/*
+function GCStdString_destruct(ptr::STL.GCStdString)
+    res = ccall(("std_string_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdString},), ptr)
+    return res::Nothing
+end
+*/
+extern "C" void std_string_destruct(
+    std::string * restrict ptr
+) {
+    ptr->~basic_string();
+}
+
+/*
+function GCStdString_copy_construct(ptr::STL.GCStdString, str::STL.GCStdString)
+    res = ccall(("std_string_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdString}, Ptr{STL.StdString}), ptr, str)
+    return res::Nothing
+end
+*/
+extern "C" void std_string_copy_construct(
+    std::string * restrict ptr,
+    const std::string * restrict str
+) {
+    new(ptr) std::string(*str);
+}
+
+static_assert(sizeof(std::shared_ptr<std::string>) <= 16, "");
+
+/*
+function SharedStdString_construct(ptr::STL.SharedStdString)
+    res = ccall(("std_shared_ptr_std_string_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_string_placement_new(
+    void * ptr
+) {
+    auto res = new(ptr) std::shared_ptr<std::string>;
+*res = std::make_shared<std::string>();
+
+}
+
+/*
+function SharedStdString_construct(ptr::STL.SharedStdString, str::AbstractString, size::Integer)
+    res = ccall(("std_shared_ptr_std_string_placement_new_const_char_ptr_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{Int8}, UInt64), pointer_from_objref(ptr), str, size)
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_string_placement_new_const_char_ptr_std_size_t(
+    void * ptr,
+    const char * str,
+    std::size_t size
+) {
+    auto res = new(ptr) std::shared_ptr<std::string>;
+*res = std::make_shared<std::string>(str, size);
+
+}
+
+/*
+function SharedStdString_destruct(ptr::STL.SharedStdString)
+    res = ccall(("std_shared_ptr_std_string_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_string_placement_delete(
+    std::shared_ptr<std::string> * restrict ptr
+) {
+    ptr->~shared_ptr();
+}
+
+/*
+function SharedStdString_copy_construct(ptr::STL.SharedStdString, str::STL.SharedStdString)
+    res = ccall(("std_shared_ptr_std_string_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdString}), pointer_from_objref(ptr), str)
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_string_placement_copy(
+    void * ptr,
+    const std::string * restrict str
+) {
+    auto res = new(ptr) std::shared_ptr<std::string>;
+*res = std::make_shared<std::string>(*str);
+
+}
+
+/*
+function SharedStdString_get(ptr::STL.SharedStdString)
+    res = ccall(("std_shared_ptr_std_string_get", "libSTL.dylib"), Ptr{STL.StdString}, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Ptr{STL.StdString}
+end
+*/
+extern "C" std::string * std_shared_ptr_std_string_get(
+    std::shared_ptr<std::string> * restrict ptr
+) {
+    return ptr->get();
 }
 
 /*
@@ -143,13 +269,13 @@ extern "C" int std_string_cmp(
 
 /*
 function pointer(str::STL.StdString)
-    res = ccall(("std_string_String", "libSTL.dylib"), Tuple{Ptr{Int8}, UInt64}, (Ptr{STL.StdString},), str)
+    res = ccall(("std_string_String", "libSTL.dylib"), Pair{Ptr{Int8}, UInt64}, (Ptr{STL.StdString},), str)
     return unsafe_string(res[1], res[2])::String
 end
 */
-extern "C" std::tuple<const char *, std::size_t> std_string_String(
+extern "C" std::pair<const char *, std::size_t> std_string_String(
     const std::string * restrict str
 ) {
-    return std::make_tuple(str->c_str(), str->size());
+    return std::pair<const char *, std::size_t>(str->c_str(), str->size());
 }
 
