@@ -269,266 +269,6 @@ extern "C" void std_vector_bool_pop_back_(
 }
 
 /*
-function RefStdVector_new(type::Type{ComplexF32})
-    res = ccall(("std_vector_float__Complex_new", "libSTL.dylib"), Ptr{STL.StdVector{ComplexF32}}, ())
-    return RefStdVector{ComplexF32}(res)::STL.RefStdVector{ComplexF32}
-end
-*/
-extern "C" std::vector<float _Complex> * std_vector_float__Complex_new(
-    
-) {
-    return new std::vector<float _Complex>;
-}
-
-/*
-function RefStdVector_new(type::Type{ComplexF32}, size::Integer)
-    res = ccall(("std_vector_float__Complex_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{ComplexF32}}, (UInt64,), size)
-    return RefStdVector{ComplexF32}(res)::STL.RefStdVector{ComplexF32}
-end
-*/
-extern "C" std::vector<float _Complex> * std_vector_float__Complex_new_std_size_t(
-    std::size_t size
-) {
-    return new std::vector<float _Complex>(size);
-}
-
-/*
-function RefStdVector_delete(vec::STL.RefStdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_delete(
-    std::vector<float _Complex> * restrict vec
-) {
-    delete vec;
-}
-
-/*
-function Base.copy(vec::STL.RefStdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_copy", "libSTL.dylib"), Ptr{STL.StdVector{ComplexF32}}, (Ptr{STL.StdVector{ComplexF32}},), vec)
-    return RefStdVector{ComplexF32}(res)::STL.RefStdVector{ComplexF32}
-end
-*/
-extern "C" std::vector<float _Complex> * std_vector_float__Complex_copy(
-    const std::vector<float _Complex> * restrict vec
-) {
-    return new std::vector<float _Complex>(*vec);
-}
-
-static_assert(sizeof(std::vector<float _Complex>) <= 40, "");
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_construct(
-    void * ptr
-) {
-    new(ptr) std::vector<float _Complex>;
-}
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{ComplexF32}, size::Integer)
-    res = ccall(("std_vector_float__Complex_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}}, UInt64), ptr, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_construct_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    new(ptr) std::vector<float _Complex>(size);
-}
-
-/*
-function GCStdVector_destruct(ptr::STL.GCStdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_destruct(
-    std::vector<float _Complex> * restrict ptr
-) {
-    ptr->~vector();
-}
-
-/*
-function GCStdVector_copy_construct(ptr::STL.GCStdVector{ComplexF32}, vec::STL.GCStdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}}, Ptr{STL.StdVector{ComplexF32}}), ptr, vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_copy_construct(
-    std::vector<float _Complex> * restrict ptr,
-    const std::vector<float _Complex> * restrict vec
-) {
-    new(ptr) std::vector<float _Complex>(*vec);
-}
-
-static_assert(sizeof(std::shared_ptr<std::vector<float _Complex>>) <= 16, "");
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{ComplexF32})
-    res = ccall(("std_shared_ptr_std_vector_float__Complex_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_float__Complex_placement_new(
-    void * ptr
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<float _Complex>>;
-*res = std::make_shared<std::vector<float _Complex>>();
-
-}
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{ComplexF32}, size::Integer)
-    res = ccall(("std_shared_ptr_std_vector_float__Complex_placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_float__Complex_placement_new_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<float _Complex>>;
-*res = std::make_shared<std::vector<float _Complex>>(size);
-
-}
-
-/*
-function SharedStdVector_destruct(ptr::STL.SharedStdVector{ComplexF32})
-    res = ccall(("std_shared_ptr_std_vector_float__Complex_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_float__Complex_placement_delete(
-    std::shared_ptr<std::vector<float _Complex>> * restrict ptr
-) {
-    ptr->~shared_ptr();
-}
-
-/*
-function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{ComplexF32}, vec::STL.SharedStdVector{ComplexF32})
-    res = ccall(("std_shared_ptr_std_vector_float__Complex_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{ComplexF32}}), pointer_from_objref(ptr), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_float__Complex_placement_copy(
-    void * ptr,
-    const std::vector<float _Complex> * restrict vec
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<float _Complex>>;
-*res = std::make_shared<std::vector<float _Complex>>(*vec);
-
-}
-
-/*
-function SharedStdVector_get(ptr::STL.SharedStdVector{ComplexF32})
-    res = ccall(("std_shared_ptr_std_vector_float__Complex_get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Ptr{STL.StdVector}
-end
-*/
-extern "C" std::vector<float _Complex> * std_shared_ptr_std_vector_float__Complex_get(
-    std::shared_ptr<std::vector<float _Complex>> * restrict ptr
-) {
-    return ptr->get();
-}
-
-/*
-function Base.resize!(vec::STL.StdVector{ComplexF32}, size::Integer)
-    res = ccall(("std_vector_float__Complex_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}}, UInt64), vec, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_resize_(
-    std::vector<float _Complex> * restrict vec,
-    std::size_t size
-) {
-    vec->resize(size);
-}
-
-/*
-function Base.length(vec::STL.StdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{ComplexF32}},), vec)
-    return convert(Int, res)::Int64
-end
-*/
-extern "C" std::size_t std_vector_float__Complex_length(
-    const std::vector<float _Complex> * restrict vec
-) {
-    return vec->size();
-}
-
-/*
-function Base.getindex(vec::STL.StdVector{ComplexF32}, idx::Integer)
-    res = ccall(("std_vector_float__Complex_getindex", "libSTL.dylib"), Ptr{ComplexF32}, (Ptr{STL.StdVector{ComplexF32}}, UInt64), vec, idx)
-    return convert_result(ComplexF32, res)::ComplexF32
-end
-*/
-extern "C" float _Complex * std_vector_float__Complex_getindex(
-    std::vector<float _Complex> * restrict vec,
-    std::size_t idx
-) {
-    return &(*vec)[idx];
-}
-
-/*
-function Base.setindex!(vec::STL.StdVector{ComplexF32}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_float__Complex_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}}, Ptr{ComplexF32}, UInt64), vec, convert_arg(Ptr{ComplexF32}, convert(ComplexF32, elt)), idx)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_setindex_(
-    std::vector<float _Complex> * restrict vec,
-    float _Complex const * elt,
-    std::size_t idx
-) {
-    (*vec)[idx] = *elt;
-}
-
-/*
-function Base.:(==)(vec1::STL.StdVector{ComplexF32}, vec2::STL.StdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{ComplexF32}}, Ptr{STL.StdVector{ComplexF32}}), vec1, vec2)
-    return res::Bool
-end
-*/
-extern "C" bool std_vector_float__Complex_equals(
-    const std::vector<float _Complex> * restrict vec1,
-    const std::vector<float _Complex> * restrict vec2
-) {
-    return *vec1 == *vec2;
-}
-
-/*
-function Base.push!(vec::STL.StdVector{ComplexF32}, elt::Any)
-    res = ccall(("std_vector_float__Complex_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}}, Ptr{ComplexF32}), vec, convert_arg(Ptr{ComplexF32}, convert(ComplexF32, elt)))
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_push_(
-    std::vector<float _Complex> * restrict vec,
-    float _Complex const * elt
-) {
-    vec->push_back(*elt);
-}
-
-/*
-function pop_back!(vec::STL.StdVector{ComplexF32})
-    res = ccall(("std_vector_float__Complex_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{ComplexF32}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float__Complex_pop_back_(
-    std::vector<float _Complex> * restrict vec
-) {
-    vec->pop_back();
-}
-
-/*
 function RefStdVector_new(type::Type{ComplexF64})
     res = ccall(("std_vector_double__Complex_new", "libSTL.dylib"), Ptr{STL.StdVector{ComplexF64}}, ())
     return RefStdVector{ComplexF64}(res)::STL.RefStdVector{ComplexF64}
@@ -789,266 +529,6 @@ extern "C" void std_vector_double__Complex_pop_back_(
 }
 
 /*
-function RefStdVector_new(type::Type{Float32})
-    res = ccall(("std_vector_float_new", "libSTL.dylib"), Ptr{STL.StdVector{Float32}}, ())
-    return RefStdVector{Float32}(res)::STL.RefStdVector{Float32}
-end
-*/
-extern "C" std::vector<float> * std_vector_float_new(
-    
-) {
-    return new std::vector<float>;
-}
-
-/*
-function RefStdVector_new(type::Type{Float32}, size::Integer)
-    res = ccall(("std_vector_float_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{Float32}}, (UInt64,), size)
-    return RefStdVector{Float32}(res)::STL.RefStdVector{Float32}
-end
-*/
-extern "C" std::vector<float> * std_vector_float_new_std_size_t(
-    std::size_t size
-) {
-    return new std::vector<float>(size);
-}
-
-/*
-function RefStdVector_delete(vec::STL.RefStdVector{Float32})
-    res = ccall(("std_vector_float_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_delete(
-    std::vector<float> * restrict vec
-) {
-    delete vec;
-}
-
-/*
-function Base.copy(vec::STL.RefStdVector{Float32})
-    res = ccall(("std_vector_float_copy", "libSTL.dylib"), Ptr{STL.StdVector{Float32}}, (Ptr{STL.StdVector{Float32}},), vec)
-    return RefStdVector{Float32}(res)::STL.RefStdVector{Float32}
-end
-*/
-extern "C" std::vector<float> * std_vector_float_copy(
-    const std::vector<float> * restrict vec
-) {
-    return new std::vector<float>(*vec);
-}
-
-static_assert(sizeof(std::vector<float>) <= 40, "");
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{Float32})
-    res = ccall(("std_vector_float_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_construct(
-    void * ptr
-) {
-    new(ptr) std::vector<float>;
-}
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{Float32}, size::Integer)
-    res = ccall(("std_vector_float_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}}, UInt64), ptr, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_construct_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    new(ptr) std::vector<float>(size);
-}
-
-/*
-function GCStdVector_destruct(ptr::STL.GCStdVector{Float32})
-    res = ccall(("std_vector_float_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_destruct(
-    std::vector<float> * restrict ptr
-) {
-    ptr->~vector();
-}
-
-/*
-function GCStdVector_copy_construct(ptr::STL.GCStdVector{Float32}, vec::STL.GCStdVector{Float32})
-    res = ccall(("std_vector_float_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}}, Ptr{STL.StdVector{Float32}}), ptr, vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_copy_construct(
-    std::vector<float> * restrict ptr,
-    const std::vector<float> * restrict vec
-) {
-    new(ptr) std::vector<float>(*vec);
-}
-
-static_assert(sizeof(std::shared_ptr<std::vector<float>>) <= 16, "");
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{Float32})
-    res = ccall(("std_shared_ptr_std_vector_float_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_float_placement_new(
-    void * ptr
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<float>>;
-*res = std::make_shared<std::vector<float>>();
-
-}
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{Float32}, size::Integer)
-    res = ccall(("std_shared_ptr_std_vector_float_placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_float_placement_new_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<float>>;
-*res = std::make_shared<std::vector<float>>(size);
-
-}
-
-/*
-function SharedStdVector_destruct(ptr::STL.SharedStdVector{Float32})
-    res = ccall(("std_shared_ptr_std_vector_float_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_float_placement_delete(
-    std::shared_ptr<std::vector<float>> * restrict ptr
-) {
-    ptr->~shared_ptr();
-}
-
-/*
-function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{Float32}, vec::STL.SharedStdVector{Float32})
-    res = ccall(("std_shared_ptr_std_vector_float_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{Float32}}), pointer_from_objref(ptr), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_float_placement_copy(
-    void * ptr,
-    const std::vector<float> * restrict vec
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<float>>;
-*res = std::make_shared<std::vector<float>>(*vec);
-
-}
-
-/*
-function SharedStdVector_get(ptr::STL.SharedStdVector{Float32})
-    res = ccall(("std_shared_ptr_std_vector_float_get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Ptr{STL.StdVector}
-end
-*/
-extern "C" std::vector<float> * std_shared_ptr_std_vector_float_get(
-    std::shared_ptr<std::vector<float>> * restrict ptr
-) {
-    return ptr->get();
-}
-
-/*
-function Base.resize!(vec::STL.StdVector{Float32}, size::Integer)
-    res = ccall(("std_vector_float_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}}, UInt64), vec, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_resize_(
-    std::vector<float> * restrict vec,
-    std::size_t size
-) {
-    vec->resize(size);
-}
-
-/*
-function Base.length(vec::STL.StdVector{Float32})
-    res = ccall(("std_vector_float_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{Float32}},), vec)
-    return convert(Int, res)::Int64
-end
-*/
-extern "C" std::size_t std_vector_float_length(
-    const std::vector<float> * restrict vec
-) {
-    return vec->size();
-}
-
-/*
-function Base.getindex(vec::STL.StdVector{Float32}, idx::Integer)
-    res = ccall(("std_vector_float_getindex", "libSTL.dylib"), Ptr{Float32}, (Ptr{STL.StdVector{Float32}}, UInt64), vec, idx)
-    return convert_result(Float32, res)::Float32
-end
-*/
-extern "C" float * std_vector_float_getindex(
-    std::vector<float> * restrict vec,
-    std::size_t idx
-) {
-    return &(*vec)[idx];
-}
-
-/*
-function Base.setindex!(vec::STL.StdVector{Float32}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_float_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}}, Ptr{Float32}, UInt64), vec, convert_arg(Ptr{Float32}, convert(Float32, elt)), idx)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_setindex_(
-    std::vector<float> * restrict vec,
-    float const * elt,
-    std::size_t idx
-) {
-    (*vec)[idx] = *elt;
-}
-
-/*
-function Base.:(==)(vec1::STL.StdVector{Float32}, vec2::STL.StdVector{Float32})
-    res = ccall(("std_vector_float_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{Float32}}, Ptr{STL.StdVector{Float32}}), vec1, vec2)
-    return res::Bool
-end
-*/
-extern "C" bool std_vector_float_equals(
-    const std::vector<float> * restrict vec1,
-    const std::vector<float> * restrict vec2
-) {
-    return *vec1 == *vec2;
-}
-
-/*
-function Base.push!(vec::STL.StdVector{Float32}, elt::Any)
-    res = ccall(("std_vector_float_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}}, Ptr{Float32}), vec, convert_arg(Ptr{Float32}, convert(Float32, elt)))
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_push_(
-    std::vector<float> * restrict vec,
-    float const * elt
-) {
-    vec->push_back(*elt);
-}
-
-/*
-function pop_back!(vec::STL.StdVector{Float32})
-    res = ccall(("std_vector_float_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Float32}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_float_pop_back_(
-    std::vector<float> * restrict vec
-) {
-    vec->pop_back();
-}
-
-/*
 function RefStdVector_new(type::Type{Float64})
     res = ccall(("std_vector_double_new", "libSTL.dylib"), Ptr{STL.StdVector{Float64}}, ())
     return RefStdVector{Float64}(res)::STL.RefStdVector{Float64}
@@ -1304,526 +784,6 @@ end
 */
 extern "C" void std_vector_double_pop_back_(
     std::vector<double> * restrict vec
-) {
-    vec->pop_back();
-}
-
-/*
-function RefStdVector_new(type::Type{Int16})
-    res = ccall(("std_vector_int16_t_new", "libSTL.dylib"), Ptr{STL.StdVector{Int16}}, ())
-    return RefStdVector{Int16}(res)::STL.RefStdVector{Int16}
-end
-*/
-extern "C" std::vector<int16_t> * std_vector_int16_t_new(
-    
-) {
-    return new std::vector<int16_t>;
-}
-
-/*
-function RefStdVector_new(type::Type{Int16}, size::Integer)
-    res = ccall(("std_vector_int16_t_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{Int16}}, (UInt64,), size)
-    return RefStdVector{Int16}(res)::STL.RefStdVector{Int16}
-end
-*/
-extern "C" std::vector<int16_t> * std_vector_int16_t_new_std_size_t(
-    std::size_t size
-) {
-    return new std::vector<int16_t>(size);
-}
-
-/*
-function RefStdVector_delete(vec::STL.RefStdVector{Int16})
-    res = ccall(("std_vector_int16_t_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_delete(
-    std::vector<int16_t> * restrict vec
-) {
-    delete vec;
-}
-
-/*
-function Base.copy(vec::STL.RefStdVector{Int16})
-    res = ccall(("std_vector_int16_t_copy", "libSTL.dylib"), Ptr{STL.StdVector{Int16}}, (Ptr{STL.StdVector{Int16}},), vec)
-    return RefStdVector{Int16}(res)::STL.RefStdVector{Int16}
-end
-*/
-extern "C" std::vector<int16_t> * std_vector_int16_t_copy(
-    const std::vector<int16_t> * restrict vec
-) {
-    return new std::vector<int16_t>(*vec);
-}
-
-static_assert(sizeof(std::vector<int16_t>) <= 40, "");
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{Int16})
-    res = ccall(("std_vector_int16_t_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_construct(
-    void * ptr
-) {
-    new(ptr) std::vector<int16_t>;
-}
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{Int16}, size::Integer)
-    res = ccall(("std_vector_int16_t_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}}, UInt64), ptr, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_construct_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    new(ptr) std::vector<int16_t>(size);
-}
-
-/*
-function GCStdVector_destruct(ptr::STL.GCStdVector{Int16})
-    res = ccall(("std_vector_int16_t_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_destruct(
-    std::vector<int16_t> * restrict ptr
-) {
-    ptr->~vector();
-}
-
-/*
-function GCStdVector_copy_construct(ptr::STL.GCStdVector{Int16}, vec::STL.GCStdVector{Int16})
-    res = ccall(("std_vector_int16_t_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}}, Ptr{STL.StdVector{Int16}}), ptr, vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_copy_construct(
-    std::vector<int16_t> * restrict ptr,
-    const std::vector<int16_t> * restrict vec
-) {
-    new(ptr) std::vector<int16_t>(*vec);
-}
-
-static_assert(sizeof(std::shared_ptr<std::vector<int16_t>>) <= 16, "");
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{Int16})
-    res = ccall(("std_shared_ptr_std_vector_int16_t_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_int16_t_placement_new(
-    void * ptr
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<int16_t>>;
-*res = std::make_shared<std::vector<int16_t>>();
-
-}
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{Int16}, size::Integer)
-    res = ccall(("std_shared_ptr_std_vector_int16_t_placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_int16_t_placement_new_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<int16_t>>;
-*res = std::make_shared<std::vector<int16_t>>(size);
-
-}
-
-/*
-function SharedStdVector_destruct(ptr::STL.SharedStdVector{Int16})
-    res = ccall(("std_shared_ptr_std_vector_int16_t_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_int16_t_placement_delete(
-    std::shared_ptr<std::vector<int16_t>> * restrict ptr
-) {
-    ptr->~shared_ptr();
-}
-
-/*
-function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{Int16}, vec::STL.SharedStdVector{Int16})
-    res = ccall(("std_shared_ptr_std_vector_int16_t_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{Int16}}), pointer_from_objref(ptr), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_int16_t_placement_copy(
-    void * ptr,
-    const std::vector<int16_t> * restrict vec
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<int16_t>>;
-*res = std::make_shared<std::vector<int16_t>>(*vec);
-
-}
-
-/*
-function SharedStdVector_get(ptr::STL.SharedStdVector{Int16})
-    res = ccall(("std_shared_ptr_std_vector_int16_t_get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Ptr{STL.StdVector}
-end
-*/
-extern "C" std::vector<int16_t> * std_shared_ptr_std_vector_int16_t_get(
-    std::shared_ptr<std::vector<int16_t>> * restrict ptr
-) {
-    return ptr->get();
-}
-
-/*
-function Base.resize!(vec::STL.StdVector{Int16}, size::Integer)
-    res = ccall(("std_vector_int16_t_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}}, UInt64), vec, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_resize_(
-    std::vector<int16_t> * restrict vec,
-    std::size_t size
-) {
-    vec->resize(size);
-}
-
-/*
-function Base.length(vec::STL.StdVector{Int16})
-    res = ccall(("std_vector_int16_t_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{Int16}},), vec)
-    return convert(Int, res)::Int64
-end
-*/
-extern "C" std::size_t std_vector_int16_t_length(
-    const std::vector<int16_t> * restrict vec
-) {
-    return vec->size();
-}
-
-/*
-function Base.getindex(vec::STL.StdVector{Int16}, idx::Integer)
-    res = ccall(("std_vector_int16_t_getindex", "libSTL.dylib"), Ptr{Int16}, (Ptr{STL.StdVector{Int16}}, UInt64), vec, idx)
-    return convert_result(Int16, res)::Int16
-end
-*/
-extern "C" int16_t * std_vector_int16_t_getindex(
-    std::vector<int16_t> * restrict vec,
-    std::size_t idx
-) {
-    return &(*vec)[idx];
-}
-
-/*
-function Base.setindex!(vec::STL.StdVector{Int16}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_int16_t_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}}, Ptr{Int16}, UInt64), vec, convert_arg(Ptr{Int16}, convert(Int16, elt)), idx)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_setindex_(
-    std::vector<int16_t> * restrict vec,
-    int16_t const * elt,
-    std::size_t idx
-) {
-    (*vec)[idx] = *elt;
-}
-
-/*
-function Base.:(==)(vec1::STL.StdVector{Int16}, vec2::STL.StdVector{Int16})
-    res = ccall(("std_vector_int16_t_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{Int16}}, Ptr{STL.StdVector{Int16}}), vec1, vec2)
-    return res::Bool
-end
-*/
-extern "C" bool std_vector_int16_t_equals(
-    const std::vector<int16_t> * restrict vec1,
-    const std::vector<int16_t> * restrict vec2
-) {
-    return *vec1 == *vec2;
-}
-
-/*
-function Base.push!(vec::STL.StdVector{Int16}, elt::Any)
-    res = ccall(("std_vector_int16_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}}, Ptr{Int16}), vec, convert_arg(Ptr{Int16}, convert(Int16, elt)))
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_push_(
-    std::vector<int16_t> * restrict vec,
-    int16_t const * elt
-) {
-    vec->push_back(*elt);
-}
-
-/*
-function pop_back!(vec::STL.StdVector{Int16})
-    res = ccall(("std_vector_int16_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int16}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int16_t_pop_back_(
-    std::vector<int16_t> * restrict vec
-) {
-    vec->pop_back();
-}
-
-/*
-function RefStdVector_new(type::Type{Int32})
-    res = ccall(("std_vector_int32_t_new", "libSTL.dylib"), Ptr{STL.StdVector{Int32}}, ())
-    return RefStdVector{Int32}(res)::STL.RefStdVector{Int32}
-end
-*/
-extern "C" std::vector<int32_t> * std_vector_int32_t_new(
-    
-) {
-    return new std::vector<int32_t>;
-}
-
-/*
-function RefStdVector_new(type::Type{Int32}, size::Integer)
-    res = ccall(("std_vector_int32_t_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{Int32}}, (UInt64,), size)
-    return RefStdVector{Int32}(res)::STL.RefStdVector{Int32}
-end
-*/
-extern "C" std::vector<int32_t> * std_vector_int32_t_new_std_size_t(
-    std::size_t size
-) {
-    return new std::vector<int32_t>(size);
-}
-
-/*
-function RefStdVector_delete(vec::STL.RefStdVector{Int32})
-    res = ccall(("std_vector_int32_t_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_delete(
-    std::vector<int32_t> * restrict vec
-) {
-    delete vec;
-}
-
-/*
-function Base.copy(vec::STL.RefStdVector{Int32})
-    res = ccall(("std_vector_int32_t_copy", "libSTL.dylib"), Ptr{STL.StdVector{Int32}}, (Ptr{STL.StdVector{Int32}},), vec)
-    return RefStdVector{Int32}(res)::STL.RefStdVector{Int32}
-end
-*/
-extern "C" std::vector<int32_t> * std_vector_int32_t_copy(
-    const std::vector<int32_t> * restrict vec
-) {
-    return new std::vector<int32_t>(*vec);
-}
-
-static_assert(sizeof(std::vector<int32_t>) <= 40, "");
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{Int32})
-    res = ccall(("std_vector_int32_t_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_construct(
-    void * ptr
-) {
-    new(ptr) std::vector<int32_t>;
-}
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{Int32}, size::Integer)
-    res = ccall(("std_vector_int32_t_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}}, UInt64), ptr, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_construct_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    new(ptr) std::vector<int32_t>(size);
-}
-
-/*
-function GCStdVector_destruct(ptr::STL.GCStdVector{Int32})
-    res = ccall(("std_vector_int32_t_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_destruct(
-    std::vector<int32_t> * restrict ptr
-) {
-    ptr->~vector();
-}
-
-/*
-function GCStdVector_copy_construct(ptr::STL.GCStdVector{Int32}, vec::STL.GCStdVector{Int32})
-    res = ccall(("std_vector_int32_t_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}}, Ptr{STL.StdVector{Int32}}), ptr, vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_copy_construct(
-    std::vector<int32_t> * restrict ptr,
-    const std::vector<int32_t> * restrict vec
-) {
-    new(ptr) std::vector<int32_t>(*vec);
-}
-
-static_assert(sizeof(std::shared_ptr<std::vector<int32_t>>) <= 16, "");
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{Int32})
-    res = ccall(("std_shared_ptr_std_vector_int32_t_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_int32_t_placement_new(
-    void * ptr
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<int32_t>>;
-*res = std::make_shared<std::vector<int32_t>>();
-
-}
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{Int32}, size::Integer)
-    res = ccall(("std_shared_ptr_std_vector_int32_t_placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_int32_t_placement_new_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<int32_t>>;
-*res = std::make_shared<std::vector<int32_t>>(size);
-
-}
-
-/*
-function SharedStdVector_destruct(ptr::STL.SharedStdVector{Int32})
-    res = ccall(("std_shared_ptr_std_vector_int32_t_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_int32_t_placement_delete(
-    std::shared_ptr<std::vector<int32_t>> * restrict ptr
-) {
-    ptr->~shared_ptr();
-}
-
-/*
-function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{Int32}, vec::STL.SharedStdVector{Int32})
-    res = ccall(("std_shared_ptr_std_vector_int32_t_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{Int32}}), pointer_from_objref(ptr), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_int32_t_placement_copy(
-    void * ptr,
-    const std::vector<int32_t> * restrict vec
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<int32_t>>;
-*res = std::make_shared<std::vector<int32_t>>(*vec);
-
-}
-
-/*
-function SharedStdVector_get(ptr::STL.SharedStdVector{Int32})
-    res = ccall(("std_shared_ptr_std_vector_int32_t_get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Ptr{STL.StdVector}
-end
-*/
-extern "C" std::vector<int32_t> * std_shared_ptr_std_vector_int32_t_get(
-    std::shared_ptr<std::vector<int32_t>> * restrict ptr
-) {
-    return ptr->get();
-}
-
-/*
-function Base.resize!(vec::STL.StdVector{Int32}, size::Integer)
-    res = ccall(("std_vector_int32_t_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}}, UInt64), vec, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_resize_(
-    std::vector<int32_t> * restrict vec,
-    std::size_t size
-) {
-    vec->resize(size);
-}
-
-/*
-function Base.length(vec::STL.StdVector{Int32})
-    res = ccall(("std_vector_int32_t_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{Int32}},), vec)
-    return convert(Int, res)::Int64
-end
-*/
-extern "C" std::size_t std_vector_int32_t_length(
-    const std::vector<int32_t> * restrict vec
-) {
-    return vec->size();
-}
-
-/*
-function Base.getindex(vec::STL.StdVector{Int32}, idx::Integer)
-    res = ccall(("std_vector_int32_t_getindex", "libSTL.dylib"), Ptr{Int32}, (Ptr{STL.StdVector{Int32}}, UInt64), vec, idx)
-    return convert_result(Int32, res)::Int32
-end
-*/
-extern "C" int32_t * std_vector_int32_t_getindex(
-    std::vector<int32_t> * restrict vec,
-    std::size_t idx
-) {
-    return &(*vec)[idx];
-}
-
-/*
-function Base.setindex!(vec::STL.StdVector{Int32}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_int32_t_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}}, Ptr{Int32}, UInt64), vec, convert_arg(Ptr{Int32}, convert(Int32, elt)), idx)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_setindex_(
-    std::vector<int32_t> * restrict vec,
-    int32_t const * elt,
-    std::size_t idx
-) {
-    (*vec)[idx] = *elt;
-}
-
-/*
-function Base.:(==)(vec1::STL.StdVector{Int32}, vec2::STL.StdVector{Int32})
-    res = ccall(("std_vector_int32_t_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{Int32}}, Ptr{STL.StdVector{Int32}}), vec1, vec2)
-    return res::Bool
-end
-*/
-extern "C" bool std_vector_int32_t_equals(
-    const std::vector<int32_t> * restrict vec1,
-    const std::vector<int32_t> * restrict vec2
-) {
-    return *vec1 == *vec2;
-}
-
-/*
-function Base.push!(vec::STL.StdVector{Int32}, elt::Any)
-    res = ccall(("std_vector_int32_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}}, Ptr{Int32}), vec, convert_arg(Ptr{Int32}, convert(Int32, elt)))
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_push_(
-    std::vector<int32_t> * restrict vec,
-    int32_t const * elt
-) {
-    vec->push_back(*elt);
-}
-
-/*
-function pop_back!(vec::STL.StdVector{Int32})
-    res = ccall(("std_vector_int32_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{Int32}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_int32_t_pop_back_(
-    std::vector<int32_t> * restrict vec
 ) {
     vec->pop_back();
 }
@@ -2609,9 +1569,9 @@ extern "C" void std_vector_void___pop_back_(
 }
 
 /*
-function RefStdVector_new(type::Type{STL.StdString})
-    res = ccall(("std_vector_std__string_new", "libSTL.dylib"), Ptr{STL.StdVector{STL.StdString}}, ())
-    return RefStdVector{STL.StdString}(res)::STL.RefStdVector{STL.StdString}
+function RefStdVector_new(type::Type{STL.RefStdString})
+    res = ccall(("std_vector_std__string_new", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdString}}, ())
+    return RefStdVector{STL.RefStdString}(res)::STL.RefStdVector{STL.RefStdString}
 end
 */
 extern "C" std::vector<std::string> * std_vector_std__string_new(
@@ -2621,9 +1581,9 @@ extern "C" std::vector<std::string> * std_vector_std__string_new(
 }
 
 /*
-function RefStdVector_new(type::Type{STL.StdString}, size::Integer)
-    res = ccall(("std_vector_std__string_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{STL.StdString}}, (UInt64,), size)
-    return RefStdVector{STL.StdString}(res)::STL.RefStdVector{STL.StdString}
+function RefStdVector_new(type::Type{STL.RefStdString}, size::Integer)
+    res = ccall(("std_vector_std__string_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdString}}, (UInt64,), size)
+    return RefStdVector{STL.RefStdString}(res)::STL.RefStdVector{STL.RefStdString}
 end
 */
 extern "C" std::vector<std::string> * std_vector_std__string_new_std_size_t(
@@ -2633,8 +1593,8 @@ extern "C" std::vector<std::string> * std_vector_std__string_new_std_size_t(
 }
 
 /*
-function RefStdVector_delete(vec::STL.RefStdVector{STL.StdString})
-    res = ccall(("std_vector_std__string_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}},), vec)
+function RefStdVector_delete(vec::STL.RefStdVector{STL.RefStdString})
+    res = ccall(("std_vector_std__string_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}},), vec)
     return res::Nothing
 end
 */
@@ -2645,9 +1605,9 @@ extern "C" void std_vector_std__string_delete(
 }
 
 /*
-function Base.copy(vec::STL.RefStdVector{STL.StdString})
-    res = ccall(("std_vector_std__string_copy", "libSTL.dylib"), Ptr{STL.StdVector{STL.StdString}}, (Ptr{STL.StdVector{STL.StdString}},), vec)
-    return RefStdVector{STL.StdString}(res)::STL.RefStdVector{STL.StdString}
+function Base.copy(vec::STL.RefStdVector{STL.RefStdString})
+    res = ccall(("std_vector_std__string_copy", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdString}}, (Ptr{STL.StdVector{STL.RefStdString}},), vec)
+    return RefStdVector{STL.RefStdString}(res)::STL.RefStdVector{STL.RefStdString}
 end
 */
 extern "C" std::vector<std::string> * std_vector_std__string_copy(
@@ -2659,8 +1619,8 @@ extern "C" std::vector<std::string> * std_vector_std__string_copy(
 static_assert(sizeof(std::vector<std::string>) <= 40, "");
 
 /*
-function GCStdVector_construct(ptr::STL.GCStdVector{STL.StdString})
-    res = ccall(("std_vector_std__string_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}},), ptr)
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.RefStdString})
+    res = ccall(("std_vector_std__string_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}},), ptr)
     return res::Nothing
 end
 */
@@ -2671,8 +1631,8 @@ extern "C" void std_vector_std__string_construct(
 }
 
 /*
-function GCStdVector_construct(ptr::STL.GCStdVector{STL.StdString}, size::Integer)
-    res = ccall(("std_vector_std__string_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}}, UInt64), ptr, size)
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.RefStdString}, size::Integer)
+    res = ccall(("std_vector_std__string_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}}, UInt64), ptr, size)
     return res::Nothing
 end
 */
@@ -2684,8 +1644,8 @@ extern "C" void std_vector_std__string_construct_std_size_t(
 }
 
 /*
-function GCStdVector_destruct(ptr::STL.GCStdVector{STL.StdString})
-    res = ccall(("std_vector_std__string_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}},), ptr)
+function GCStdVector_destruct(ptr::STL.GCStdVector{STL.RefStdString})
+    res = ccall(("std_vector_std__string_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}},), ptr)
     return res::Nothing
 end
 */
@@ -2696,8 +1656,8 @@ extern "C" void std_vector_std__string_destruct(
 }
 
 /*
-function GCStdVector_copy_construct(ptr::STL.GCStdVector{STL.StdString}, vec::STL.GCStdVector{STL.StdString})
-    res = ccall(("std_vector_std__string_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}}, Ptr{STL.StdVector{STL.StdString}}), ptr, vec)
+function GCStdVector_copy_construct(ptr::STL.GCStdVector{STL.RefStdString}, vec::STL.GCStdVector{STL.RefStdString})
+    res = ccall(("std_vector_std__string_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}}, Ptr{STL.StdVector{STL.RefStdString}}), ptr, vec)
     return res::Nothing
 end
 */
@@ -2711,7 +1671,7 @@ extern "C" void std_vector_std__string_copy_construct(
 static_assert(sizeof(std::shared_ptr<std::vector<std::string>>) <= 16, "");
 
 /*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.StdString})
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.RefStdString})
     res = ccall(("std_shared_ptr_std_vector_std__string_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Nothing
 end
@@ -2725,7 +1685,7 @@ extern "C" void std_shared_ptr_std_vector_std__string_placement_new(
 }
 
 /*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.StdString}, size::Integer)
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.RefStdString}, size::Integer)
     res = ccall(("std_shared_ptr_std_vector_std__string_placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
     return res::Nothing
 end
@@ -2740,7 +1700,7 @@ extern "C" void std_shared_ptr_std_vector_std__string_placement_new_std_size_t(
 }
 
 /*
-function SharedStdVector_destruct(ptr::STL.SharedStdVector{STL.StdString})
+function SharedStdVector_destruct(ptr::STL.SharedStdVector{STL.RefStdString})
     res = ccall(("std_shared_ptr_std_vector_std__string_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Nothing
 end
@@ -2752,8 +1712,8 @@ extern "C" void std_shared_ptr_std_vector_std__string_placement_delete(
 }
 
 /*
-function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{STL.StdString}, vec::STL.SharedStdVector{STL.StdString})
-    res = ccall(("std_shared_ptr_std_vector_std__string_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{STL.StdString}}), pointer_from_objref(ptr), vec)
+function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{STL.RefStdString}, vec::STL.SharedStdVector{STL.RefStdString})
+    res = ccall(("std_shared_ptr_std_vector_std__string_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{STL.RefStdString}}), pointer_from_objref(ptr), vec)
     return res::Nothing
 end
 */
@@ -2767,7 +1727,7 @@ extern "C" void std_shared_ptr_std_vector_std__string_placement_copy(
 }
 
 /*
-function SharedStdVector_get(ptr::STL.SharedStdVector{STL.StdString})
+function SharedStdVector_get(ptr::STL.SharedStdVector{STL.RefStdString})
     res = ccall(("std_shared_ptr_std_vector_std__string_get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Ptr{STL.StdVector}
 end
@@ -2779,8 +1739,8 @@ extern "C" std::vector<std::string> * std_shared_ptr_std_vector_std__string_get(
 }
 
 /*
-function Base.resize!(vec::STL.StdVector{STL.StdString}, size::Integer)
-    res = ccall(("std_vector_std__string_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}}, UInt64), vec, size)
+function Base.resize!(vec::STL.StdVector{STL.RefStdString}, size::Integer)
+    res = ccall(("std_vector_std__string_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}}, UInt64), vec, size)
     return res::Nothing
 end
 */
@@ -2792,8 +1752,8 @@ extern "C" void std_vector_std__string_resize_(
 }
 
 /*
-function Base.length(vec::STL.StdVector{STL.StdString})
-    res = ccall(("std_vector_std__string_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{STL.StdString}},), vec)
+function Base.length(vec::STL.StdVector{STL.RefStdString})
+    res = ccall(("std_vector_std__string_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{STL.RefStdString}},), vec)
     return convert(Int, res)::Int64
 end
 */
@@ -2804,9 +1764,9 @@ extern "C" std::size_t std_vector_std__string_length(
 }
 
 /*
-function Base.getindex(vec::STL.StdVector{STL.StdString}, idx::Integer)
-    res = ccall(("std_vector_std__string_getindex", "libSTL.dylib"), Ptr{STL.StdString}, (Ptr{STL.StdVector{STL.StdString}}, UInt64), vec, idx)
-    return convert_result(STL.StdString, res)::STL.StdString
+function Base.getindex(vec::STL.StdVector{STL.RefStdString}, idx::Integer)
+    res = ccall(("std_vector_std__string_getindex", "libSTL.dylib"), Ptr{STL.RefStdString}, (Ptr{STL.StdVector{STL.RefStdString}}, UInt64), vec, idx)
+    return convert_result(STL.RefStdString, res)::STL.RefStdString
 end
 */
 extern "C" std::string * std_vector_std__string_getindex(
@@ -2817,8 +1777,8 @@ extern "C" std::string * std_vector_std__string_getindex(
 }
 
 /*
-function Base.setindex!(vec::STL.StdVector{STL.StdString}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_std__string_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}}, Ptr{STL.StdString}, UInt64), vec, convert_arg(Ptr{STL.StdString}, convert(STL.StdString, elt)), idx)
+function Base.setindex!(vec::STL.StdVector{STL.RefStdString}, elt::Any, idx::Integer)
+    res = ccall(("std_vector_std__string_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}}, Ptr{STL.RefStdString}, UInt64), vec, convert_arg(Ptr{STL.RefStdString}, convert(STL.RefStdString, elt)), idx)
     return res::Nothing
 end
 */
@@ -2831,8 +1791,8 @@ extern "C" void std_vector_std__string_setindex_(
 }
 
 /*
-function Base.:(==)(vec1::STL.StdVector{STL.StdString}, vec2::STL.StdVector{STL.StdString})
-    res = ccall(("std_vector_std__string_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{STL.StdString}}, Ptr{STL.StdVector{STL.StdString}}), vec1, vec2)
+function Base.:(==)(vec1::STL.StdVector{STL.RefStdString}, vec2::STL.StdVector{STL.RefStdString})
+    res = ccall(("std_vector_std__string_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{STL.RefStdString}}, Ptr{STL.StdVector{STL.RefStdString}}), vec1, vec2)
     return res::Bool
 end
 */
@@ -2844,8 +1804,8 @@ extern "C" bool std_vector_std__string_equals(
 }
 
 /*
-function Base.push!(vec::STL.StdVector{STL.StdString}, elt::Any)
-    res = ccall(("std_vector_std__string_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}}, Ptr{STL.StdString}), vec, convert_arg(Ptr{STL.StdString}, convert(STL.StdString, elt)))
+function Base.push!(vec::STL.StdVector{STL.RefStdString}, elt::Any)
+    res = ccall(("std_vector_std__string_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}}, Ptr{STL.RefStdString}), vec, convert_arg(Ptr{STL.RefStdString}, convert(STL.RefStdString, elt)))
     return res::Nothing
 end
 */
@@ -2857,8 +1817,8 @@ extern "C" void std_vector_std__string_push_(
 }
 
 /*
-function pop_back!(vec::STL.StdVector{STL.StdString})
-    res = ccall(("std_vector_std__string_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.StdString}},), vec)
+function pop_back!(vec::STL.StdVector{STL.RefStdString})
+    res = ccall(("std_vector_std__string_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdString}},), vec)
     return res::Nothing
 end
 */
@@ -2869,521 +1829,1301 @@ extern "C" void std_vector_std__string_pop_back_(
 }
 
 /*
-function RefStdVector_new(type::Type{UInt16})
-    res = ccall(("std_vector_uint16_t_new", "libSTL.dylib"), Ptr{STL.StdVector{UInt16}}, ())
-    return RefStdVector{UInt16}(res)::STL.RefStdVector{UInt16}
+function RefStdVector_new(type::Type{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__new", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, ())
+    return RefStdVector{STL.RefStdVector{STL.RefStdString}}(res)::STL.RefStdVector{STL.RefStdVector{STL.RefStdString}}
 end
 */
-extern "C" std::vector<uint16_t> * std_vector_uint16_t_new(
+extern "C" std::vector<std::vector<std::string>> * std_vector_std__vector_std__string__new(
     
 ) {
-    return new std::vector<uint16_t>;
+    return new std::vector<std::vector<std::string>>;
 }
 
 /*
-function RefStdVector_new(type::Type{UInt16}, size::Integer)
-    res = ccall(("std_vector_uint16_t_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{UInt16}}, (UInt64,), size)
-    return RefStdVector{UInt16}(res)::STL.RefStdVector{UInt16}
+function RefStdVector_new(type::Type{STL.RefStdVector{STL.RefStdString}}, size::Integer)
+    res = ccall(("std_vector_std__vector_std__string__new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, (UInt64,), size)
+    return RefStdVector{STL.RefStdVector{STL.RefStdString}}(res)::STL.RefStdVector{STL.RefStdVector{STL.RefStdString}}
 end
 */
-extern "C" std::vector<uint16_t> * std_vector_uint16_t_new_std_size_t(
+extern "C" std::vector<std::vector<std::string>> * std_vector_std__vector_std__string__new_std_size_t(
     std::size_t size
 ) {
-    return new std::vector<uint16_t>(size);
+    return new std::vector<std::vector<std::string>>(size);
 }
 
 /*
-function RefStdVector_delete(vec::STL.RefStdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}},), vec)
+function RefStdVector_delete(vec::STL.RefStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}},), vec)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_delete(
-    std::vector<uint16_t> * restrict vec
+extern "C" void std_vector_std__vector_std__string__delete(
+    std::vector<std::vector<std::string>> * restrict vec
 ) {
     delete vec;
 }
 
 /*
-function Base.copy(vec::STL.RefStdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_copy", "libSTL.dylib"), Ptr{STL.StdVector{UInt16}}, (Ptr{STL.StdVector{UInt16}},), vec)
-    return RefStdVector{UInt16}(res)::STL.RefStdVector{UInt16}
+function Base.copy(vec::STL.RefStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__copy", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}},), vec)
+    return RefStdVector{STL.RefStdVector{STL.RefStdString}}(res)::STL.RefStdVector{STL.RefStdVector{STL.RefStdString}}
 end
 */
-extern "C" std::vector<uint16_t> * std_vector_uint16_t_copy(
-    const std::vector<uint16_t> * restrict vec
+extern "C" std::vector<std::vector<std::string>> * std_vector_std__vector_std__string__copy(
+    const std::vector<std::vector<std::string>> * restrict vec
 ) {
-    return new std::vector<uint16_t>(*vec);
+    return new std::vector<std::vector<std::string>>(*vec);
 }
 
-static_assert(sizeof(std::vector<uint16_t>) <= 40, "");
+static_assert(sizeof(std::vector<std::vector<std::string>>) <= 40, "");
 
 /*
-function GCStdVector_construct(ptr::STL.GCStdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}},), ptr)
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}},), ptr)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_construct(
+extern "C" void std_vector_std__vector_std__string__construct(
     void * ptr
 ) {
-    new(ptr) std::vector<uint16_t>;
+    new(ptr) std::vector<std::vector<std::string>>;
 }
 
 /*
-function GCStdVector_construct(ptr::STL.GCStdVector{UInt16}, size::Integer)
-    res = ccall(("std_vector_uint16_t_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}}, UInt64), ptr, size)
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.RefStdVector{STL.RefStdString}}, size::Integer)
+    res = ccall(("std_vector_std__vector_std__string__construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, UInt64), ptr, size)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_construct_std_size_t(
+extern "C" void std_vector_std__vector_std__string__construct_std_size_t(
     void * ptr,
     std::size_t size
 ) {
-    new(ptr) std::vector<uint16_t>(size);
+    new(ptr) std::vector<std::vector<std::string>>(size);
 }
 
 /*
-function GCStdVector_destruct(ptr::STL.GCStdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}},), ptr)
+function GCStdVector_destruct(ptr::STL.GCStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}},), ptr)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_destruct(
-    std::vector<uint16_t> * restrict ptr
+extern "C" void std_vector_std__vector_std__string__destruct(
+    std::vector<std::vector<std::string>> * restrict ptr
 ) {
     ptr->~vector();
 }
 
 /*
-function GCStdVector_copy_construct(ptr::STL.GCStdVector{UInt16}, vec::STL.GCStdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}}, Ptr{STL.StdVector{UInt16}}), ptr, vec)
+function GCStdVector_copy_construct(ptr::STL.GCStdVector{STL.RefStdVector{STL.RefStdString}}, vec::STL.GCStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}), ptr, vec)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_copy_construct(
-    std::vector<uint16_t> * restrict ptr,
-    const std::vector<uint16_t> * restrict vec
+extern "C" void std_vector_std__vector_std__string__copy_construct(
+    std::vector<std::vector<std::string>> * restrict ptr,
+    const std::vector<std::vector<std::string>> * restrict vec
 ) {
-    new(ptr) std::vector<uint16_t>(*vec);
+    new(ptr) std::vector<std::vector<std::string>>(*vec);
 }
 
-static_assert(sizeof(std::shared_ptr<std::vector<uint16_t>>) <= 16, "");
+static_assert(sizeof(std::shared_ptr<std::vector<std::vector<std::string>>>) <= 16, "");
 
 /*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{UInt16})
-    res = ccall(("std_shared_ptr_std_vector_uint16_t_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__string__placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Nothing
 end
 */
-extern "C" void std_shared_ptr_std_vector_uint16_t_placement_new(
+extern "C" void std_shared_ptr_std_vector_std__vector_std__string__placement_new(
     void * ptr
 ) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint16_t>>;
-*res = std::make_shared<std::vector<uint16_t>>();
+    auto res = new(ptr) std::shared_ptr<std::vector<std::vector<std::string>>>;
+*res = std::make_shared<std::vector<std::vector<std::string>>>();
 
 }
 
 /*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{UInt16}, size::Integer)
-    res = ccall(("std_shared_ptr_std_vector_uint16_t_placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.RefStdVector{STL.RefStdString}}, size::Integer)
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__string__placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
     return res::Nothing
 end
 */
-extern "C" void std_shared_ptr_std_vector_uint16_t_placement_new_std_size_t(
+extern "C" void std_shared_ptr_std_vector_std__vector_std__string__placement_new_std_size_t(
     void * ptr,
     std::size_t size
 ) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint16_t>>;
-*res = std::make_shared<std::vector<uint16_t>>(size);
+    auto res = new(ptr) std::shared_ptr<std::vector<std::vector<std::string>>>;
+*res = std::make_shared<std::vector<std::vector<std::string>>>(size);
 
 }
 
 /*
-function SharedStdVector_destruct(ptr::STL.SharedStdVector{UInt16})
-    res = ccall(("std_shared_ptr_std_vector_uint16_t_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+function SharedStdVector_destruct(ptr::STL.SharedStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__string__placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Nothing
 end
 */
-extern "C" void std_shared_ptr_std_vector_uint16_t_placement_delete(
-    std::shared_ptr<std::vector<uint16_t>> * restrict ptr
+extern "C" void std_shared_ptr_std_vector_std__vector_std__string__placement_delete(
+    std::shared_ptr<std::vector<std::vector<std::string>>> * restrict ptr
 ) {
     ptr->~shared_ptr();
 }
 
 /*
-function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{UInt16}, vec::STL.SharedStdVector{UInt16})
-    res = ccall(("std_shared_ptr_std_vector_uint16_t_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{UInt16}}), pointer_from_objref(ptr), vec)
+function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{STL.RefStdVector{STL.RefStdString}}, vec::STL.SharedStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__string__placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}), pointer_from_objref(ptr), vec)
     return res::Nothing
 end
 */
-extern "C" void std_shared_ptr_std_vector_uint16_t_placement_copy(
+extern "C" void std_shared_ptr_std_vector_std__vector_std__string__placement_copy(
     void * ptr,
-    const std::vector<uint16_t> * restrict vec
+    const std::vector<std::vector<std::string>> * restrict vec
 ) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint16_t>>;
-*res = std::make_shared<std::vector<uint16_t>>(*vec);
+    auto res = new(ptr) std::shared_ptr<std::vector<std::vector<std::string>>>;
+*res = std::make_shared<std::vector<std::vector<std::string>>>(*vec);
 
 }
 
 /*
-function SharedStdVector_get(ptr::STL.SharedStdVector{UInt16})
-    res = ccall(("std_shared_ptr_std_vector_uint16_t_get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
+function SharedStdVector_get(ptr::STL.SharedStdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__string__get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Ptr{STL.StdVector}
 end
 */
-extern "C" std::vector<uint16_t> * std_shared_ptr_std_vector_uint16_t_get(
-    std::shared_ptr<std::vector<uint16_t>> * restrict ptr
+extern "C" std::vector<std::vector<std::string>> * std_shared_ptr_std_vector_std__vector_std__string__get(
+    std::shared_ptr<std::vector<std::vector<std::string>>> * restrict ptr
 ) {
     return ptr->get();
 }
 
 /*
-function Base.resize!(vec::STL.StdVector{UInt16}, size::Integer)
-    res = ccall(("std_vector_uint16_t_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}}, UInt64), vec, size)
+function Base.resize!(vec::STL.StdVector{STL.RefStdVector{STL.RefStdString}}, size::Integer)
+    res = ccall(("std_vector_std__vector_std__string__resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, UInt64), vec, size)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_resize_(
-    std::vector<uint16_t> * restrict vec,
+extern "C" void std_vector_std__vector_std__string__resize_(
+    std::vector<std::vector<std::string>> * restrict vec,
     std::size_t size
 ) {
     vec->resize(size);
 }
 
 /*
-function Base.length(vec::STL.StdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{UInt16}},), vec)
+function Base.length(vec::STL.StdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}},), vec)
     return convert(Int, res)::Int64
 end
 */
-extern "C" std::size_t std_vector_uint16_t_length(
-    const std::vector<uint16_t> * restrict vec
+extern "C" std::size_t std_vector_std__vector_std__string__length(
+    const std::vector<std::vector<std::string>> * restrict vec
 ) {
     return vec->size();
 }
 
 /*
-function Base.getindex(vec::STL.StdVector{UInt16}, idx::Integer)
-    res = ccall(("std_vector_uint16_t_getindex", "libSTL.dylib"), Ptr{UInt16}, (Ptr{STL.StdVector{UInt16}}, UInt64), vec, idx)
-    return convert_result(UInt16, res)::UInt16
+function Base.getindex(vec::STL.StdVector{STL.RefStdVector{STL.RefStdString}}, idx::Integer)
+    res = ccall(("std_vector_std__vector_std__string__getindex", "libSTL.dylib"), Ptr{STL.RefStdVector{STL.RefStdString}}, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, UInt64), vec, idx)
+    return convert_result(STL.RefStdVector{STL.RefStdString}, res)::STL.RefStdVector{STL.RefStdString}
 end
 */
-extern "C" uint16_t * std_vector_uint16_t_getindex(
-    std::vector<uint16_t> * restrict vec,
+extern "C" std::vector<std::string> * std_vector_std__vector_std__string__getindex(
+    std::vector<std::vector<std::string>> * restrict vec,
     std::size_t idx
 ) {
     return &(*vec)[idx];
 }
 
 /*
-function Base.setindex!(vec::STL.StdVector{UInt16}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_uint16_t_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}}, Ptr{UInt16}, UInt64), vec, convert_arg(Ptr{UInt16}, convert(UInt16, elt)), idx)
+function Base.setindex!(vec::STL.StdVector{STL.RefStdVector{STL.RefStdString}}, elt::Any, idx::Integer)
+    res = ccall(("std_vector_std__vector_std__string__setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, Ptr{STL.RefStdVector{STL.RefStdString}}, UInt64), vec, convert_arg(Ptr{STL.RefStdVector{STL.RefStdString}}, convert(STL.RefStdVector{STL.RefStdString}, elt)), idx)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_setindex_(
-    std::vector<uint16_t> * restrict vec,
-    uint16_t const * elt,
+extern "C" void std_vector_std__vector_std__string__setindex_(
+    std::vector<std::vector<std::string>> * restrict vec,
+    std::vector<std::string> const * elt,
     std::size_t idx
 ) {
     (*vec)[idx] = *elt;
 }
 
 /*
-function Base.:(==)(vec1::STL.StdVector{UInt16}, vec2::STL.StdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{UInt16}}, Ptr{STL.StdVector{UInt16}}), vec1, vec2)
+function Base.:(==)(vec1::STL.StdVector{STL.RefStdVector{STL.RefStdString}}, vec2::STL.StdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}), vec1, vec2)
     return res::Bool
 end
 */
-extern "C" bool std_vector_uint16_t_equals(
-    const std::vector<uint16_t> * restrict vec1,
-    const std::vector<uint16_t> * restrict vec2
+extern "C" bool std_vector_std__vector_std__string__equals(
+    const std::vector<std::vector<std::string>> * restrict vec1,
+    const std::vector<std::vector<std::string>> * restrict vec2
 ) {
     return *vec1 == *vec2;
 }
 
 /*
-function Base.push!(vec::STL.StdVector{UInt16}, elt::Any)
-    res = ccall(("std_vector_uint16_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}}, Ptr{UInt16}), vec, convert_arg(Ptr{UInt16}, convert(UInt16, elt)))
+function Base.push!(vec::STL.StdVector{STL.RefStdVector{STL.RefStdString}}, elt::Any)
+    res = ccall(("std_vector_std__vector_std__string__push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}}, Ptr{STL.RefStdVector{STL.RefStdString}}), vec, convert_arg(Ptr{STL.RefStdVector{STL.RefStdString}}, convert(STL.RefStdVector{STL.RefStdString}, elt)))
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_push_(
-    std::vector<uint16_t> * restrict vec,
-    uint16_t const * elt
+extern "C" void std_vector_std__vector_std__string__push_(
+    std::vector<std::vector<std::string>> * restrict vec,
+    std::vector<std::string> const * elt
 ) {
     vec->push_back(*elt);
 }
 
 /*
-function pop_back!(vec::STL.StdVector{UInt16})
-    res = ccall(("std_vector_uint16_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt16}},), vec)
+function pop_back!(vec::STL.StdVector{STL.RefStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__vector_std__string__pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.RefStdString}}},), vec)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint16_t_pop_back_(
-    std::vector<uint16_t> * restrict vec
+extern "C" void std_vector_std__vector_std__string__pop_back_(
+    std::vector<std::vector<std::string>> * restrict vec
 ) {
     vec->pop_back();
 }
 
 /*
-function RefStdVector_new(type::Type{UInt32})
-    res = ccall(("std_vector_uint32_t_new", "libSTL.dylib"), Ptr{STL.StdVector{UInt32}}, ())
-    return RefStdVector{UInt32}(res)::STL.RefStdVector{UInt32}
+function RefStdVector_new(type::Type{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___new", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, ())
+    return RefStdVector{STL.RefStdVector{STL.SharedStdString}}(res)::STL.RefStdVector{STL.RefStdVector{STL.SharedStdString}}
 end
 */
-extern "C" std::vector<uint32_t> * std_vector_uint32_t_new(
+extern "C" std::vector<std::vector<std::shared_ptr<std::string>>> * std_vector_std__vector_std__shared_ptr_std__string___new(
     
 ) {
-    return new std::vector<uint32_t>;
+    return new std::vector<std::vector<std::shared_ptr<std::string>>>;
 }
 
 /*
-function RefStdVector_new(type::Type{UInt32}, size::Integer)
-    res = ccall(("std_vector_uint32_t_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{UInt32}}, (UInt64,), size)
-    return RefStdVector{UInt32}(res)::STL.RefStdVector{UInt32}
+function RefStdVector_new(type::Type{STL.RefStdVector{STL.SharedStdString}}, size::Integer)
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, (UInt64,), size)
+    return RefStdVector{STL.RefStdVector{STL.SharedStdString}}(res)::STL.RefStdVector{STL.RefStdVector{STL.SharedStdString}}
 end
 */
-extern "C" std::vector<uint32_t> * std_vector_uint32_t_new_std_size_t(
+extern "C" std::vector<std::vector<std::shared_ptr<std::string>>> * std_vector_std__vector_std__shared_ptr_std__string___new_std_size_t(
     std::size_t size
 ) {
-    return new std::vector<uint32_t>(size);
+    return new std::vector<std::vector<std::shared_ptr<std::string>>>(size);
 }
 
 /*
-function RefStdVector_delete(vec::STL.RefStdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}},), vec)
+function RefStdVector_delete(vec::STL.RefStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}},), vec)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_delete(
-    std::vector<uint32_t> * restrict vec
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___delete(
+    std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec
 ) {
     delete vec;
 }
 
 /*
-function Base.copy(vec::STL.RefStdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_copy", "libSTL.dylib"), Ptr{STL.StdVector{UInt32}}, (Ptr{STL.StdVector{UInt32}},), vec)
-    return RefStdVector{UInt32}(res)::STL.RefStdVector{UInt32}
+function Base.copy(vec::STL.RefStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___copy", "libSTL.dylib"), Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}},), vec)
+    return RefStdVector{STL.RefStdVector{STL.SharedStdString}}(res)::STL.RefStdVector{STL.RefStdVector{STL.SharedStdString}}
 end
 */
-extern "C" std::vector<uint32_t> * std_vector_uint32_t_copy(
-    const std::vector<uint32_t> * restrict vec
+extern "C" std::vector<std::vector<std::shared_ptr<std::string>>> * std_vector_std__vector_std__shared_ptr_std__string___copy(
+    const std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec
 ) {
-    return new std::vector<uint32_t>(*vec);
+    return new std::vector<std::vector<std::shared_ptr<std::string>>>(*vec);
 }
 
-static_assert(sizeof(std::vector<uint32_t>) <= 40, "");
+static_assert(sizeof(std::vector<std::vector<std::shared_ptr<std::string>>>) <= 40, "");
 
 /*
-function GCStdVector_construct(ptr::STL.GCStdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}},), ptr)
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}},), ptr)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_construct(
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___construct(
     void * ptr
 ) {
-    new(ptr) std::vector<uint32_t>;
+    new(ptr) std::vector<std::vector<std::shared_ptr<std::string>>>;
 }
 
 /*
-function GCStdVector_construct(ptr::STL.GCStdVector{UInt32}, size::Integer)
-    res = ccall(("std_vector_uint32_t_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}}, UInt64), ptr, size)
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.RefStdVector{STL.SharedStdString}}, size::Integer)
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, UInt64), ptr, size)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_construct_std_size_t(
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___construct_std_size_t(
     void * ptr,
     std::size_t size
 ) {
-    new(ptr) std::vector<uint32_t>(size);
+    new(ptr) std::vector<std::vector<std::shared_ptr<std::string>>>(size);
 }
 
 /*
-function GCStdVector_destruct(ptr::STL.GCStdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}},), ptr)
+function GCStdVector_destruct(ptr::STL.GCStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}},), ptr)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_destruct(
-    std::vector<uint32_t> * restrict ptr
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___destruct(
+    std::vector<std::vector<std::shared_ptr<std::string>>> * restrict ptr
 ) {
     ptr->~vector();
 }
 
 /*
-function GCStdVector_copy_construct(ptr::STL.GCStdVector{UInt32}, vec::STL.GCStdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}}, Ptr{STL.StdVector{UInt32}}), ptr, vec)
+function GCStdVector_copy_construct(ptr::STL.GCStdVector{STL.RefStdVector{STL.SharedStdString}}, vec::STL.GCStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}), ptr, vec)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_copy_construct(
-    std::vector<uint32_t> * restrict ptr,
-    const std::vector<uint32_t> * restrict vec
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___copy_construct(
+    std::vector<std::vector<std::shared_ptr<std::string>>> * restrict ptr,
+    const std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec
 ) {
-    new(ptr) std::vector<uint32_t>(*vec);
+    new(ptr) std::vector<std::vector<std::shared_ptr<std::string>>>(*vec);
 }
 
-static_assert(sizeof(std::shared_ptr<std::vector<uint32_t>>) <= 16, "");
+static_assert(sizeof(std::shared_ptr<std::vector<std::vector<std::shared_ptr<std::string>>>>) <= 16, "");
 
 /*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{UInt32})
-    res = ccall(("std_shared_ptr_std_vector_uint32_t_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Nothing
 end
 */
-extern "C" void std_shared_ptr_std_vector_uint32_t_placement_new(
+extern "C" void std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___placement_new(
     void * ptr
 ) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint32_t>>;
-*res = std::make_shared<std::vector<uint32_t>>();
+    auto res = new(ptr) std::shared_ptr<std::vector<std::vector<std::shared_ptr<std::string>>>>;
+*res = std::make_shared<std::vector<std::vector<std::shared_ptr<std::string>>>>();
 
 }
 
 /*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{UInt32}, size::Integer)
-    res = ccall(("std_shared_ptr_std_vector_uint32_t_placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.RefStdVector{STL.SharedStdString}}, size::Integer)
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
     return res::Nothing
 end
 */
-extern "C" void std_shared_ptr_std_vector_uint32_t_placement_new_std_size_t(
+extern "C" void std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___placement_new_std_size_t(
     void * ptr,
     std::size_t size
 ) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint32_t>>;
-*res = std::make_shared<std::vector<uint32_t>>(size);
+    auto res = new(ptr) std::shared_ptr<std::vector<std::vector<std::shared_ptr<std::string>>>>;
+*res = std::make_shared<std::vector<std::vector<std::shared_ptr<std::string>>>>(size);
 
 }
 
 /*
-function SharedStdVector_destruct(ptr::STL.SharedStdVector{UInt32})
-    res = ccall(("std_shared_ptr_std_vector_uint32_t_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+function SharedStdVector_destruct(ptr::STL.SharedStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Nothing
 end
 */
-extern "C" void std_shared_ptr_std_vector_uint32_t_placement_delete(
-    std::shared_ptr<std::vector<uint32_t>> * restrict ptr
+extern "C" void std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___placement_delete(
+    std::shared_ptr<std::vector<std::vector<std::shared_ptr<std::string>>>> * restrict ptr
 ) {
     ptr->~shared_ptr();
 }
 
 /*
-function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{UInt32}, vec::STL.SharedStdVector{UInt32})
-    res = ccall(("std_shared_ptr_std_vector_uint32_t_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{UInt32}}), pointer_from_objref(ptr), vec)
+function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{STL.RefStdVector{STL.SharedStdString}}, vec::STL.SharedStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}), pointer_from_objref(ptr), vec)
     return res::Nothing
 end
 */
-extern "C" void std_shared_ptr_std_vector_uint32_t_placement_copy(
+extern "C" void std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___placement_copy(
     void * ptr,
-    const std::vector<uint32_t> * restrict vec
+    const std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec
 ) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint32_t>>;
-*res = std::make_shared<std::vector<uint32_t>>(*vec);
+    auto res = new(ptr) std::shared_ptr<std::vector<std::vector<std::shared_ptr<std::string>>>>;
+*res = std::make_shared<std::vector<std::vector<std::shared_ptr<std::string>>>>(*vec);
 
 }
 
 /*
-function SharedStdVector_get(ptr::STL.SharedStdVector{UInt32})
-    res = ccall(("std_shared_ptr_std_vector_uint32_t_get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
+function SharedStdVector_get(ptr::STL.SharedStdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
     return res::Ptr{STL.StdVector}
 end
 */
-extern "C" std::vector<uint32_t> * std_shared_ptr_std_vector_uint32_t_get(
-    std::shared_ptr<std::vector<uint32_t>> * restrict ptr
+extern "C" std::vector<std::vector<std::shared_ptr<std::string>>> * std_shared_ptr_std_vector_std__vector_std__shared_ptr_std__string___get(
+    std::shared_ptr<std::vector<std::vector<std::shared_ptr<std::string>>>> * restrict ptr
 ) {
     return ptr->get();
 }
 
 /*
-function Base.resize!(vec::STL.StdVector{UInt32}, size::Integer)
-    res = ccall(("std_vector_uint32_t_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}}, UInt64), vec, size)
+function Base.resize!(vec::STL.StdVector{STL.RefStdVector{STL.SharedStdString}}, size::Integer)
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, UInt64), vec, size)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_resize_(
-    std::vector<uint32_t> * restrict vec,
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___resize_(
+    std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec,
     std::size_t size
 ) {
     vec->resize(size);
 }
 
 /*
-function Base.length(vec::STL.StdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{UInt32}},), vec)
+function Base.length(vec::STL.StdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}},), vec)
     return convert(Int, res)::Int64
 end
 */
-extern "C" std::size_t std_vector_uint32_t_length(
-    const std::vector<uint32_t> * restrict vec
+extern "C" std::size_t std_vector_std__vector_std__shared_ptr_std__string___length(
+    const std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec
 ) {
     return vec->size();
 }
 
 /*
-function Base.getindex(vec::STL.StdVector{UInt32}, idx::Integer)
-    res = ccall(("std_vector_uint32_t_getindex", "libSTL.dylib"), Ptr{UInt32}, (Ptr{STL.StdVector{UInt32}}, UInt64), vec, idx)
-    return convert_result(UInt32, res)::UInt32
+function Base.getindex(vec::STL.StdVector{STL.RefStdVector{STL.SharedStdString}}, idx::Integer)
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___getindex", "libSTL.dylib"), Ptr{STL.RefStdVector{STL.SharedStdString}}, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, UInt64), vec, idx)
+    return convert_result(STL.RefStdVector{STL.SharedStdString}, res)::STL.RefStdVector{STL.SharedStdString}
 end
 */
-extern "C" uint32_t * std_vector_uint32_t_getindex(
-    std::vector<uint32_t> * restrict vec,
+extern "C" std::vector<std::shared_ptr<std::string>> * std_vector_std__vector_std__shared_ptr_std__string___getindex(
+    std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec,
     std::size_t idx
 ) {
     return &(*vec)[idx];
 }
 
 /*
-function Base.setindex!(vec::STL.StdVector{UInt32}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_uint32_t_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}}, Ptr{UInt32}, UInt64), vec, convert_arg(Ptr{UInt32}, convert(UInt32, elt)), idx)
+function Base.setindex!(vec::STL.StdVector{STL.RefStdVector{STL.SharedStdString}}, elt::Any, idx::Integer)
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, Ptr{STL.RefStdVector{STL.SharedStdString}}, UInt64), vec, convert_arg(Ptr{STL.RefStdVector{STL.SharedStdString}}, convert(STL.RefStdVector{STL.SharedStdString}, elt)), idx)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_setindex_(
-    std::vector<uint32_t> * restrict vec,
-    uint32_t const * elt,
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___setindex_(
+    std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec,
+    std::vector<std::shared_ptr<std::string>> const * elt,
     std::size_t idx
 ) {
     (*vec)[idx] = *elt;
 }
 
 /*
-function Base.:(==)(vec1::STL.StdVector{UInt32}, vec2::STL.StdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{UInt32}}, Ptr{STL.StdVector{UInt32}}), vec1, vec2)
+function Base.:(==)(vec1::STL.StdVector{STL.RefStdVector{STL.SharedStdString}}, vec2::STL.StdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}), vec1, vec2)
     return res::Bool
 end
 */
-extern "C" bool std_vector_uint32_t_equals(
-    const std::vector<uint32_t> * restrict vec1,
-    const std::vector<uint32_t> * restrict vec2
+extern "C" bool std_vector_std__vector_std__shared_ptr_std__string___equals(
+    const std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec1,
+    const std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec2
 ) {
     return *vec1 == *vec2;
 }
 
 /*
-function Base.push!(vec::STL.StdVector{UInt32}, elt::Any)
-    res = ccall(("std_vector_uint32_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}}, Ptr{UInt32}), vec, convert_arg(Ptr{UInt32}, convert(UInt32, elt)))
+function Base.push!(vec::STL.StdVector{STL.RefStdVector{STL.SharedStdString}}, elt::Any)
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}}, Ptr{STL.RefStdVector{STL.SharedStdString}}), vec, convert_arg(Ptr{STL.RefStdVector{STL.SharedStdString}}, convert(STL.RefStdVector{STL.SharedStdString}, elt)))
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_push_(
-    std::vector<uint32_t> * restrict vec,
-    uint32_t const * elt
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___push_(
+    std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec,
+    std::vector<std::shared_ptr<std::string>> const * elt
 ) {
     vec->push_back(*elt);
 }
 
 /*
-function pop_back!(vec::STL.StdVector{UInt32})
-    res = ccall(("std_vector_uint32_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt32}},), vec)
+function pop_back!(vec::STL.StdVector{STL.RefStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__vector_std__shared_ptr_std__string___pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.RefStdVector{STL.SharedStdString}}},), vec)
     return res::Nothing
 end
 */
-extern "C" void std_vector_uint32_t_pop_back_(
-    std::vector<uint32_t> * restrict vec
+extern "C" void std_vector_std__vector_std__shared_ptr_std__string___pop_back_(
+    std::vector<std::vector<std::shared_ptr<std::string>>> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
+function RefStdVector_new(type::Type{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__new", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdString}}, ())
+    return RefStdVector{STL.SharedStdString}(res)::STL.RefStdVector{STL.SharedStdString}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::string>> * std_vector_std__shared_ptr_std__string__new(
+    
+) {
+    return new std::vector<std::shared_ptr<std::string>>;
+}
+
+/*
+function RefStdVector_new(type::Type{STL.SharedStdString}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__string__new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdString}}, (UInt64,), size)
+    return RefStdVector{STL.SharedStdString}(res)::STL.RefStdVector{STL.SharedStdString}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::string>> * std_vector_std__shared_ptr_std__string__new_std_size_t(
+    std::size_t size
+) {
+    return new std::vector<std::shared_ptr<std::string>>(size);
+}
+
+/*
+function RefStdVector_delete(vec::STL.RefStdVector{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__delete(
+    std::vector<std::shared_ptr<std::string>> * restrict vec
+) {
+    delete vec;
+}
+
+/*
+function Base.copy(vec::STL.RefStdVector{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__copy", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdString}}, (Ptr{STL.StdVector{STL.SharedStdString}},), vec)
+    return RefStdVector{STL.SharedStdString}(res)::STL.RefStdVector{STL.SharedStdString}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::string>> * std_vector_std__shared_ptr_std__string__copy(
+    const std::vector<std::shared_ptr<std::string>> * restrict vec
+) {
+    return new std::vector<std::shared_ptr<std::string>>(*vec);
+}
+
+static_assert(sizeof(std::vector<std::shared_ptr<std::string>>) <= 40, "");
+
+/*
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}},), ptr)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__construct(
+    void * ptr
+) {
+    new(ptr) std::vector<std::shared_ptr<std::string>>;
+}
+
+/*
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.SharedStdString}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__string__construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}}, UInt64), ptr, size)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__construct_std_size_t(
+    void * ptr,
+    std::size_t size
+) {
+    new(ptr) std::vector<std::shared_ptr<std::string>>(size);
+}
+
+/*
+function GCStdVector_destruct(ptr::STL.GCStdVector{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}},), ptr)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__destruct(
+    std::vector<std::shared_ptr<std::string>> * restrict ptr
+) {
+    ptr->~vector();
+}
+
+/*
+function GCStdVector_copy_construct(ptr::STL.GCStdVector{STL.SharedStdString}, vec::STL.GCStdVector{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}}, Ptr{STL.StdVector{STL.SharedStdString}}), ptr, vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__copy_construct(
+    std::vector<std::shared_ptr<std::string>> * restrict ptr,
+    const std::vector<std::shared_ptr<std::string>> * restrict vec
+) {
+    new(ptr) std::vector<std::shared_ptr<std::string>>(*vec);
+}
+
+static_assert(sizeof(std::shared_ptr<std::vector<std::shared_ptr<std::string>>>) <= 16, "");
+
+/*
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.SharedStdString})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__string__placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__string__placement_new(
+    void * ptr
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::string>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::string>>>();
+
+}
+
+/*
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.SharedStdString}, size::Integer)
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__string__placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__string__placement_new_std_size_t(
+    void * ptr,
+    std::size_t size
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::string>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::string>>>(size);
+
+}
+
+/*
+function SharedStdVector_destruct(ptr::STL.SharedStdVector{STL.SharedStdString})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__string__placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__string__placement_delete(
+    std::shared_ptr<std::vector<std::shared_ptr<std::string>>> * restrict ptr
+) {
+    ptr->~shared_ptr();
+}
+
+/*
+function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{STL.SharedStdString}, vec::STL.SharedStdVector{STL.SharedStdString})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__string__placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{STL.SharedStdString}}), pointer_from_objref(ptr), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__string__placement_copy(
+    void * ptr,
+    const std::vector<std::shared_ptr<std::string>> * restrict vec
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::string>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::string>>>(*vec);
+
+}
+
+/*
+function SharedStdVector_get(ptr::STL.SharedStdVector{STL.SharedStdString})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__string__get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Ptr{STL.StdVector}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::string>> * std_shared_ptr_std_vector_std__shared_ptr_std__string__get(
+    std::shared_ptr<std::vector<std::shared_ptr<std::string>>> * restrict ptr
+) {
+    return ptr->get();
+}
+
+/*
+function Base.resize!(vec::STL.StdVector{STL.SharedStdString}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__string__resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}}, UInt64), vec, size)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__resize_(
+    std::vector<std::shared_ptr<std::string>> * restrict vec,
+    std::size_t size
+) {
+    vec->resize(size);
+}
+
+/*
+function Base.length(vec::STL.StdVector{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{STL.SharedStdString}},), vec)
+    return convert(Int, res)::Int64
+end
+*/
+extern "C" std::size_t std_vector_std__shared_ptr_std__string__length(
+    const std::vector<std::shared_ptr<std::string>> * restrict vec
+) {
+    return vec->size();
+}
+
+/*
+function Base.getindex(vec::STL.StdVector{STL.SharedStdString}, idx::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__string__getindex", "libSTL.dylib"), Ptr{STL.SharedStdString}, (Ptr{STL.StdVector{STL.SharedStdString}}, UInt64), vec, idx)
+    return convert_result(STL.SharedStdString, res)::STL.SharedStdString
+end
+*/
+extern "C" std::shared_ptr<std::string> * std_vector_std__shared_ptr_std__string__getindex(
+    std::vector<std::shared_ptr<std::string>> * restrict vec,
+    std::size_t idx
+) {
+    return &(*vec)[idx];
+}
+
+/*
+function Base.setindex!(vec::STL.StdVector{STL.SharedStdString}, elt::Any, idx::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__string__setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}}, Ptr{STL.SharedStdString}, UInt64), vec, convert_arg(Ptr{STL.SharedStdString}, convert(STL.SharedStdString, elt)), idx)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__setindex_(
+    std::vector<std::shared_ptr<std::string>> * restrict vec,
+    std::shared_ptr<std::string> const * elt,
+    std::size_t idx
+) {
+    (*vec)[idx] = *elt;
+}
+
+/*
+function Base.:(==)(vec1::STL.StdVector{STL.SharedStdString}, vec2::STL.StdVector{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{STL.SharedStdString}}, Ptr{STL.StdVector{STL.SharedStdString}}), vec1, vec2)
+    return res::Bool
+end
+*/
+extern "C" bool std_vector_std__shared_ptr_std__string__equals(
+    const std::vector<std::shared_ptr<std::string>> * restrict vec1,
+    const std::vector<std::shared_ptr<std::string>> * restrict vec2
+) {
+    return *vec1 == *vec2;
+}
+
+/*
+function Base.push!(vec::STL.StdVector{STL.SharedStdString}, elt::Any)
+    res = ccall(("std_vector_std__shared_ptr_std__string__push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}}, Ptr{STL.SharedStdString}), vec, convert_arg(Ptr{STL.SharedStdString}, convert(STL.SharedStdString, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__push_(
+    std::vector<std::shared_ptr<std::string>> * restrict vec,
+    std::shared_ptr<std::string> const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{STL.SharedStdString})
+    res = ccall(("std_vector_std__shared_ptr_std__string__pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdString}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__string__pop_back_(
+    std::vector<std::shared_ptr<std::string>> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
+function RefStdVector_new(type::Type{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___new", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, ())
+    return RefStdVector{STL.SharedStdVector{STL.RefStdString}}(res)::STL.RefStdVector{STL.SharedStdVector{STL.RefStdString}}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::vector<std::string>>> * std_vector_std__shared_ptr_std__vector_std__string___new(
+    
+) {
+    return new std::vector<std::shared_ptr<std::vector<std::string>>>;
+}
+
+/*
+function RefStdVector_new(type::Type{STL.SharedStdVector{STL.RefStdString}}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, (UInt64,), size)
+    return RefStdVector{STL.SharedStdVector{STL.RefStdString}}(res)::STL.RefStdVector{STL.SharedStdVector{STL.RefStdString}}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::vector<std::string>>> * std_vector_std__shared_ptr_std__vector_std__string___new_std_size_t(
+    std::size_t size
+) {
+    return new std::vector<std::shared_ptr<std::vector<std::string>>>(size);
+}
+
+/*
+function RefStdVector_delete(vec::STL.RefStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___delete(
+    std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec
+) {
+    delete vec;
+}
+
+/*
+function Base.copy(vec::STL.RefStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___copy", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}},), vec)
+    return RefStdVector{STL.SharedStdVector{STL.RefStdString}}(res)::STL.RefStdVector{STL.SharedStdVector{STL.RefStdString}}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::vector<std::string>>> * std_vector_std__shared_ptr_std__vector_std__string___copy(
+    const std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec
+) {
+    return new std::vector<std::shared_ptr<std::vector<std::string>>>(*vec);
+}
+
+static_assert(sizeof(std::vector<std::shared_ptr<std::vector<std::string>>>) <= 40, "");
+
+/*
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}},), ptr)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___construct(
+    void * ptr
+) {
+    new(ptr) std::vector<std::shared_ptr<std::vector<std::string>>>;
+}
+
+/*
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.SharedStdVector{STL.RefStdString}}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, UInt64), ptr, size)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___construct_std_size_t(
+    void * ptr,
+    std::size_t size
+) {
+    new(ptr) std::vector<std::shared_ptr<std::vector<std::string>>>(size);
+}
+
+/*
+function GCStdVector_destruct(ptr::STL.GCStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}},), ptr)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___destruct(
+    std::vector<std::shared_ptr<std::vector<std::string>>> * restrict ptr
+) {
+    ptr->~vector();
+}
+
+/*
+function GCStdVector_copy_construct(ptr::STL.GCStdVector{STL.SharedStdVector{STL.RefStdString}}, vec::STL.GCStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}), ptr, vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___copy_construct(
+    std::vector<std::shared_ptr<std::vector<std::string>>> * restrict ptr,
+    const std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec
+) {
+    new(ptr) std::vector<std::shared_ptr<std::vector<std::string>>>(*vec);
+}
+
+static_assert(sizeof(std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::string>>>>) <= 16, "");
+
+/*
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___placement_new(
+    void * ptr
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::string>>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::vector<std::string>>>>();
+
+}
+
+/*
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.RefStdString}}, size::Integer)
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___placement_new_std_size_t(
+    void * ptr,
+    std::size_t size
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::string>>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::vector<std::string>>>>(size);
+
+}
+
+/*
+function SharedStdVector_destruct(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___placement_delete(
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::string>>>> * restrict ptr
+) {
+    ptr->~shared_ptr();
+}
+
+/*
+function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.RefStdString}}, vec::STL.SharedStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}), pointer_from_objref(ptr), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___placement_copy(
+    void * ptr,
+    const std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::string>>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::vector<std::string>>>>(*vec);
+
+}
+
+/*
+function SharedStdVector_get(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Ptr{STL.StdVector}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::vector<std::string>>> * std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__string___get(
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::string>>>> * restrict ptr
+) {
+    return ptr->get();
+}
+
+/*
+function Base.resize!(vec::STL.StdVector{STL.SharedStdVector{STL.RefStdString}}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, UInt64), vec, size)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___resize_(
+    std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec,
+    std::size_t size
+) {
+    vec->resize(size);
+}
+
+/*
+function Base.length(vec::STL.StdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}},), vec)
+    return convert(Int, res)::Int64
+end
+*/
+extern "C" std::size_t std_vector_std__shared_ptr_std__vector_std__string___length(
+    const std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec
+) {
+    return vec->size();
+}
+
+/*
+function Base.getindex(vec::STL.StdVector{STL.SharedStdVector{STL.RefStdString}}, idx::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___getindex", "libSTL.dylib"), Ptr{STL.SharedStdVector{STL.RefStdString}}, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, UInt64), vec, idx)
+    return convert_result(STL.SharedStdVector{STL.RefStdString}, res)::STL.SharedStdVector{STL.RefStdString}
+end
+*/
+extern "C" std::shared_ptr<std::vector<std::string>> * std_vector_std__shared_ptr_std__vector_std__string___getindex(
+    std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec,
+    std::size_t idx
+) {
+    return &(*vec)[idx];
+}
+
+/*
+function Base.setindex!(vec::STL.StdVector{STL.SharedStdVector{STL.RefStdString}}, elt::Any, idx::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, Ptr{STL.SharedStdVector{STL.RefStdString}}, UInt64), vec, convert_arg(Ptr{STL.SharedStdVector{STL.RefStdString}}, convert(STL.SharedStdVector{STL.RefStdString}, elt)), idx)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___setindex_(
+    std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec,
+    std::shared_ptr<std::vector<std::string>> const * elt,
+    std::size_t idx
+) {
+    (*vec)[idx] = *elt;
+}
+
+/*
+function Base.:(==)(vec1::STL.StdVector{STL.SharedStdVector{STL.RefStdString}}, vec2::STL.StdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}), vec1, vec2)
+    return res::Bool
+end
+*/
+extern "C" bool std_vector_std__shared_ptr_std__vector_std__string___equals(
+    const std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec1,
+    const std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec2
+) {
+    return *vec1 == *vec2;
+}
+
+/*
+function Base.push!(vec::STL.StdVector{STL.SharedStdVector{STL.RefStdString}}, elt::Any)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}}, Ptr{STL.SharedStdVector{STL.RefStdString}}), vec, convert_arg(Ptr{STL.SharedStdVector{STL.RefStdString}}, convert(STL.SharedStdVector{STL.RefStdString}, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___push_(
+    std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec,
+    std::shared_ptr<std::vector<std::string>> const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{STL.SharedStdVector{STL.RefStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__string___pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.RefStdString}}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__string___pop_back_(
+    std::vector<std::shared_ptr<std::vector<std::string>>> * restrict vec
+) {
+    vec->pop_back();
+}
+
+/*
+function RefStdVector_new(type::Type{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____new", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, ())
+    return RefStdVector{STL.SharedStdVector{STL.SharedStdString}}(res)::STL.RefStdVector{STL.SharedStdVector{STL.SharedStdString}}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____new(
+    
+) {
+    return new std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>;
+}
+
+/*
+function RefStdVector_new(type::Type{STL.SharedStdVector{STL.SharedStdString}}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, (UInt64,), size)
+    return RefStdVector{STL.SharedStdVector{STL.SharedStdString}}(res)::STL.RefStdVector{STL.SharedStdVector{STL.SharedStdString}}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____new_std_size_t(
+    std::size_t size
+) {
+    return new std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>(size);
+}
+
+/*
+function RefStdVector_delete(vec::STL.RefStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____delete(
+    std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec
+) {
+    delete vec;
+}
+
+/*
+function Base.copy(vec::STL.RefStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____copy", "libSTL.dylib"), Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}},), vec)
+    return RefStdVector{STL.SharedStdVector{STL.SharedStdString}}(res)::STL.RefStdVector{STL.SharedStdVector{STL.SharedStdString}}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____copy(
+    const std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec
+) {
+    return new std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>(*vec);
+}
+
+static_assert(sizeof(std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>) <= 40, "");
+
+/*
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}},), ptr)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____construct(
+    void * ptr
+) {
+    new(ptr) std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>;
+}
+
+/*
+function GCStdVector_construct(ptr::STL.GCStdVector{STL.SharedStdVector{STL.SharedStdString}}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, UInt64), ptr, size)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____construct_std_size_t(
+    void * ptr,
+    std::size_t size
+) {
+    new(ptr) std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>(size);
+}
+
+/*
+function GCStdVector_destruct(ptr::STL.GCStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}},), ptr)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____destruct(
+    std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict ptr
+) {
+    ptr->~vector();
+}
+
+/*
+function GCStdVector_copy_construct(ptr::STL.GCStdVector{STL.SharedStdVector{STL.SharedStdString}}, vec::STL.GCStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}), ptr, vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____copy_construct(
+    std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict ptr,
+    const std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec
+) {
+    new(ptr) std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>(*vec);
+}
+
+static_assert(sizeof(std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>>) <= 16, "");
+
+/*
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____placement_new(
+    void * ptr
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>>();
+
+}
+
+/*
+function SharedStdVector_construct(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.SharedStdString}}, size::Integer)
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____placement_new_std_size_t(
+    void * ptr,
+    std::size_t size
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>>(size);
+
+}
+
+/*
+function SharedStdVector_destruct(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____placement_delete(
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>> * restrict ptr
+) {
+    ptr->~shared_ptr();
+}
+
+/*
+function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.SharedStdString}}, vec::STL.SharedStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}), pointer_from_objref(ptr), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____placement_copy(
+    void * ptr,
+    const std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec
+) {
+    auto res = new(ptr) std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>>;
+*res = std::make_shared<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>>(*vec);
+
+}
+
+/*
+function SharedStdVector_get(ptr::STL.SharedStdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
+    return res::Ptr{STL.StdVector}
+end
+*/
+extern "C" std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * std_shared_ptr_std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____get(
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>>> * restrict ptr
+) {
+    return ptr->get();
+}
+
+/*
+function Base.resize!(vec::STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}, size::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, UInt64), vec, size)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____resize_(
+    std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec,
+    std::size_t size
+) {
+    vec->resize(size);
+}
+
+/*
+function Base.length(vec::STL.StdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}},), vec)
+    return convert(Int, res)::Int64
+end
+*/
+extern "C" std::size_t std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____length(
+    const std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec
+) {
+    return vec->size();
+}
+
+/*
+function Base.getindex(vec::STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}, idx::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____getindex", "libSTL.dylib"), Ptr{STL.SharedStdVector{STL.SharedStdString}}, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, UInt64), vec, idx)
+    return convert_result(STL.SharedStdVector{STL.SharedStdString}, res)::STL.SharedStdVector{STL.SharedStdString}
+end
+*/
+extern "C" std::shared_ptr<std::vector<std::shared_ptr<std::string>>> * std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____getindex(
+    std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec,
+    std::size_t idx
+) {
+    return &(*vec)[idx];
+}
+
+/*
+function Base.setindex!(vec::STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}, elt::Any, idx::Integer)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, Ptr{STL.SharedStdVector{STL.SharedStdString}}, UInt64), vec, convert_arg(Ptr{STL.SharedStdVector{STL.SharedStdString}}, convert(STL.SharedStdVector{STL.SharedStdString}, elt)), idx)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____setindex_(
+    std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec,
+    std::shared_ptr<std::vector<std::shared_ptr<std::string>>> const * elt,
+    std::size_t idx
+) {
+    (*vec)[idx] = *elt;
+}
+
+/*
+function Base.:(==)(vec1::STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}, vec2::STL.StdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}), vec1, vec2)
+    return res::Bool
+end
+*/
+extern "C" bool std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____equals(
+    const std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec1,
+    const std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec2
+) {
+    return *vec1 == *vec2;
+}
+
+/*
+function Base.push!(vec::STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}, elt::Any)
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}}, Ptr{STL.SharedStdVector{STL.SharedStdString}}), vec, convert_arg(Ptr{STL.SharedStdVector{STL.SharedStdString}}, convert(STL.SharedStdVector{STL.SharedStdString}, elt)))
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____push_(
+    std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec,
+    std::shared_ptr<std::vector<std::shared_ptr<std::string>>> const * elt
+) {
+    vec->push_back(*elt);
+}
+
+/*
+function pop_back!(vec::STL.StdVector{STL.SharedStdVector{STL.SharedStdString}})
+    res = ccall(("std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{STL.SharedStdVector{STL.SharedStdString}}},), vec)
+    return res::Nothing
+end
+*/
+extern "C" void std_vector_std__shared_ptr_std__vector_std__shared_ptr_std__string____pop_back_(
+    std::vector<std::shared_ptr<std::vector<std::shared_ptr<std::string>>>> * restrict vec
 ) {
     vec->pop_back();
 }
@@ -3644,266 +3384,6 @@ end
 */
 extern "C" void std_vector_uint64_t_pop_back_(
     std::vector<uint64_t> * restrict vec
-) {
-    vec->pop_back();
-}
-
-/*
-function RefStdVector_new(type::Type{UInt8})
-    res = ccall(("std_vector_uint8_t_new", "libSTL.dylib"), Ptr{STL.StdVector{UInt8}}, ())
-    return RefStdVector{UInt8}(res)::STL.RefStdVector{UInt8}
-end
-*/
-extern "C" std::vector<uint8_t> * std_vector_uint8_t_new(
-    
-) {
-    return new std::vector<uint8_t>;
-}
-
-/*
-function RefStdVector_new(type::Type{UInt8}, size::Integer)
-    res = ccall(("std_vector_uint8_t_new_std_size_t", "libSTL.dylib"), Ptr{STL.StdVector{UInt8}}, (UInt64,), size)
-    return RefStdVector{UInt8}(res)::STL.RefStdVector{UInt8}
-end
-*/
-extern "C" std::vector<uint8_t> * std_vector_uint8_t_new_std_size_t(
-    std::size_t size
-) {
-    return new std::vector<uint8_t>(size);
-}
-
-/*
-function RefStdVector_delete(vec::STL.RefStdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_delete", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_delete(
-    std::vector<uint8_t> * restrict vec
-) {
-    delete vec;
-}
-
-/*
-function Base.copy(vec::STL.RefStdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_copy", "libSTL.dylib"), Ptr{STL.StdVector{UInt8}}, (Ptr{STL.StdVector{UInt8}},), vec)
-    return RefStdVector{UInt8}(res)::STL.RefStdVector{UInt8}
-end
-*/
-extern "C" std::vector<uint8_t> * std_vector_uint8_t_copy(
-    const std::vector<uint8_t> * restrict vec
-) {
-    return new std::vector<uint8_t>(*vec);
-}
-
-static_assert(sizeof(std::vector<uint8_t>) <= 40, "");
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_construct(
-    void * ptr
-) {
-    new(ptr) std::vector<uint8_t>;
-}
-
-/*
-function GCStdVector_construct(ptr::STL.GCStdVector{UInt8}, size::Integer)
-    res = ccall(("std_vector_uint8_t_construct_std_size_t", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}}, UInt64), ptr, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_construct_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    new(ptr) std::vector<uint8_t>(size);
-}
-
-/*
-function GCStdVector_destruct(ptr::STL.GCStdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_destruct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}},), ptr)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_destruct(
-    std::vector<uint8_t> * restrict ptr
-) {
-    ptr->~vector();
-}
-
-/*
-function GCStdVector_copy_construct(ptr::STL.GCStdVector{UInt8}, vec::STL.GCStdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_copy_construct", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}}, Ptr{STL.StdVector{UInt8}}), ptr, vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_copy_construct(
-    std::vector<uint8_t> * restrict ptr,
-    const std::vector<uint8_t> * restrict vec
-) {
-    new(ptr) std::vector<uint8_t>(*vec);
-}
-
-static_assert(sizeof(std::shared_ptr<std::vector<uint8_t>>) <= 16, "");
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{UInt8})
-    res = ccall(("std_shared_ptr_std_vector_uint8_t_placement_new", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_uint8_t_placement_new(
-    void * ptr
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint8_t>>;
-*res = std::make_shared<std::vector<uint8_t>>();
-
-}
-
-/*
-function SharedStdVector_construct(ptr::STL.SharedStdVector{UInt8}, size::Integer)
-    res = ccall(("std_shared_ptr_std_vector_uint8_t_placement_new_std_size_t", "libSTL.dylib"), Nothing, (Ptr{Nothing}, UInt64), pointer_from_objref(ptr), size)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_uint8_t_placement_new_std_size_t(
-    void * ptr,
-    std::size_t size
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint8_t>>;
-*res = std::make_shared<std::vector<uint8_t>>(size);
-
-}
-
-/*
-function SharedStdVector_destruct(ptr::STL.SharedStdVector{UInt8})
-    res = ccall(("std_shared_ptr_std_vector_uint8_t_placement_delete", "libSTL.dylib"), Nothing, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_uint8_t_placement_delete(
-    std::shared_ptr<std::vector<uint8_t>> * restrict ptr
-) {
-    ptr->~shared_ptr();
-}
-
-/*
-function SharedStdVector_copy_construct(ptr::STL.SharedStdVector{UInt8}, vec::STL.SharedStdVector{UInt8})
-    res = ccall(("std_shared_ptr_std_vector_uint8_t_placement_copy", "libSTL.dylib"), Nothing, (Ptr{Nothing}, Ptr{STL.StdVector{UInt8}}), pointer_from_objref(ptr), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_shared_ptr_std_vector_uint8_t_placement_copy(
-    void * ptr,
-    const std::vector<uint8_t> * restrict vec
-) {
-    auto res = new(ptr) std::shared_ptr<std::vector<uint8_t>>;
-*res = std::make_shared<std::vector<uint8_t>>(*vec);
-
-}
-
-/*
-function SharedStdVector_get(ptr::STL.SharedStdVector{UInt8})
-    res = ccall(("std_shared_ptr_std_vector_uint8_t_get", "libSTL.dylib"), Ptr{STL.StdVector}, (Ptr{Nothing},), pointer_from_objref(ptr))
-    return res::Ptr{STL.StdVector}
-end
-*/
-extern "C" std::vector<uint8_t> * std_shared_ptr_std_vector_uint8_t_get(
-    std::shared_ptr<std::vector<uint8_t>> * restrict ptr
-) {
-    return ptr->get();
-}
-
-/*
-function Base.resize!(vec::STL.StdVector{UInt8}, size::Integer)
-    res = ccall(("std_vector_uint8_t_resize_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}}, UInt64), vec, size)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_resize_(
-    std::vector<uint8_t> * restrict vec,
-    std::size_t size
-) {
-    vec->resize(size);
-}
-
-/*
-function Base.length(vec::STL.StdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_length", "libSTL.dylib"), UInt64, (Ptr{STL.StdVector{UInt8}},), vec)
-    return convert(Int, res)::Int64
-end
-*/
-extern "C" std::size_t std_vector_uint8_t_length(
-    const std::vector<uint8_t> * restrict vec
-) {
-    return vec->size();
-}
-
-/*
-function Base.getindex(vec::STL.StdVector{UInt8}, idx::Integer)
-    res = ccall(("std_vector_uint8_t_getindex", "libSTL.dylib"), Ptr{UInt8}, (Ptr{STL.StdVector{UInt8}}, UInt64), vec, idx)
-    return convert_result(UInt8, res)::UInt8
-end
-*/
-extern "C" uint8_t * std_vector_uint8_t_getindex(
-    std::vector<uint8_t> * restrict vec,
-    std::size_t idx
-) {
-    return &(*vec)[idx];
-}
-
-/*
-function Base.setindex!(vec::STL.StdVector{UInt8}, elt::Any, idx::Integer)
-    res = ccall(("std_vector_uint8_t_setindex_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}}, Ptr{UInt8}, UInt64), vec, convert_arg(Ptr{UInt8}, convert(UInt8, elt)), idx)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_setindex_(
-    std::vector<uint8_t> * restrict vec,
-    uint8_t const * elt,
-    std::size_t idx
-) {
-    (*vec)[idx] = *elt;
-}
-
-/*
-function Base.:(==)(vec1::STL.StdVector{UInt8}, vec2::STL.StdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_equals", "libSTL.dylib"), Bool, (Ptr{STL.StdVector{UInt8}}, Ptr{STL.StdVector{UInt8}}), vec1, vec2)
-    return res::Bool
-end
-*/
-extern "C" bool std_vector_uint8_t_equals(
-    const std::vector<uint8_t> * restrict vec1,
-    const std::vector<uint8_t> * restrict vec2
-) {
-    return *vec1 == *vec2;
-}
-
-/*
-function Base.push!(vec::STL.StdVector{UInt8}, elt::Any)
-    res = ccall(("std_vector_uint8_t_push_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}}, Ptr{UInt8}), vec, convert_arg(Ptr{UInt8}, convert(UInt8, elt)))
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_push_(
-    std::vector<uint8_t> * restrict vec,
-    uint8_t const * elt
-) {
-    vec->push_back(*elt);
-}
-
-/*
-function pop_back!(vec::STL.StdVector{UInt8})
-    res = ccall(("std_vector_uint8_t_pop_back_", "libSTL.dylib"), Nothing, (Ptr{STL.StdVector{UInt8}},), vec)
-    return res::Nothing
-end
-*/
-extern "C" void std_vector_uint8_t_pop_back_(
-    std::vector<uint8_t> * restrict vec
 ) {
     vec->pop_back();
 }

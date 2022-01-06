@@ -11,8 +11,9 @@ export convert_arg
 function convert_result end
 export convert_result
 
-const value_types = Set([Bool, Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Float32, Float64, Complex{Float32},
-                         Complex{Float64}, Ptr{Cvoid}])
+#TODO const value_types = Set([Bool, Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Float32, Float64, Complex{Float32},
+#TODO                          Complex{Float64}, Ptr{Cvoid}])
+const value_types = Set([Bool, Int8, Int64, UInt64, Float64, Complex{Float64}, Ptr{Cvoid}])
 convert_arg(::Type{Ptr{T}}, val::T) where {T<:Union{value_types...}} = Ref(val)
 convert_result(::Type{T}, ptr::Ptr{T}) where {T<:Union{value_types...}} = unsafe_load(ptr)
 

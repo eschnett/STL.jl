@@ -268,7 +268,7 @@ extern "C" int std_string_cmp(
 }
 
 /*
-function pointer(str::STL.StdString)
+function Base.string(str::STL.StdString)
     res = ccall(("std_string_String", "libSTL.dylib"), Pair{Ptr{Int8}, UInt64}, (Ptr{STL.StdString},), str)
     return unsafe_string(res[1], res[2])::String
 end

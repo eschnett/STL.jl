@@ -5,40 +5,73 @@
 ################################################################################
 # StdMap
 
-abstract type AbstractStdMap{K,T} <: AbstractDict{K,T} end
-export AbstractStdMap
-
-struct StdMap{K,T} <: AbstractStdMap{K,T}
-    cxx::Ptr{StdMap{K,T}}
-    StdMap{K,T}(cxx::Ptr{StdMap{K,T}}) where {K,T} = new{K,T}(cxx)
-end
+abstract type StdMap{K,T} <: AbstractDict{K,T} end
 export StdMap
 
+struct RefStdMap{K,T} <: StdMap{K,T}
+    cxx::Ptr{StdMap{K,T}}
+    RefStdMap{K,T}(cxx::Ptr{StdMap{K,T}}) where {K,T} = new{K,T}(cxx)
+end
+export RefStdMap
+Base.cconvert(::Type{Ptr{StdMap{K,T}}}, map::RefStdMap{K,T}) where {K,T} = map.cxx
+
+convert_arg(::Type{Ptr{RefStdMap{K,T}}}, map::RefStdMap{K,T}) where {K,T} = map.cxx
+convert_result(::Type{RefStdMap{K,T}}, ptr::Ptr{RefStdMap{K,T}}) where {K,T} = RefStdMap{K,T}(Ptr{StdMap{K,T}}(ptr))
+
+RefStdMap{K,T}() where {K,T} = RefStdMap_new(K, T)
+
+# `std::map<K,T>` stores 6 pointers or sizes
+const GCStdMap_size = 6 * sizeof(Ptr{Cvoid})
+mutable struct GCStdMap{K,T} <: StdMap{K,T}
+    storage::NTuple{GCStdMap_size,Cchar}
+    function GCStdMap{K,T}() where {K,T}
+        res = new{K,T}()
+        GCStdMap_construct(res)
+        finalizer(GCStdMap_destruct, res)
+        return res
+    end
+    function GCStdMap{K,T}(::typeof(Base.copy), map::GCStdMap{K,T}) where {K,T}
+        res = new{K,T}()
+        GCStdMap_copy_construct(res, map)
+        finalizer(GCStdMap_destruct, res)
+        return res
+    end
+end
+@assert sizeof(GCStdMap{Int,Int}) == GCStdMap_size
+export GCStdMap
+Base.cconvert(::Type{Ptr{StdMap{K,T}}}, map::GCStdMap{K,T}) where {K,T} = Ptr{StdMap{K,T}}(pointer_from_objref(map))
+
+const SharedStdMap_size = 2 * sizeof(Ptr{Cvoid})
+mutable struct SharedStdMap{K,T} <: StdMap{K,T}
+    storage::NTuple{SharedStdMap_size,Cchar}
+    function SharedStdMap{K,T}() where {K,T}
+        res = new{K,T}()
+        SharedStdMap_construct(res)
+        finalizer(SharedStdMap_destruct, res)
+        return res
+    end
+    function SharedStdMap{K,T}(::typeof(Base.copy), map::SharedStdMap{K,T}) where {K,T}
+        res = new{K,T}()
+        SharedStdMap_copy_construct(res, map)
+        finalizer(SharedStdMap_destruct, res)
+        return res
+    end
+end
+@assert sizeof(SharedStdMap{Int,Int}) == SharedStdMap_size
+export SharedStdMap
+Base.cconvert(::Type{Ptr{StdMap{K,T}}}, map::SharedStdMap{K,T}) where {K,T} = SharedStdMap_get(map)
+
+# We're gambling on the fact that `std::map<k, T>::const_iterator` is
+# just a pointer with a trivial destructor
 struct StdMapIterator{K,T}
-    cxx::Ptr{StdMapIterator{K,T}}
-    StdMapIterator{K,T}(cxx::Ptr{StdMapIterator{K,T}}) where {K,T} = new{K,T}(cxx)
+    cxx::Ptr{Cvoid}
+    StdMapIterator{K,T}(cxx::Ptr{Cvoid}) where {K,T} = new{K,T}(cxx)
 end
 export StdMapIterator
+Base.cconvert(::Type{Ptr{Cvoid}}, iter::StdMapIterator{K,T}) where {K,T} = iter.cxx
 
-mutable struct GCStdMap{K,T} <: AbstractStdMap{K,T}
-    managed::StdMap{K,T}
-    function GCStdMap{K,T}(map::StdMap{K,T}) where {K,T}
-        res = new{K,T}(map)
-        finalizer(free, res)
-        return res
-    end
-end
-export GCStdMap
-
-mutable struct GCStdMapIterator{K,T}
-    managed::StdMapIterator{K,T}
-    function GCStdMapIterator{K,T}(iter::StdMapIterator{K,T}) where {K,T}
-        res = new{K,T}(iter)
-        finalizer(free, res)
-        return res
-    end
-end
-export GCStdMapIterator
+convert_arg(::Type{Ptr{SharedStdMap{K,T}}}, map::SharedStdMap{K,T}) where {K,T} = pointer_from_objref(map)
+convert_result(::Type{SharedStdMap{K,T}}, ptr::Ptr{SharedStdMap{K,T}}) where {K,T} = unsafe_load(ptr)
 
 ################################################################################
 # StdSharedPtr
@@ -83,6 +116,7 @@ Base.Char(ch::StdChar) = Char(ch.cxx % Cuchar)
 abstract type StdString <: AbstractString end
 export StdString
 
+# TOOD: Add a type parameter for the character type
 struct RefStdString <: StdString
     cxx::Ptr{StdString}
     RefStdString(cxx::Ptr{StdString}) = new(cxx)
@@ -91,7 +125,7 @@ export RefStdString
 Base.cconvert(::Type{Ptr{StdString}}, str::RefStdString) = str.cxx
 
 convert_arg(::Type{Ptr{RefStdString}}, str::RefStdString) = str.cxx
-convert_result(::Type{RefStdString}, ptr::Ptr{RefStdString}) = RefStdString(ptr)
+convert_result(::Type{RefStdString}, ptr::Ptr{RefStdString}) = RefStdString(Ptr{StdString}(ptr))
 
 RefStdString() = RefStdString_new()
 RefStdString(str::AbstractString) = RefStdString_new(str, ncodeunits(str))
@@ -145,8 +179,13 @@ mutable struct SharedStdString <: StdString
         return res
     end
 end
+@assert sizeof(SharedStdString) == SharedStdString_size
 export SharedStdString
 Base.cconvert(::Type{Ptr{StdString}}, str::SharedStdString) = SharedStdString_get(str)
+
+convert_arg(::Type{Ptr{SharedStdString}}, str::SharedStdString) = pointer_from_objref(str)
+# convert_result(::Type{SharedStdString}, ptr::Ptr{SharedStdString}) = unsafe_load(ptr)
+convert_result(::Type{SharedStdString}, ptr::Ptr{SharedStdString}) = SharedStdString(copy, unsafe_load(ptr))
 
 ################################################################################
 # StdVector
@@ -162,7 +201,7 @@ export RefStdVector
 Base.cconvert(::Type{Ptr{StdVector{T}}}, vec::RefStdVector{T}) where {T} = vec.cxx
 
 convert_arg(::Type{Ptr{RefStdVector{T}}}, vec::RefStdVector{T}) where {T} = vec.cxx
-convert_result(::Type{RefStdVector{T}}, ptr::Ptr{RefStdVector{T}}) where {T} = RefStdVector{T}(ptr)
+convert_result(::Type{RefStdVector{T}}, ptr::Ptr{RefStdVector{T}}) where {T} = RefStdVector{T}(Ptr{StdVector{T}}(ptr))
 
 RefStdVector{T}() where {T} = RefStdVector_new(T)
 RefStdVector{T}(size::Integer) where {T} = RefStdVector_new(T, size)
@@ -190,7 +229,7 @@ mutable struct GCStdVector{T} <: StdVector{T}
         return res
     end
 end
-@assert sizeof(GCStdVector{Bool}) == GCStdVector_size
+@assert sizeof(GCStdVector{Int}) == GCStdVector_size
 export GCStdVector
 Base.cconvert(::Type{Ptr{StdVector{T}}}, vec::GCStdVector{T}) where {T} = Ptr{StdVector{T}}(pointer_from_objref(vec))
 
@@ -218,3 +257,6 @@ mutable struct SharedStdVector{T} <: StdVector{T}
 end
 export SharedStdVector
 Base.cconvert(::Type{Ptr{StdVector{T}}}, vec::SharedStdVector{T}) where {T} = SharedStdVector_get(vec)
+
+convert_arg(::Type{Ptr{SharedStdVector{T}}}, vec::SharedStdVector{T}) where {T} = pointer_from_objref(vec)
+convert_result(::Type{SharedStdVector{T}}, ptr::Ptr{SharedStdVector{T}}) where {T} = unsafe_load(ptr)

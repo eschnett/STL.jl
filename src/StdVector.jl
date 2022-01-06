@@ -9,7 +9,13 @@ eval(cxxnewfile("StdVector.cxx", """
     """))
 
 function generate(::Type{StdVector{T}}) where {T}
-    CT = T == Bool ? "bool" : T == StdString ? "std::string" : cxxtype[T]
+    CT = T == Bool ? "bool" :
+         T == RefStdString ? "std::string" :
+         T == SharedStdString ? "std::shared_ptr<std::string>" :
+         T == RefStdVector{RefStdString} ? "std::vector<std::string>" :
+         T == RefStdVector{SharedStdString} ? "std::vector<std::shared_ptr<std::string>>" :
+         T == SharedStdVector{RefStdString} ? "std::shared_ptr<std::vector<std::string>>" :
+         T == SharedStdVector{SharedStdString} ? "std::shared_ptr<std::vector<std::shared_ptr<std::string>>>" : cxxtype[T]
     NT = cxxname(CT)
 
     # RefStdVector
@@ -33,7 +39,7 @@ function generate(::Type{StdVector{T}}) where {T}
 
     # GCStdVector
 
-    eval(cxxcode("static_assert(sizeof(std::vector<$CT>) <= $GCStdVector_size, \"\");"))
+    eval(cxxcode("""static_assert(sizeof(std::vector<$CT>) <= $GCStdVector_size, "");"""))
 
     eval(cxxfunction(FnName(:GCStdVector_construct, "std_vector_$(NT)_construct", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{StdVector{T}}, "ptr", "void *", GCStdVector{T}, identity)], "new(ptr) std::vector<$CT>;"))
@@ -53,7 +59,7 @@ function generate(::Type{StdVector{T}}) where {T}
 
     # SharedStdVector
 
-    eval(cxxcode("static_assert(sizeof(std::shared_ptr<std::vector<$CT>>) <= $SharedStdVector_size, \"\");"))
+    eval(cxxcode("""static_assert(sizeof(std::shared_ptr<std::vector<$CT>>) <= $SharedStdVector_size, "");"""))
 
     eval(cxxfunction(FnName(:SharedStdVector_construct, "std_shared_ptr_std_vector_$(NT)_placement_new", libSTL),
                      FnResult(Nothing, "void"),
@@ -139,7 +145,8 @@ function generate(::Type{StdVector{T}}) where {T}
     return nothing
 end
 
-const StdVector_types = value_types ∪ Set([StdString])
+const StdVector_types = value_types ∪ Set([RefStdString, SharedStdString, RefStdVector{RefStdString}, RefStdVector{SharedStdString},
+                                           SharedStdVector{RefStdString}, SharedStdVector{SharedStdString}])
 for T in sort!(collect(StdVector_types); by=string)
     generate(StdVector{T})
 end

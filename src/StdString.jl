@@ -36,7 +36,7 @@ function generate(::Type{StdString})
 
     # GCStdString
 
-    eval(cxxcode("static_assert(sizeof(std::string) <= $GCStdString_size, \"\");"))
+    eval(cxxcode("""static_assert(sizeof(std::string) <= $GCStdString_size, "");"""))
 
     eval(cxxfunction(FnName(:GCStdString_construct, "std_string_construct", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{StdString}, "ptr", "void *", GCStdString, identity)], "new(ptr) std::string;"))
@@ -58,7 +58,7 @@ function generate(::Type{StdString})
 
     # SharedStdString
 
-    eval(cxxcode("static_assert(sizeof(std::shared_ptr<std::string>) <= $SharedStdString_size, \"\");"))
+    eval(cxxcode("""static_assert(sizeof(std::shared_ptr<std::string>) <= $SharedStdString_size, "");"""))
 
     eval(cxxfunction(FnName(:SharedStdString_construct, "std_shared_ptr_std_string_placement_new", libSTL),
                      FnResult(Nothing, "void"),
@@ -92,6 +92,10 @@ function generate(::Type{StdString})
                      """))
     @eval Base.copy(str::SharedStdString) = SharedStdString(Base.copy, str)
 
+    #TODO eval(cxxfunction(FnName(:SharedStdString_get, "std_shared_ptr_std_string_get", libSTL),
+    #TODO                  FnResult(Ptr{StdString}, "std::string *"),
+    #TODO                  [FnArg(:ptr, Ptr{Cvoid}, "ptr", "std::shared_ptr<std::string> * restrict", SharedStdString,
+    #TODO                         expr -> :(pointer_from_objref($expr)))], "return ptr->get();"))
     eval(cxxfunction(FnName(:SharedStdString_get, "std_shared_ptr_std_string_get", libSTL),
                      FnResult(Ptr{StdString}, "std::string *"),
                      [FnArg(:ptr, Ptr{Cvoid}, "ptr", "std::shared_ptr<std::string> * restrict", SharedStdString,
