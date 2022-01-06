@@ -58,7 +58,7 @@ mutable struct SharedStdMap{K,T} <: StdMap{K,T}
     end
 end
 @assert sizeof(SharedStdMap{Int,Int}) == SharedStdMap_size
-export SharedStdMap
+# export SharedStdMap
 Base.cconvert(::Type{Ptr{StdMap{K,T}}}, map::SharedStdMap{K,T}) where {K,T} = SharedStdMap_get(map)
 
 # We're gambling on the fact that `std::map<k, T>::const_iterator` is
@@ -180,7 +180,7 @@ mutable struct SharedStdString <: StdString
     end
 end
 @assert sizeof(SharedStdString) == SharedStdString_size
-export SharedStdString
+# export SharedStdString
 Base.cconvert(::Type{Ptr{StdString}}, str::SharedStdString) = SharedStdString_get(str)
 
 convert_arg(::Type{Ptr{SharedStdString}}, str::SharedStdString) = pointer_from_objref(str)
@@ -255,7 +255,7 @@ mutable struct SharedStdVector{T} <: StdVector{T}
         return res
     end
 end
-export SharedStdVector
+# export SharedStdVector
 Base.cconvert(::Type{Ptr{StdVector{T}}}, vec::SharedStdVector{T}) where {T} = SharedStdVector_get(vec)
 
 convert_arg(::Type{Ptr{SharedStdVector{T}}}, vec::SharedStdVector{T}) where {T} = pointer_from_objref(vec)

@@ -4,3 +4,6 @@ A Julia wrapper for several [C++ STL](https://en.cppreference.com/)
 classes such as `std::map`, `std::shared_ptr`, `std::string`, or
 `std::vector`. Built with
 [CxxInterface.jl](https://github.com/eschnett/CxxInterface.jl).
+
+This package is work in progress, mostly serving as example for
+CxxInterface.jl.

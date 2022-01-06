@@ -11,7 +11,7 @@ STL_jll = "69cf8a62-f9ae-5d65-8d00-30585a4771ef"
 TestAbstractTypes = "eeddca60-27f6-4483-8676-7b6aefcc60ae"
 
 [compat]
-julia = "1.0"
+julia = "1.6"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
