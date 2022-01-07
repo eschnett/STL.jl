@@ -13,6 +13,7 @@ function __init__()
             test()
         end
     end
+    return empty!(selftests)
 end
 
 eval(cxxsetup())

@@ -56,7 +56,6 @@ function generate(::Type{StdString})
                      [FnArg(:ptr, Ptr{StdString}, "ptr", "std::string * restrict", GCStdString, identity),
                       FnArg(:str, Ptr{StdString}, "str", "const std::string * restrict", GCStdString, identity)],
                      "new(ptr) std::string(*str);"))
-    @eval Base.copy(str::GCStdString) = GCStdString(Base.copy, str)
 
     # SharedStdString
 
@@ -94,7 +93,6 @@ function generate(::Type{StdString})
                      auto res = new(ptr) std::shared_ptr<std::string>;
                      *res = std::make_shared<std::string>(*str);
                      """))
-    @eval Base.copy(str::SharedStdString) = SharedStdString(Base.copy, str)
 
     #TODO eval(cxxfunction(FnName(:SharedStdString_get, "std_shared_ptr_std_string_get", libSTL),
     #TODO                  FnResult(Ptr{StdString}, "std::string *"),
@@ -146,6 +144,9 @@ function generate(::Type{StdString})
 end
 
 generate(StdString)
+
+Base.copy(str::GCStdString) = GCStdString(Base.copy, str)
+Base.copy(str::SharedStdString) = SharedStdString(Base.copy, str)
 
 free(str::StdString) = StdString_delete(str)
 

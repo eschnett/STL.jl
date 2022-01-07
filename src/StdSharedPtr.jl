@@ -56,7 +56,6 @@ function generate(::Type{StdSharedPtr{T}}) where {T}
                      FnResult(Csize_t, "std::size_t", Int, expr -> :(convert(Int, $expr))),
                      [FnArg(:ptr, Ptr{StdSharedPtr{T}}, "ptr", "const std::shared_ptr<$CT> * restrict", StdSharedPtr{T}, identity)],
                      "return ptr->use_count();"))
-    @eval export use_count
 
     eval(cxxfunction(FnName(:(Base.:(==)), "std_shared_ptr_$(NT)_equals", libSTL), FnResult(Bool, "bool"),
                      [FnArg(:ptr1, Ptr{StdSharedPtr{T}}, "ptr1", "const std::shared_ptr<$CT> * restrict", StdSharedPtr{T},
@@ -74,7 +73,6 @@ function generate(::Type{StdSharedPtr{T}}) where {T}
                      ptr->swap(valptr);
                      return ptr;
                      """))
-    @eval export make_shared
 
     return nothing
 end
@@ -83,6 +81,9 @@ const StdSharedPtr_types = value_types
 for T in sort!(collect(StdSharedPtr_types); by=string)
     generate(StdSharedPtr{T})
 end
+
+export use_count
+export make_shared
 
 free(ptr::StdSharedPtr) = StdSharedPtr_delete(ptr)
 

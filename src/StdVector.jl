@@ -58,7 +58,6 @@ function generate(::Type{StdVector{T}}) where {T}
                      [FnArg(:ptr, Ptr{StdVector{T}}, "ptr", "std::vector<$CT> * restrict", GCStdVector{T}, identity),
                       FnArg(:vec, Ptr{StdVector{T}}, "vec", "const std::vector<$CT> * restrict", GCStdVector{T}, identity)],
                      "new(ptr) std::vector<$CT>(*vec);"))
-    @eval Base.copy(vec::GCStdVector{$T}) = GCStdVector{$T}(Base.copy, vec)
 
     # SharedStdVector
 
@@ -97,7 +96,6 @@ function generate(::Type{StdVector{T}}) where {T}
                      auto res = new(ptr) std::shared_ptr<std::vector<$CT>>;
                      *res = std::make_shared<std::vector<$CT>>(*vec);
                      """))
-    @eval Base.copy(vec::SharedStdVector{$T}) = SharedStdVector{$T}(Base.copy, vec)
 
     eval(cxxfunction(FnName(:SharedStdVector_get, "std_shared_ptr_std_vector_$(NT)_get", libSTL),
                      FnResult(Ptr{StdVector}, "std::vector<$CT> *"),
@@ -147,7 +145,6 @@ function generate(::Type{StdVector{T}}) where {T}
     eval(cxxfunction(FnName(:pop_back!, "std_vector_$(NT)_pop_back_", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:vec, Ptr{StdVector{T}}, "vec", "std::vector<$CT> * restrict", StdVector{T}, identity)],
                      "vec->pop_back();"))
-    @eval Base.pop!(vec::StdVector) = (elt = vec[end]; pop_back!(vec); elt)
 
     return nothing
 end
@@ -157,6 +154,10 @@ const StdVector_types = value_types ∪ Set([RefStdString, SharedStdString, RefS
 for T in sort!(collect(StdVector_types); by=string)
     generate(StdVector{T})
 end
+
+Base.copy(vec::GCStdVector{T}) where {T} = GCStdVector{T}(Base.copy, vec)
+Base.copy(vec::SharedStdVector{T}) where {T} = SharedStdVector{T}(Base.copy, vec)
+Base.pop!(vec::StdVector) = (elt = vec[end]; pop_back!(vec); elt)
 
 free(vec::RefStdVector) = RefStdVector_delete(vec)
 

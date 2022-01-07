@@ -56,7 +56,6 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
                      [FnArg(:ptr, Ptr{StdMap{K,T}}, "ptr", "std::map<$CK, $CT> * restrict", GCStdMap{K,T}, identity),
                       FnArg(:vec, Ptr{StdMap{K,T}}, "vec", "const std::map<$CK, $CT> * restrict", GCStdMap{K,T}, identity)],
                      "new(ptr) std::map<$CK, $CT>(*vec);"))
-    @eval Base.copy(vec::GCStdMap{$K,$T}) = GCStdMap{$K,$T}(Base.copy, vec)
 
     # SharedStdMap
 
@@ -88,7 +87,6 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
                      auto res = new(ptr) std::shared_ptr<std::map<$CK, $CT>>;
                      *res = std::make_shared<std::map<$CK, $CT>>(*vec);
                      """))
-    @eval Base.copy(vec::SharedStdMap{$K,$T}) = SharedStdMap{$K,$T}(Base.copy, vec)
 
     eval(cxxfunction(FnName(:SharedStdMap_get, "std_shared_ptr_std_map_$(NK)_$(NT)_get", libSTL),
                      FnResult(Ptr{StdMap}, "std::map<$CK, $CT> *"),
@@ -193,6 +191,9 @@ const StdMap_keys = filter(T -> T <: Union{Integer,StdString}, StdMap_types)
 for K in sort!(collect(StdMap_keys); by=string), T in sort!(collect(StdMap_types); by=string)
     generate(StdMap{K,T})
 end
+
+Base.copy(vec::GCStdMap{K,T}) where {K,T} = GCStdMap{K,T}(Base.copy, vec)
+Base.copy(vec::SharedStdMap{K,T}) where {K,T} = SharedStdMap{K,T}(Base.copy, vec)
 
 free(map::RefStdMap) = RefStdMap_delete(map)
 
