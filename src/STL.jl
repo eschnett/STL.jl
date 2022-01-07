@@ -14,4 +14,12 @@ include("StdSharedPtr.jl")
 include("StdString.jl")
 include("StdVector.jl")
 
+# Run all self-tests when the package is loaded
+const selftests = Any[]
+function __init__()
+    for test in selftests
+        test()
+    end
+end
+
 end

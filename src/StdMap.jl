@@ -10,7 +10,6 @@ eval(cxxnewfile("StdMap.cxx", """
     static_assert(sizeof(bool) == 1, "");
     """))
 
-tests = []
 function generate(::Type{StdMap{K,T}}) where {K,T}
     CK = K == Bool ? "bool" : K == RefStdString ? "std::string" : K == SharedStdString ? "std::shared_ptr<std::string>" : cxxtype[K]
     NK = cxxname(CK)
@@ -44,7 +43,7 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
                      [FnArg(:keytype, Nothing, "keytype", "void", Type{K}, identity; skip=true),
                       FnArg(:valuetype, Nothing, "valuetype", "void", Type{T}, identity; skip=true)],
                      "return sizeof(std::map<$CK, $CT>);"))
-    push!(tests, () -> @assert GCStdMap_sizeof(K, T) <= GCStdMap_size)
+    push!(selftests, () -> @assert GCStdMap_sizeof(K, T) <= GCStdMap_size)
 
     eval(cxxfunction(FnName(:GCStdMap_construct, "std_map_$(NK)_$(NT)_construct", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{StdMap{K,T}}, "ptr", "void *", GCStdMap{K,T}, identity)], "new(ptr) std::map<$CK, $CT>;"))
@@ -66,7 +65,7 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
                      [FnArg(:keytype, Nothing, "keytype", "void", Type{K}, identity; skip=true),
                       FnArg(:valuetype, Nothing, "valuetype", "void", Type{T}, identity; skip=true)],
                      "return sizeof(std::shared_ptr<std::map<$CK, $CT>>);"))
-    push!(tests, () -> @assert SharedStdMap_sizeof(K, T) <= SharedStdMap_size)
+    push!(selftests, () -> @assert SharedStdMap_sizeof(K, T) <= SharedStdMap_size)
 
     eval(cxxfunction(FnName(:SharedStdMap_construct, "std_shared_ptr_std_map_$(NK)_$(NT)_placement_new", libSTL),
                      FnResult(Nothing, "void"),
@@ -164,8 +163,8 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
                      using P = std::pair<$CK const *, $CT const *>;
                      return offsetof(P, second);
                      """))
-    push!(tests, () -> @assert StdMap_offsetof_pair_first(K, T) == fieldoffset(Pair{Ptr{K},Ptr{T}}, 1))
-    push!(tests, () -> @assert StdMap_offsetof_pair_second(K, T) == fieldoffset(Pair{Ptr{K},Ptr{T}}, 2))
+    push!(selftests, () -> @assert StdMap_offsetof_pair_first(K, T) == fieldoffset(Pair{Ptr{K},Ptr{T}}, 1))
+    push!(selftests, () -> @assert StdMap_offsetof_pair_second(K, T) == fieldoffset(Pair{Ptr{K},Ptr{T}}, 2))
     eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_const_iterator_getindex", libSTL),
                      FnResult(Pair{Ptr{K},Ptr{T}}, "const std::pair<$CK const *, $CT const *>", Pair{K,T},
                               expr -> :(convert_result($K, $expr[1]) => convert_result($T, $expr[2]))),
@@ -193,12 +192,6 @@ const StdMap_types = filter(T -> !(T <: Complex), value_types) ∪
 const StdMap_keys = filter(T -> T <: Union{Integer,StdString}, StdMap_types)
 for K in sort!(collect(StdMap_keys); by=string), T in sort!(collect(StdMap_types); by=string)
     generate(StdMap{K,T})
-end
-# We need to delay running the tests until `generate` has finished, so
-# that the world age has increased and the result of the `eval` calls
-# is available
-for test in tests
-    test()
 end
 
 free(map::RefStdMap) = RefStdMap_delete(map)
