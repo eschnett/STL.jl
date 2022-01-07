@@ -36,7 +36,9 @@ function generate(::Type{StdString})
 
     # GCStdString
 
-    eval(cxxcode("""static_assert(sizeof(std::string) <= $GCStdString_size, "");"""))
+    eval(cxxfunction(FnName(:GCStdString_sizeof, "std_string_sizeof", libSTL), FnResult(Csize_t, "std::size_t"), FnArg[],
+                     "return sizeof(std::string);"))
+    @assert GCStdString_sizeof() <= GCStdString_size
 
     eval(cxxfunction(FnName(:GCStdString_construct, "std_string_construct", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{StdString}, "ptr", "void *", GCStdString, identity)], "new(ptr) std::string;"))
@@ -58,7 +60,9 @@ function generate(::Type{StdString})
 
     # SharedStdString
 
-    eval(cxxcode("""static_assert(sizeof(std::shared_ptr<std::string>) <= $SharedStdString_size, "");"""))
+    eval(cxxfunction(FnName(:SharedStdString_sizeof, "std_shared_ptr_std_string_sizeof", libSTL), FnResult(Csize_t, "std::size_t"),
+                     FnArg[], "return sizeof(std::shared_ptr<std::string>);"))
+    @assert SharedStdString_sizeof() <= SharedStdString_size
 
     eval(cxxfunction(FnName(:SharedStdString_construct, "std_shared_ptr_std_string_placement_new", libSTL),
                      FnResult(Nothing, "void"),

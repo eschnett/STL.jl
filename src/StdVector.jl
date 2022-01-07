@@ -39,7 +39,10 @@ function generate(::Type{StdVector{T}}) where {T}
 
     # GCStdVector
 
-    eval(cxxcode("""static_assert(sizeof(std::vector<$CT>) <= $GCStdVector_size, "");"""))
+    eval(cxxfunction(FnName(:GCStdVector_sizeof, "std_vector_$(NT)_sizeof", libSTL), FnResult(Csize_t, "std::size_t"),
+                     [FnArg(:valuetype, Nothing, "valuetype", "void", Type{T}, identity; skip=true)],
+                     "return sizeof(std::vector<$CT>);"))
+    @assert GCStdVector_sizeof(T) <= GCStdVector_size
 
     eval(cxxfunction(FnName(:GCStdVector_construct, "std_vector_$(NT)_construct", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{StdVector{T}}, "ptr", "void *", GCStdVector{T}, identity)], "new(ptr) std::vector<$CT>;"))
@@ -59,7 +62,11 @@ function generate(::Type{StdVector{T}}) where {T}
 
     # SharedStdVector
 
-    eval(cxxcode("""static_assert(sizeof(std::shared_ptr<std::vector<$CT>>) <= $SharedStdVector_size, "");"""))
+    eval(cxxfunction(FnName(:SharedStdVector_sizeof, "std_shared_ptr_std_vector_$(NT)_sizeof", libSTL),
+                     FnResult(Csize_t, "std::size_t"),
+                     [FnArg(:valuetype, Nothing, "valuetype", "void", Type{T}, identity; skip=true)],
+                     "return sizeof(std::shared_ptr<std::vector< $CT>>);"))
+    @assert SharedStdVector_sizeof(T) <= SharedStdVector_size
 
     eval(cxxfunction(FnName(:SharedStdVector_construct, "std_shared_ptr_std_vector_$(NT)_placement_new", libSTL),
                      FnResult(Nothing, "void"),
