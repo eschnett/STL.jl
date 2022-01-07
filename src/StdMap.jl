@@ -39,13 +39,14 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
 
     # GCStdMap
 
+    eval(cxxfunction(FnName(:GCStdMap_sizeof, "std_map_$(NK)_$(NT)_sizeof", libSTL), FnResult(Csize_t, "std::size_t"),
+                     [FnArg(:keytype, Nothing, "keytype", "void", Type{K}, identity; skip=true),
+                      FnArg(:valuetype, Nothing, "valuetype", "void", Type{T}, identity; skip=true)],
+                     "return sizeof(std::map<$CK, $CT>);"))
+    @assert GCStdMap_sizeof(K, T) <= GCStdMap_size
+
     eval(cxxfunction(FnName(:GCStdMap_construct, "std_map_$(NK)_$(NT)_construct", libSTL), FnResult(Nothing, "void"),
-                     [FnArg(:ptr, Ptr{StdMap{K,T}}, "ptr", "void *", GCStdMap{K,T}, identity)],
-                     """
-                     using M = std::map<$CK, $CT>;
-                     static_assert(sizeof(M) <= $GCStdMap_size, "");
-                     new(ptr) std::map<$CK, $CT>;
-                     """))
+                     [FnArg(:ptr, Ptr{StdMap{K,T}}, "ptr", "void *", GCStdMap{K,T}, identity)], "new(ptr) std::map<$CK, $CT>;"))
 
     eval(cxxfunction(FnName(:GCStdMap_destruct, "std_map_$(NK)_$(NT)_destruct", libSTL), FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{StdMap{K,T}}, "ptr", "std::map<$CK, $CT> * restrict", GCStdMap{K,T}, identity)],
@@ -59,12 +60,16 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
 
     # SharedStdMap
 
+    eval(cxxfunction(FnName(:SharedStdMap_sizeof, "std_shared_ptr_std_map_$(NK)_$(NT)_sizeof", libSTL),
+                     FnResult(Csize_t, "std::size_t"),
+                     [FnArg(:keytype, Nothing, "keytype", "void", Type{K}, identity; skip=true),
+                      FnArg(:valuetype, Nothing, "valuetype", "void", Type{T}, identity; skip=true)],
+                     "return sizeof(std::shared_ptr<std::map<$CK, $CT>>);"))
+    @assert SharedStdMap_sizeof(K, T) <= SharedStdMap_size
     eval(cxxfunction(FnName(:SharedStdMap_construct, "std_shared_ptr_std_map_$(NK)_$(NT)_placement_new", libSTL),
                      FnResult(Nothing, "void"),
                      [FnArg(:ptr, Ptr{Cvoid}, "ptr", "void *", SharedStdMap{K,T}, expr -> :(pointer_from_objref($expr)))],
                      """
-                     using SM = std::shared_ptr<std::map<$CK, $CT>>;
-                     static_assert(sizeof(SM) <= $SharedStdMap_size, "");
                      auto res = new(ptr) std::shared_ptr<std::map<$CK, $CT>>;
                      *res = std::make_shared<std::map<$CK, $CT>>();
                      """))
@@ -201,16 +206,29 @@ function generate(::Type{StdMap{K,T}}) where {K,T}
     #TODO                   FnArg(:map, Ptr{StdMap{K,T}}, "map", "const std::map<$CK, $CT> * restrict", StdMap{K,T}, identity)],
     #TODO                  "return *iter == map->cend();"))
 
+    eval(cxxfunction(FnName(:StdMap_offsetof_pair_first, "std_map_$(NK)_$(NT)_offsetof_pair_first", libSTL),
+                     FnResult(Csize_t, "std::size_t"),
+                     [FnArg(:keytype, Nothing, "keytype", "void", Type{K}, identity; skip=true),
+                      FnArg(:valuetype, Nothing, "valuetype", "void", Type{T}, identity; skip=true)],
+                     """
+                     using P = std::pair<$CK const *, $CT const *>;
+                     return offsetof(P, first);
+                     """))
+    eval(cxxfunction(FnName(:StdMap_offsetof_pair_second, "std_map_$(NK)_$(NT)_offsetof_pair_second", libSTL),
+                     FnResult(Csize_t, "std::size_t"),
+                     [FnArg(:keytype, Nothing, "keytype", "void", Type{K}, identity; skip=true),
+                      FnArg(:valuetype, Nothing, "valuetype", "void", Type{T}, identity; skip=true)],
+                     """
+                     using P = std::pair<$CK const *, $CT const *>;
+                     return offsetof(P, second);
+                     """))
+    @assert StdMap_offsetof_pair_first(K, T) == fieldoffset(Pair{Ptr{K},Ptr{T}}, 1)
+    @assert StdMap_offsetof_pair_second(K, T) == fieldoffset(Pair{Ptr{K},Ptr{T}}, 2)
     eval(cxxfunction(FnName(:(Base.getindex), "std_map_$(NK)_$(NT)_const_iterator_getindex", libSTL),
                      FnResult(Pair{Ptr{K},Ptr{T}}, "const std::pair<$CK const *, $CT const *>", Pair{K,T},
                               expr -> :(convert_result($K, $expr[1]) => convert_result($T, $expr[2]))),
                      [FnArg(:iter, StdMapIterator{K,T}, "iter", "std::map<$CK, $CT>::const_iterator")],
-                     """
-                     using P = std::pair<$CK const *, $CT const *>;
-                     static_assert(offsetof(P, first) == $(fieldoffset(Pair{Ptr{K},Ptr{T}}, 1)), "");
-                     static_assert(offsetof(P, second) == $(fieldoffset(Pair{Ptr{K},Ptr{T}}, 2)), "");
-                     return std::pair<$CK const *, $CT const *>(&iter->first, &iter->second);
-                     """))
+                     "return std::pair<$CK const *, $CT const *>(&iter->first, &iter->second);"))
 
     eval(cxxfunction(FnName(:inc, "std_map_$(NK)_$(NT)_const_iterator_inc", libSTL),
                      FnResult(StdMapIterator{K,T}, "std::map<$CK, $CT>::const_iterator"),
