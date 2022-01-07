@@ -17,8 +17,11 @@ include("StdVector.jl")
 # Run all self-tests when the package is loaded
 const selftests = Any[]
 function __init__()
-    for test in selftests
-        test()
+    # If the library name is just a placeholder
+    if libSTL ≠ "libSTL"
+        for test in selftests
+            test()
+        end
     end
 end
 
